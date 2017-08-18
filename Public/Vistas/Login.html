@@ -1,0 +1,66 @@
+<!-- ############################## <  VISTA LOGIN > #####################################-->
+<!-- ############################## <  Login.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="icon" type="image/png" href="../img/k.ico" />
+  <!--#################### ESTILOS GENERALES #########################-->
+  {{template "styles_layout"}}
+  <!--#################### TUS ESTILOS ###############################-->
+
+  <!--#################### SCRIPTS GENERALES #########################-->
+  {{template "scripts_layout"}}
+  <!--#################### TUS SCRIPTS #########################-->
+  <script src="../../Locales/Login/js/Login.js"></script>
+  <link rel="stylesheet" href="../../Locales/Login/css/LoginPrincipal.css">
+  <!--#################### CABECERA #########################-->
+  {{template "headerLogin_layout"}}
+</head>
+
+<!-- FINAL CABECERA ###################################################################################-->
+<!-- INICIO BODY -->
+
+<body>
+
+  <br> 
+  
+  <div class="form">
+    {{if .SEstado}}
+        <div class='alert alert-danger alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>{{ .SMsj}}</div>
+    {{else}} {{end}}
+    <div class="thumbnail"><img src="../../img/korelogo_big.png" /></div>
+    <form class="login-form" method="POST">
+      <input type="text" id="userName" name="userName" placeholder="Usuario" required/ autofocus>
+      <input type="password" id="userPass" name="userPass" placeholder="Credencial" required/>
+      <!-- <input type="submit" class="btn-success" id="" name="" value="Enviar" > -->
+      <button>Acceder</button> 
+      {{if .Login.IEstatus}}
+        <div class='alert alert-danger alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>{{ .Login.Ihtml}}</div>
+      {{else}} {{end}}
+      <p class="message">¿Olvidaste tu contraseña? <a href="/Recuperar">Recuperar</a></p>
+    </form>
+  </div>
+
+</body>
+
+<footer>
+
+  {{template "footer_layout"}}
+
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

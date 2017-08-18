@@ -1,0 +1,625 @@
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  EmpresaEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="icon" type="image/png" href="../img/k.ico" />
+	<!--#################### ESTILOS GENERALES #########################-->
+	{{template "styles_layout"}}
+	<!--#################### TUS ESTILOS ###############################-->
+	<style>
+		fieldset {
+			border: 1px solid gray;
+			padding: 5px;
+			margin: 5px;
+		}
+		
+		legend {
+			padding: 0.2em 0.5em;
+			border: 1px solid black;
+			color: #efefef;
+			background-color: #337ab7;
+			text-align: left;
+			width: 100%;
+		}
+	</style>
+	<!--#################### SCRIPTS GENERALES #########################-->
+	{{template "scripts_layout"}}
+	<!--#################### TUS SCRIPTS #########################-->
+	<script src="../../Locales/Empresa/js/Empresa.js"></script>
+	<!--#################### CABECERA #########################-->
+	{{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+
+<body>
+
+	{{template "menu_layout" }}
+
+	<div class="col-md-10" style="padding-bottom: 5%;">
+		{{if .SEstado}}
+			 {{if .SMsj}}
+					<div class="alert alert-danger alert-dismissible text-center" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong><h4>{{.SMsj}}</h4></strong>
+					</div>
+			{{end}} 
+		{{else}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong>
+				</div>
+			{{end}} 
+		{{end}}
+
+		<h1>Edición de Empresas</h1>
+		<form id="Form_Alta_Empresa" class="form-horizontal" method="POST">
+			{{if .Empresa.ID}}
+				<input type="hidden" name="idEmpresa" id="idEmpresa" value="{{.Empresa.ID.Hex}}">
+			{{else}}
+				<input type="hidden" name="idEmpresa" id="idEmpresa" value="">
+			{{end}}
+			<fieldset>
+				<legend>Datos de la Empresa</legend>
+				<fieldset>
+					<legend>Datos Comerciales</legend>
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="Nombre">Nombre:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.ENombreDatosCommerciales.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<input onblur="LimpiaCadena(this)" type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.ENombreDatosCommerciales.Nombre}}"
+							 aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="Nombre-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.ENombreDatosCommerciales.IMsj}}</em>
+						</div>
+						{{else}}
+						<div class="col-sm-5">
+							<input onblur="LimpiaCadena(this)" type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.ENombreDatosCommerciales.Nombre}}">
+						</div>
+						{{end}}
+					</div>
+					<fieldset>
+						<legend>
+							Domicilio Comercial
+						</legend>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="CalleComercial">Calle:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECalleDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="CalleComercial" id="CalleComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECalleDomicilio.Calle}}"
+								 aria-required="true" aria-describedby="CalleComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="CalleComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECalleDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="CalleComercial" id="CalleComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECalleDomicilio.Calle}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="NumExtComercial">N&uacute;mero Exterior:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumExteriorDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumExtComercial" id="NumExtComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumExteriorDomicilio.NumExterior}}"
+								 aria-required="true" aria-describedby="NumExtComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="NumExtComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumExteriorDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumExtComercial" id="NumExtComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumExteriorDomicilio.NumExterior}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="NumIntComercial">N&uacute;mero Interior:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumInteriorDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumIntComercial" id="NumIntComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumInteriorDomicilio.NumInterior}}"
+								 aria-required="true" aria-describedby="NumIntComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="NumIntComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumInteriorDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumIntComercial" id="NumIntComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ENumInteriorDomicilio.NumInterior}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="PaisComercial">Pa&iacute;s:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EPaisDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="PaisComercial" id="PaisComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EPaisDomicilio.Pais}}"
+								 aria-required="true" aria-describedby="PaisComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="PaisComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EPaisDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="PaisComercial" id="PaisComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EPaisDomicilio.Pais}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="EstadoComercial">Estado:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EEstadoDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<select class="form-control selectpicker" name="EstadoComercial" id="EstadoComercial">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EEstadoDomicilio.Ihtml}}</select>
+								 aria-required="true" aria-describedby="EstadoComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="EstadoComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EEstadoDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<select class="form-control selectpicker" name="EstadoComercial" id="EstadoComercial">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EEstadoDomicilio.Ihtml}}</select>
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="MunicipioComercial">Municipio:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EMunicipioDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="MunicipioComercial" id="MunicipioComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EMunicipioDomicilio.Municipio}}"
+								 aria-required="true" aria-describedby="MunicipioComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="MunicipioComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EMunicipioDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="MunicipioComercial" id="MunicipioComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EMunicipioDomicilio.Municipio}}">
+							</div>
+							{{end}}
+						</div>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="ColoniaLocalidadComercial">Colonia/Localidad:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EColoniaDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="ColoniaLocalidadComercial" id="ColoniaLocalidadComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EColoniaDomicilio.Colonia}}"
+								 aria-required="true" aria-describedby="ColoniaLocalidadComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="ColoniaLocalidadComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EColoniaDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="ColoniaLocalidadComercial" id="ColoniaLocalidadComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.EColoniaDomicilio.Colonia}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="CPComercial">C.P.:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECPDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="CPComercial" id="CPComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECPDomicilio.CP}}"
+								 aria-required="true" aria-describedby="CPComercial-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="CPComercial-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECPDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="CPComercial" id="CPComercial" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.Domicilio.ECPDomicilio.CP}}">
+							</div>
+							{{end}}
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend>Datos de Contacto</legend>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Alias">Alias:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EAliasContactos.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+
+								<input onblur="LimpiaCadena(this)" type="text" name="Alias" id="Alias" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EAliasContactos.Alias}}"
+								 aria-required="true" aria-describedby="Alias-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+								<em id="Alias-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EAliasContactos.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="Alias" id="Alias" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EAliasContactos.Alias}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Email">Email:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EEmailContactos.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="Email" id="Email" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EEmailContactos.Email}}"
+								 aria-required="true" aria-describedby="Email-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="Email-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EEmailContactos.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="Email" id="Email" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EEmailContactos.Email}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Telefono">Telefono:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.ETelefonoContactos.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+
+								<input onblur="LimpiaCadena(this)" type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.ETelefonoContactos.Telefono}}"
+								 aria-required="true" aria-describedby="Telefono-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+								<em id="Telefono-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.ETelefonoContactos.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+
+								<input onblur="LimpiaCadena(this)" type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.ETelefonoContactos.Telefono}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Movil">Movil:</label> {{if .Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EMovilContactos.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+
+								<input onblur="LimpiaCadena(this)" type="text" name="Movil" id="Movil" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EMovilContactos.Movil}}"
+								 aria-required="true" aria-describedby="Movil-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+								<em id="Movil-error" class="error help-block">{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EMovilContactos.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+
+								<input onblur="LimpiaCadena(this)" type="text" name="Movil" id="Movil" class="form-control" value="{{.Empresa.EDatosComercialesEmpresa.DatosComerciales.EContactosDatosCommerciales.Contactos.EMovilContactos.Movil}}">
+							</div>
+							{{end}}
+						</div>
+					</fieldset>
+				</fieldset>
+
+				<fieldset>
+					<legend>Datos Fiscales</legend>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="RFC">RFC:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<input onblur="LimpiaCadena(this)" type="text" name="RFC" id="RFC" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.RFC}}"
+							 aria-required="true" aria-describedby="RFC-error" aria-invalid="true">
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="RFC-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.IMsj}}</em>
+						</div>
+						{{else}}
+						<div class="col-sm-5">
+							<input onblur="LimpiaCadena(this)" type="text" name="RFC" id="RFC" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.RFC}}">
+						</div>
+						{{end}}
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="RazonSocial">Raz&oacute;n Social:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<input onblur="LimpiaCadena(this)" type="text" name="RazonSocial" id="RazonSocial" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.RazonSocial}}"
+							 aria-required="true" aria-describedby="RazonSocial-error" aria-invalid="true">
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="RazonSocial-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.IMsj}}</em>
+						</div>
+						{{else}}
+						<div class="col-sm-5">
+							<input onblur="LimpiaCadena(this)" type="text" name="RazonSocial" id="RazonSocial" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.RazonSocial}}">
+						</div>
+						{{end}}
+					</div>
+
+					<fieldset>
+						<legend>
+							<a id="copiarComercialEnFiscal" class="btn btn-success" data-toggle="tooltip" title="Copiar Domicilio Comercial"><label  for="copiarComercialEnFiscal" class="glyphicon glyphicon-resize-vertical" ></label></a>Domicilio Fiscal
+						</legend>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="CalleFiscal">Calle:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ECalleDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="CalleFiscal" id="CalleFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.Calle}}"
+								 aria-required="true" aria-describedby="CalleFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="CalleFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ECalleDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="CalleFiscal" id="CalleFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.Domicilio.ECalleDomicilio.Calle}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="NumExtFiscal">N&uacute;mero Exterior:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ENumExteriorDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumExtFiscal" id="NumExtFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.NumExterior}}"
+								 aria-required="true" aria-describedby="NumExtFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="NumExtFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ENumExteriorDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumExtFiscal" id="NumExtFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.NumExterior}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="NumIntFiscal">N&uacute;mero Interior:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.Domicilio.ENumInteriorDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumIntFiscal" id="NumIntFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ENumInteriorDomicilio.NumInterior}}"
+								 aria-required="true" aria-describedby="NumIntFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="NumIntFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ENumInteriorDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="NumIntFiscal" id="NumIntFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ENumInteriorDomicilio.NumInterior}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="PaisFiscal">Pa&iacute;s:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EPaisDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="PaisFiscal" id="PaisFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EPaisDomicilio.Pais}}"
+								 aria-required="true" aria-describedby="PaisFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="PaisFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EPaisDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="PaisFiscal" id="PaisFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EPaisDomicilio.Pais}}">
+							</div>
+							{{end}}
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="EstadoFiscal">Estado:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EEstadoDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<select class="form-control selectpicker" name="EstadoFiscal" id="EstadoFiscal">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EEstadoDomicilio.Ihtml}}</select>
+
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="EstadoFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EEstadoDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<select class="form-control selectpicker" name="EstadoFiscal" id="EstadoFiscal">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EEstadoDomicilio.Ihtml}}</select>
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="MunicipioFiscal">Municipio/Delegaci&oacute;n:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EMunicipioDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="MunicipioFiscal" id="MunicipioFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EMunicipioDomicilio.Municipio}}"
+								 aria-required="true" aria-describedby="MunicipioFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="MunicipioFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EMunicipioDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="MunicipioFiscal" id="MunicipioFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EMunicipioDomicilio.Municipio}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="ColoniaLocalidadFiscal">Colonia/Localidad:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EColoniaDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="ColoniaLocalidadFiscal" id="ColoniaLocalidadFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EColoniaDomicilio.Colonia}}"
+								 aria-required="true" aria-describedby="ColoniaLocalidadFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="ColoniaLocalidadFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EColoniaDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="ColoniaLocalidadFiscal" id="ColoniaLocalidadFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.EColoniaDomicilio.Colonia}}">
+							</div>
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="CPFiscal">C.P.:</label> {{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ECPDomicilio.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+								<input onblur="LimpiaCadena(this)" type="text" name="CPFiscal" id="CPFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ECPDomicilio.CP}}"
+								 aria-required="true" aria-describedby="CPFiscal-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="CPFiscal-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ECPDomicilio.IMsj}}</em>
+							</div>
+							{{else}}
+							<div class="col-sm-5">
+								<input onblur="LimpiaCadena(this)" type="text" name="CPFiscal" id="CPFiscal" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.EDomicilioDatosFiscales.Domicilio.ECPDomicilio.CP}}">
+							</div>
+							{{end}}
+						</div>
+					</fieldset>
+				</fieldset>
+				<fieldset>
+					<legend>Datos Facturacion</legend>
+					<div class="form-group">
+								<label class="col-sm-4 control-label" for="Key">Key:</label>
+								
+								{{if .Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input onblur="LimpiaCadena(this)" type="text" name="Key" id="Key" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.Key}}" aria-required="true" aria-describedby="Key-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Key-error" class="error help-block">{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input onblur="LimpiaCadena(this)" type="text" name="Key" id="Key" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.Key}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cer">Cer:</label>
+								
+								{{if .Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input onblur="LimpiaCadena(this)" type="text" name="Cer" id="Cer" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.Cer}}" aria-required="true" aria-describedby="Cer-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Cer-error" class="error help-block">{{.Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input onblur="LimpiaCadena(this)" type="text" name="Cer" id="Cer" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.Cer}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pem">Pem:</label>
+								
+								{{if .Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input onblur="LimpiaCadena(this)" type="text" name="Pem" id="Pem" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.Pem}}" aria-required="true" aria-describedby="Pem-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Pem-error" class="error help-block">{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input onblur="LimpiaCadena(this)" type="text" name="Pem" id="Pem" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.Pem}}">
+									</div>  
+								{{end}}
+							</div>
+				</fieldset>
+				<fieldset>
+					<legend>Datos Correo y Notificaci&oacute;n </legend>
+					<div class="form-group">
+								<label class="col-sm-4 control-label" for="Correo">Correo:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input onblur="LimpiaCadena(this)" type="text" name="Correo" id="Correo" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.Correo}}" aria-required="true" aria-describedby="Correo-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Correo-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input onblur="LimpiaCadena(this)" type="text" name="Correo" id="Correo" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.Correo}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pass">Pass:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input onblur="LimpiaCadena(this)" type="password" name="Pass" id="Pass" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.Pass}}" aria-required="true" aria-describedby="Pass-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Pass-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input onblur="LimpiaCadena(this)" type="password" name="Pass" id="Pass" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.Pass}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+												{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Tipo-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<select id="Tipo" name="Tipo" class="form-control selectpicker">
+											{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Puerto">Puerto:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<input onblur="LimpiaCadena(this)" type="text" name="Puerto" id="Puerto" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.Puerto}}" aria-required="true" aria-describedby="Puerto-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Puerto-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<input onblur="LimpiaCadena(this)" type="text" name="Puerto" id="Puerto" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.Puerto}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cifrado">Cifrado:</label>
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Cifrado" name="Cifrado" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+												{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Cifrado-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<select id="Cifrado" name="Cifrado" class="form-control selectpicker">
+											{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.Ihtml}}
+										</select> 
+									</div>
+								{{end}}
+							</div>
+				</fieldset>
+			</fieldset>
+
+			<div class="form-group">
+				<div class="col-md-9 text-right">
+					<!--<button type="button" onclick="window.location.href = '/';" class="btn btn-default btn-lg">Index</button>-->
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+<footer class="affix-bottom">
+
+	{{template "footer_layout"}}
+
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

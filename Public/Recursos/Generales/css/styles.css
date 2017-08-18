@@ -1,0 +1,99 @@
+/*--------------estilos del header------------------------*/
+/*Estylo que modifica el margen de header*/
+#cabNavegacion{
+    margin-bottom: 0;
+    border-radius: 0;
+    border: 0;
+    /*background-color:#3fbbc0;*/
+    /*background-color: #23b7e5;*/
+   background-color: #c8e5e3;
+}
+/*Estylo que permite centrar la imagen del logo*/
+.imgLogo{
+    padding: 10px 10px;
+}
+/*estylo que prmite  centrar la imagen del usuario*/
+.nav > li > a.imgUser{
+    padding-top: 5px;
+    padding-bottom: 5px; 
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand{
+    margin-left: 0px;
+}
+
+#iconHome{
+    font-size:28px
+}
+
+#linkInicio{
+    padding-top: 6px;
+    padding-bottom: 7px; 
+}
+
+#iconMenuLateral{
+    padding: 7px 5px;
+    font-size: 28px;
+}
+
+#footerPage{
+    background-color: #c8e5e3;
+}
+
+#menuPanel{
+    border: 0;
+}
+
+
+/*-------------------Estilos para el menu lateral-----------------------------*/
+/*////////////////////////////////////////////////////////////////////////////////////////////*/
+#menuLateral{
+       /*background-color:#006cdc;    */
+       background-color: #337ab7;
+       padding-left: 1px;
+       padding-right: 1px
+}
+
+#menuPanel div{
+    color:#ffffff;
+     background-color: #337ab7;
+     border: 0;
+     border-radius: 0;
+}
+
+#menuPanel #accordion .panel{
+    margin-top: 0px;
+}
+#menuPanel #accordion .panel .panel-heading{
+    padding: 10px 5px;
+}
+
+#menuPanel #accordion .panel div ul li a{
+    color: #ffffff;
+}
+
+#menuPanel div:hover{
+     background-color: #4285f4;
+}
+
+#menuPanel div ul li{
+     background-color: #337ab7;
+     border: 0;
+     border-radius: 0;
+}
+
+#menuPanel div ul li:hover{
+     background-color: #4285f4;
+}
+
+/*Estilos de ismael*/
+.waitgif {
+	position: absolute;
+    bottom: 40%;
+    right: 40%;
+	z-index: 5;
+
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+}

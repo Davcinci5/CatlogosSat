@@ -1,0 +1,281 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  FacturacionAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Facturacion/js/Facturacion.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Facturacions</h1>
+			<form id="Form_Alta_Facturacion" class="form-horizontal" method="POST">
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Operacion">Operacion:</label>
+							{{if .Facturacion.EOperacionFacturacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Operacion" id="Operacion" class="form-control" value="{{.Facturacion.EOperacionFacturacion.Operacion}}" aria-required="true" aria-describedby="Operacion-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Operacion-error" class="error help-block">{{.Facturacion.EOperacionFacturacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Operacion" id="Operacion" class="form-control" value="{{.Facturacion.EOperacionFacturacion.Operacion}}">
+								</div>  
+							{{end}}
+						</div>
+						{{if .Facturacion.EOperacionFacturacion.IEstatus}}
+						
+						{{else}}
+							<div name="DetalleMovimiento" id="DetalleMovimiento">
+							</div>
+						{{end}}
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Cliente">Cliente:</label>
+							{{if .Facturacion.EClienteFacturacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Cliente" id="Cliente" class="form-control" value="{{.Facturacion.EClienteFacturacion.Cliente}}" aria-required="true" aria-describedby="Cliente-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Cliente-error" class="error help-block">{{.Facturacion.EClienteFacturacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Cliente" id="Cliente" class="form-control" value="{{.Facturacion.EClienteFacturacion.Cliente}}">
+								</div>  
+							{{end}}
+						</div>
+					
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Calle">Calle:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.ECalleDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Calle" id="Calle" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ECalleDomicilios.Calle}}" aria-required="true" aria-describedby="Calle-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Calle-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.ECalleDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Calle" id="Calle" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ECalleDomicilios.Calle}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="NumInterior">NumInterior:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.ENumInteriorDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="NumInterior" id="NumInterior" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ENumInteriorDomicilios.NumInterior}}" aria-required="true" aria-describedby="NumInterior-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="NumInterior-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.ENumInteriorDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="NumInterior" id="NumInterior" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ENumInteriorDomicilios.NumInterior}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="NumExterior">NumExterior:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.ENumExteriorDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="NumExterior" id="NumExterior" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ENumExteriorDomicilios.NumExterior}}" aria-required="true" aria-describedby="NumExterior-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="NumExterior-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.ENumExteriorDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="NumExterior" id="NumExterior" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ENumExteriorDomicilios.NumExterior}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Colonia">Colonia:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.EColoniaDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Colonia" name="Colonia" class="form-control selectpicker" aria-required="true" aria-describedby="Colonia-error" aria-invalid="true">
+												{{.Facturacion.EDomiciliosFacturacion.Domicilios.EColoniaDomicilios.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Colonia-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.EColoniaDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Colonia" name="Colonia" class="form-control selectpicker">
+											{{.Facturacion.EDomiciliosFacturacion.Domicilios.EColoniaDomicilios.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Municipio">Municipio:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.EMunicipioDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Municipio" name="Municipio" class="form-control selectpicker" aria-required="true" aria-describedby="Municipio-error" aria-invalid="true">
+												{{.Facturacion.EDomiciliosFacturacion.Domicilios.EMunicipioDomicilios.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Municipio-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.EMunicipioDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Municipio" name="Municipio" class="form-control selectpicker">
+											{{.Facturacion.EDomiciliosFacturacion.Domicilios.EMunicipioDomicilios.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estado">Estado:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.EEstadoDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Estado" name="Estado" class="form-control selectpicker" aria-required="true" aria-describedby="Estado-error" aria-invalid="true">
+												{{.Facturacion.EDomiciliosFacturacion.Domicilios.EEstadoDomicilios.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Estado-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.EEstadoDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Estado" name="Estado" class="form-control selectpicker">
+											{{.Facturacion.EDomiciliosFacturacion.Domicilios.EEstadoDomicilios.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pais">Pais:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.EPaisDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Pais" name="Pais" class="form-control selectpicker" aria-required="true" aria-describedby="Pais-error" aria-invalid="true">
+												{{.Facturacion.EDomiciliosFacturacion.Domicilios.EPaisDomicilios.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Pais-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.EPaisDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Pais" name="Pais" class="form-control selectpicker">
+											{{.Facturacion.EDomiciliosFacturacion.Domicilios.EPaisDomicilios.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="CP">CP:</label>
+								
+								{{if .Facturacion.EDomiciliosFacturacion.Domicilios.ECPDomicilios.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="CP" id="CP" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ECPDomicilios.CP}}" aria-required="true" aria-describedby="CP-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="CP-error" class="error help-block">{{.Facturacion.EDomiciliosFacturacion.Domicilios.ECPDomicilios.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="CP" id="CP" class="form-control" value="{{.Facturacion.EDomiciliosFacturacion.Domicilios.ECPDomicilios.CP}}">
+									</div>  
+								{{end}}
+							</div>
+						
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Facturacions';" class="btn btn-default btn-lg">Index</button>
+						<button type="button" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

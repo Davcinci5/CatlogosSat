@@ -1,0 +1,102 @@
+{{define "menu_layout"}}        
+        <div class="col-md-2 text-left" id="menuLateral">
+            <br/>
+                    <div class="bs-example" id="menuPanel">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <!--<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">1. What is HTML?</a>-->
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><span class="icon-clipboard"></span class="icon-cog"> ADMINISTRACIÓN</a>
+                                        <span class="pull-right glyphicon glyphicon-menu-left"></span>
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/Catalogos" ><span class="glyphicon glyphicon-arrow-right"></span> Catalogos </a></li>
+                                        <li class="list-group-item"><a href="/Unidades" ><span class="glyphicon glyphicon-arrow-right"></span> Unidades </a></li>
+                                        <li class="list-group-item"><a href="/Impuestos" ><span class="glyphicon glyphicon-arrow-right"></span> Impuestos </a></li>
+                                        <!-- <li class="list-group-item"><a href="/Rols" ><span class="glyphicon glyphicon-arrow-right"></span> Roles </a></li> -->
+                                        <li class="list-group-item"><a href="/Empresas" ><span class="glyphicon glyphicon-arrow-right"></span> Empresa </a></li>
+                                        <li class="list-group-item"><a href="/Conexions" ><span class="glyphicon glyphicon-arrow-right"></span> Servidores Almacenes </a></li>
+                                        <li class="list-group-item"><a href="/EquipoCajas" ><span class="glyphicon glyphicon-arrow-right"></span> Equipo Cajas </a></li>
+                                        <li class="list-group-item"><a href="/MediosPagos" ><span class="glyphicon glyphicon-arrow-right"></span> Formas de Pago</a></li>
+                                        <li class="list-group-item"><a href="/PermisosUris" ><span class="glyphicon glyphicon-arrow-right"></span> Permisos Recursos (URL)</a></li>
+                                        <!-- <li class="list-group-item"><a href="/GrupoPersonas/alta" ><span class="glyphicon glyphicon-arrow-right"></span> Grupos De Usuarios v1</a></li> -->
+                                        <li class="list-group-item"><a href="/Grupos" ><span class="glyphicon glyphicon-arrow-right"></span> Grupos Generales v1</a></li>
+                                        <li class="list-group-item"><a href="/Sesiones" ><span class="glyphicon glyphicon-arrow-right"></span> Sesiones</a></li>
+                                
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><span class="icon-truck"></span> COMPRAS</a>
+                                        <span class="pull-right glyphicon glyphicon-menu-left"></span>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><a href="/Compras/alta" ><span class="glyphicon glyphicon-arrow-right"></span> Nueva Compra</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><span class="icon-cart"></span> VENTAS</a>
+                                        <span class="pull-right glyphicon glyphicon-menu-left"></span>
+                                    </h4>
+                                </div>
+                                <div id="collapse4" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                       <li class="list-group-item"><a href="/PuntoVentas" ><span class="glyphicon glyphicon-arrow-right"></span> Punto de Venta</a></li>                                    
+                                        <li class="list-group-item"><a href="/Cajas" ><span class="glyphicon glyphicon-arrow-right"></span> Cajas</li>
+                                        <li class="list-group-item"><a href="/Cotizacions" ><span class="glyphicon glyphicon-arrow-right"></span> Cotizacion</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                         <a href="/Productos" ><span class="glyphicon glyphicon-inbox"></span> PRODUCTOS</a>
+                                    </h4>
+                                </div>
+                            </div>
+
+
+                                <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#almacenes"><span class="icon-cart"></span> ALMACENES </a>
+                                        <span class="pull-right glyphicon glyphicon-menu-left"></span>
+                                    </h4>
+                                </div>
+                                <div id="almacenes" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                       <li class="list-group-item"><a href="/Almacens" ><span class="glyphicon glyphicon-arrow-right"></span> Almacenes </a></li>                                    
+                                        <li class="list-group-item"><a href="/TrasladoAjuste/Movimientos" ><span class="glyphicon glyphicon-arrow-right"></span> Ajustes y Traslados</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                                <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#personas"><span class="icon-cart"></span> PERSONAS </a>
+                                        <span class="pull-right glyphicon glyphicon-menu-left"></span>
+                                    </h4>
+                                </div>
+                                <div id="personas" class="panel-collapse collapse">
+                                    <ul class="list-group">
+                                       <li class="list-group-item"><a href="/Usuarios" ><span class="glyphicon glyphicon-arrow-right"></span> Usuarios </a></li>
+                                       <li class="list-group-item"><a href="/Clientes" ><span class="glyphicon glyphicon-arrow-right"></span> Clientes </a></li>                                       
+                                    </ul>
+                                </div>
+                            </div>
+    		            </div>
+		        </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+{{end}}

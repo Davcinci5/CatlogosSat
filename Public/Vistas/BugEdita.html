@@ -1,0 +1,208 @@
+
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  BugEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Bug/js/Bug.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Edición de Bugs</h1>
+			<form id="Form_Alta_Bug" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+							{{if .Bug.ETipoBug.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Tipo" id="Tipo" class="form-control" value="{{.Bug.ETipoBug.Tipo}}" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Tipo-error" class="error help-block">{{.Bug.ETipoBug.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Tipo" id="Tipo" class="form-control" value="{{.Bug.ETipoBug.Tipo}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Titulo">Titulo:</label>
+							{{if .Bug.ETituloBug.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Titulo" id="Titulo" class="form-control" value="{{.Bug.ETituloBug.Titulo}}" aria-required="true" aria-describedby="Titulo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Titulo-error" class="error help-block">{{.Bug.ETituloBug.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Titulo" id="Titulo" class="form-control" value="{{.Bug.ETituloBug.Titulo}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .Bug.EDescripcionBug.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Descripcion" id="Descripcion" class="form-control" value="{{.Bug.EDescripcionBug.Descripcion}}" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.Bug.EDescripcionBug.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Descripcion" id="Descripcion" class="form-control" value="{{.Bug.EDescripcionBug.Descripcion}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Usuario">Usuario:</label>
+							{{if .Bug.EUsuarioBug.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Bug.EUsuarioBug.Usuario}}" aria-required="true" aria-describedby="Usuario-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Usuario-error" class="error help-block">{{.Bug.EUsuarioBug.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Bug.EUsuarioBug.Usuario}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Metodo">Metodo:</label>
+							{{if .Bug.EMetodoBug.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Metodo" id="Metodo" class="form-control" value="{{.Bug.EMetodoBug.Metodo}}" aria-required="true" aria-describedby="Metodo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Metodo-error" class="error help-block">{{.Bug.EMetodoBug.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Metodo" id="Metodo" class="form-control" value="{{.Bug.EMetodoBug.Metodo}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="EsAjax">EsAjax:</label>
+							{{if .Bug.EEsAjaxBug.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="EsAjax" id="EsAjax" class="form-control" value="{{.Bug.EEsAjaxBug.EsAjax}}" aria-required="true" aria-describedby="EsAjax-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="EsAjax-error" class="error help-block">{{.Bug.EEsAjaxBug.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="EsAjax" id="EsAjax" class="form-control" value="{{.Bug.EEsAjaxBug.EsAjax}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="EstatusPeticion">EstatusPeticion:</label>
+								{{if .Bug.EEstatusPeticionBug.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="EstatusPeticion" name="EstatusPeticion" class="form-control selectpicker" aria-required="true" aria-describedby="EstatusPeticion-error" aria-invalid="true">
+											{{.Bug.EEstatusPeticionBug.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="EstatusPeticion-error" class="error help-block">{{.Bug.EEstatusPeticionBug.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="EstatusPeticion" name="EstatusPeticion" class="form-control selectpicker">
+											{{.Bug.EEstatusPeticionBug.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+								{{if .Bug.EEstatusBug.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.Bug.EEstatusBug.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Bug.EEstatusBug.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker">
+											{{.Bug.EEstatusBug.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+
+
+			<div class="form-group">			
+				<div class="col-md-9 text-right">
+					<button type="button" onclick="window.location.href = '/Bugs';" class="btn btn-default btn-lg">Index</button>
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

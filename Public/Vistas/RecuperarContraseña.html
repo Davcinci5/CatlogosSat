@@ -1,0 +1,63 @@
+
+<!-- ############################## <  VISTA LOGIN > #####################################-->
+<!-- ############################## <  Login.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Login/js/Login.js"></script>
+        <link rel="stylesheet" href="../../Locales/Login/css/LoginPrincipal.css">
+<!--#################### CABECERA #########################-->
+{{template "headerLogin_layout"}}
+</head>
+
+<!-- FINAL CABECERA ###################################################################################-->
+<!-- INICIO BODY -->
+<body>
+
+<div class="container">
+  <div class="info">
+    <h4>Recuperacion de Contraseña</h4><!--<span>Made with <i class="fa fa-heart"></i> by <a href="http://andytran.me">Andy Tran</a></span>-->
+  </div>
+</div>
+<div class="form">
+  <div class="thumbnail"><img src="../../img/korelogo_big.png"/></div>
+  <form class="login-form" action="/Recuperar" method="POST">
+    <input type="text" id="userName" name="userName"  placeholder="Ingrese su usuario" required>
+     <input type="text" id="userCorreo" name="userCorreo"  placeholder="Ingrese su correo" required >
+   <!-- <input type="submit" class="btn-success" id="" name="" value="Enviar" > -->
+   <button>Recuperar</button>
+   <p>{{.}}</p>
+    <p class="message">¿Regresar a Login? <a href="/Login">Regresar</a></p>
+  </form>
+</div>
+
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>
+

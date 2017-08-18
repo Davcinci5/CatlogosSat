@@ -1,0 +1,321 @@
+
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  ImpuestoEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Impuesto/js/Impuesto.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Edición de Impuestos</h1>
+			<form id="Form_Alta_Impuesto" class="form-horizontal" method="POST">
+
+				<input type="text" id="ID" name="ID" value="{{.Impuesto.ID.Hex}}" hidden />
+				
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Abreviatura">Tipo De impuesto:</label>
+							{{if .Impuesto.ENombreImpuesto.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<select id="Abreviatura" name="Abreviatura" class="form-control selectpicker" aria-required="true" aria-describedby="Abreviatura-error" aria-invalid="true">
+										{{.Impuesto.ENombreImpuesto.Ihtml}}
+									</select>  
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Abreviatura-error" class="error help-block">{{.Impuesto.ENombreImpuesto.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<select id="Abreviatura" name="Abreviatura" class="form-control selectpicker">
+										{{.Impuesto.ENombreImpuesto.Ihtml}}
+									</select> 									
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Clasificacion">Clasificacion:</label>
+								{{if .Impuesto.EClasificacionImpuesto.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Clasificacion" name="Clasificacion" class="form-control selectpicker" aria-required="true" aria-describedby="Clasificacion-error" aria-invalid="true">
+											{{.Impuesto.EClasificacionImpuesto.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Clasificacion-error" class="error help-block">{{.Impuesto.EClasificacionImpuesto.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Clasificacion" name="Clasificacion" class="form-control selectpicker">
+											{{.Impuesto.EClasificacionImpuesto.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="SubClasificacion">SubClasificacion:</label>
+								{{if .Impuesto.ESubClasificacionImpuesto.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="SubClasificacion" name="SubClasificacion" class="form-control selectpicker" aria-required="true" aria-describedby="SubClasificacion-error" aria-invalid="true">
+											{{.Impuesto.ESubClasificacionImpuesto.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="SubClasificacion-error" class="error help-block">{{.Impuesto.ESubClasificacionImpuesto.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="SubClasificacion" name="SubClasificacion" class="form-control selectpicker">
+											{{.Impuesto.ESubClasificacionImpuesto.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Nombre">Descripción Del Usuario:</label>
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.ENombreImpuestos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Impuesto.EImpuestosImpuesto.Impuestos.ENombreImpuestos.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Nombre-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.ENombreImpuestos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">															
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Impuesto.EImpuestosImpuesto.Impuestos.ENombreImpuestos.Nombre}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Factor:</label>
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.ETipoImpuestos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+												{{.Impuesto.EImpuestosImpuesto.Impuestos.ETipoImpuestos.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Tipo-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.ETipoImpuestos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Tipo" name="Tipo" class="form-control selectpicker">
+											{{.Impuesto.EImpuestosImpuesto.Impuestos.ETipoImpuestos.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Rango">¿Rango?:</label>
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.ERangoImpuestos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+
+										<input type="checkbox" id="Rango" name="Rango" value="Rango" class="custom-control-input" aria-required="true"
+										aria-describedby="Rango-error" aria-invalid="true" {{.Impuesto.EImpuestosImpuesto.Impuestos.ERangoImpuestos.Ihtml}}>
+
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Rango-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.ERangoImpuestos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<input type="checkbox" id="Rango" name="Rango" value="Rango" class="custom-control-input" {{.Impuesto.EImpuestosImpuesto.Impuestos.ERangoImpuestos.Ihtml}}>
+									</div> 
+								{{end}}
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="ValorMin">Valor Mínimo:</label>
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.EValorMinImpuestos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="ValorMin" id="ValorMin" class="form-control" value="{{.Impuesto.EImpuestosImpuesto.Impuestos.EValorMinImpuestos.Valor}}" aria-required="true" aria-describedby="ValorMin-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="ValorMin-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.EValorMinImpuestos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">															
+										<input type="text" name="ValorMin" id="ValorMin" class="form-control" value="{{.Impuesto.EImpuestosImpuesto.Impuestos.EValorMinImpuestos.Valor}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="ValorMax">Valor Máximo:</label>
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.EValorMaxImpuestos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="ValorMax" id="ValorMax" class="form-control" value="{{.Impuesto.EImpuestosImpuesto.Impuestos.EValorMaxImpuestos.Valor}}" aria-required="true" aria-describedby="ValorMax-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="ValorMax-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.EValorMaxImpuestos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">															
+										<input type="text" name="ValorMax" id="ValorMax" class="form-control" value="{{.Impuesto.EImpuestosImpuesto.Impuestos.EValorMaxImpuestos.Valor}}">
+									</div>  
+								{{end}}
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Retenido">¿Retenido?:</label> 
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.ERetenidoImpuestos.IEstatus}}
+
+									<div class="col-sm-5 has-feedback has-error">
+										<input type="checkbox" id="Retenido" name="Retenido" value="Retenido" class="custom-control-input" aria-required="true"
+
+										aria-describedby="Retenido-error" aria-invalid="true" {{.Impuesto.EImpuestosImpuesto.Impuestos.ERetenidoImpuestos.Ihtml}}>
+
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Retenido-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.ERetenidoImpuestos.IMsj}}</em>
+
+									</div>
+
+								{{else}}
+									<div class="col-sm-5">
+										<input type="checkbox" id="Retenido" name="Retenido" value="Retenido" class="custom-control-input" {{.Impuesto.EImpuestosImpuesto.Impuestos.ERetenidoImpuestos.Ihtml}}>
+									</div>
+								{{end}}
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Trasladado">¿Trasladado?:</label> 
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.ETrasladadoImpuestos.IEstatus}}
+
+									<div class="col-sm-5 has-feedback has-error">
+										<input type="checkbox" id="Trasladado" name="Trasladado" value="Trasladado" class="custom-control-input" aria-required="true"
+
+										aria-describedby="Trasladado-error" aria-invalid="true" {{.Impuesto.EImpuestosImpuesto.Impuestos.ETrasladadoImpuestos.Ihtml}}>
+
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Trasladado-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.ETrasladadoImpuestos.IMsj}}</em>
+
+									</div>
+
+								{{else}}
+									<div class="col-sm-5">
+										<input type="checkbox" id="Trasladado" name="Trasladado" value="Trasladado" class="custom-control-input" {{.Impuesto.EImpuestosImpuesto.Impuestos.ETrasladadoImpuestos.Ihtml}}>
+									</div>
+								{{end}}
+							</div>
+
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Unidad">Se Aplica A:</label>
+								
+								{{if .Impuesto.EImpuestosImpuesto.Impuestos.EUnidadImpuestos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Unidad" name="Unidad" class="form-control selectpicker" aria-required="true" aria-describedby="Unidad-error" aria-invalid="true">
+												{{.Impuesto.EImpuestosImpuesto.Impuestos.EUnidadImpuestos.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Unidad-error" class="error help-block">{{.Impuesto.EImpuestosImpuesto.Impuestos.EUnidadImpuestos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Unidad" name="Unidad" class="form-control selectpicker">
+											{{.Impuesto.EImpuestosImpuesto.Impuestos.EUnidadImpuestos.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+								{{if .Impuesto.EEstatusImpuesto.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.Impuesto.EEstatusImpuesto.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Impuesto.EEstatusImpuesto.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker">
+											{{.Impuesto.EEstatusImpuesto.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+
+			<div class="form-group">			
+				<div class="col-md-9 text-right">
+					<button type="button" onclick="window.location.href = '/Impuestos';" class="btn btn-default btn-lg">Index</button>
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

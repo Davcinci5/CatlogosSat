@@ -1,0 +1,367 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  UsuarioAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->		
+	<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.mobile.min.css" />
+<!--#################### CABECERA #########################-->
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    <script src="../../Locales/Usuario/js/Usuario.js"></script>		
+	<script src="/Plugins/Kendo/js/kendo.all.min.js" type="text/javascript" ></script>
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Usuarios</h1>
+			<form id="Form_Alta_Usuario" class="form-horizontal" method="POST">
+
+
+							<div class="form-group">	
+								<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+								
+								{{if .Usuario.EPersonaUsuario.ENombrePersona.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Usuario.EPersonaUsuario.ENombrePersona.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Nombre-error" class="error help-block">{{.Usuario.EPersonaUsuario.ENombrePersona.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Usuario.EPersonaUsuario.ENombrePersona.Nombre}}">
+									</div>  
+								{{end}}
+							</div>
+						
+						
+							<!-- <div class="form-group">
+								<label class="col-sm-4 control-label" for="Grupos">Grupos:</label>
+								
+								{{if .Usuario.EPersonaUsuario.EGruposPersona.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Grupos" name="Grupos" multiple="multiple" class="form-control selectpicker" aria-required="true" aria-describedby="Grupos-error" aria-invalid="true">
+												{{.Usuario.EPersonaUsuario.EGruposPersona.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Grupos-error" class="error help-block">{{.Usuario.EPersonaUsuario.EGruposPersona.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Grupos" name="Grupos" multiple="multiple" class="form-control selectpicker" data-placeholder="Selecciona los Grupos...">
+											{{.Usuario.EPersonaUsuario.EGruposPersona.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div> -->
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Predecesor">Predecesor:</label>
+								
+								{{if .Usuario.EPersonaUsuario.EPredecesorPersona.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Predecesor" name="Predecesor" class="form-control selectpicker" aria-required="true" aria-describedby="Predecesor-error" aria-invalid="true">
+												{{.Usuario.EPersonaUsuario.EPredecesorPersona.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Predecesor-error" class="error help-block">{{.Usuario.EPersonaUsuario.EPredecesorPersona.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Predecesor" name="Predecesor" class="form-control selectpicker">
+											{{.Usuario.EPersonaUsuario.EPredecesorPersona.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Usuario">Usuario:</label>
+							{{if .Usuario.EUsuarioUsuario.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Usuario.EUsuarioUsuario.Usuario}}" aria-required="true" aria-describedby="Usuario-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Usuario-error" class="error help-block">{{.Usuario.EUsuarioUsuario.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Usuario.EUsuarioUsuario.Usuario}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							 <!--LAS NUEVAS CREDENCIALES -->
+							
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Contraseña">Contraseña:</label>
+								{{if .Usuario.ECredencialesUsuario.Contraseña.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<input type="password" name="Contraseña" id="Contraseña" class="form-control" value="{{.Usuario.ECredencialesUsuario.Contraseña.Contraseña}}" aria-required="true" aria-describedby="Contraseña-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Contraseña-error" class="error help-block">{{.Usuario.ECredencialesUsuario.Contraseña.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<input type="password" name="Contraseña" id="Contraseña" class="form-control" value="{{.Usuario.ECredencialesUsuario.Contraseña.Contraseña}}">
+									</div>  
+								{{end}}
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="confirmaContraseña">Confirma tu Contraseña:</label>
+									<div class="col-sm-5">
+										<input type="password" name="confirmaContraseña" id="confirmaContraseña" class="form-control">
+									</div>  
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pin">PIN:</label>
+								{{if .Usuario.ECredencialesUsuario.Pin.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<input type="password" name="Pin" id="Pin" class="form-control" value="{{.Usuario.ECredencialesUsuario.Pin.Pin}}" aria-required="true" aria-describedby="Pin-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Pin-error" class="error help-block">{{.Usuario.ECredencialesUsuario.Pin.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<input type="password" name="Pin" id="Pin" class="form-control" value="{{.Usuario.ECredencialesUsuario.Pin.Pin}}">
+									</div>  
+								{{end}}
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="confirmaPin">Confirma tu PIN:</label>
+									<div class="col-sm-5">
+										<input type="password" name="confirmaPin" id="confirmaPin" class="form-control">
+									</div>  
+							</div>
+
+							<!-- <div class="form-group">
+								<label class="col-sm-4 control-label" for="CodigoBarra">CodigoBarra:</label>
+								{{if .Usuario.ECredencialesUsuario.CodigoBarra.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<input type="text" name="CodigoBarra" id="CodigoBarra" class="form-control" value="{{.Usuario.ECredencialesUsuario.CodigoBarra.CodigoBarra}}" aria-required="true" aria-describedby="CodigoBarra-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="CodigoBarra-error" class="error help-block">{{.Usuario.ECredencialesUsuario.CodigoBarra.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<input type="text" name="CodigoBarra" id="CodigoBarra" class="form-control" value="{{.Usuario.ECredencialesUsuario.CodigoBarra.CodigoBarra}}">
+									</div>  
+								{{end}}
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Huella">Huella:</label>
+								{{if .Usuario.ECredencialesUsuario.Huella.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<input type="text" name="Huella" id="Huella" class="form-control" value="{{.Usuario.ECredencialesUsuario.Huella.Huella}}" aria-required="true" aria-describedby="Huella-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Huella-error" class="error help-block">{{.Usuario.ECredencialesUsuario.Huella.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+										<input type="text" name="Huella" id="Huella" class="form-control" value="{{.Usuario.ECredencialesUsuario.Huella.Huella}}">
+									</div>  
+								{{end}}
+							</div> -->
+							 	
+
+
+
+
+							 <!--FIN DE LAS NUEVAS CREDENCIALES-->					
+							
+						
+						<div class="col-sm-12">
+							<div class="col-sm-4">
+							
+								<div class="row text-center" style="padding-bottom:10px;">
+									<button id="AgregaEmail" name="AgregaEmail" value="AgregaEmail" type="button" class="btn btn-success btn-lg col-md-8" style="float:right;margin-right:10%;"><span class="glyphicon glyphicon-plus"></span>Agregar Email</button>
+								</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Email">Email:</label>
+								
+								{{if .Usuario.EMediosDeContactoUsuario.ECorreos.IEstatus}}
+								<input type="text" name="CorreoPrincipal" id="CorreoPrincipal" value="{{.Usuario.EMediosDeContactoUsuario.ECorreos.Principal}}" hidden>
+									<div class="col-sm-8 has-feedback has-error">									
+										<input type="text" name="Email" id="Email" class="form-control" aria-required="true" aria-describedby="Email-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Email-error" class="error help-block">{{.Usuario.EMediosDeContactoUsuario.ECorreos.IMsj}}</em>
+									</div>
+								{{else}}
+								
+								<input type="text" name="CorreoPrincipal" id="CorreoPrincipal" value="{{.Usuario.EMediosDeContactoUsuario.ECorreos.Principal}}" hidden>
+									<div class="col-sm-8">															
+										<input type="email" name="Email" id="Email" class="form-control" value="">
+									</div>  
+								{{end}}
+							</div>
+
+								<div class="col-sm-12 table-responsive container" id="div_tabla_correos">
+									<table class="table table-condensed table-hover">
+										<thead class="thead-inverse">
+											<tr>
+												<th>Principal</th>
+												<th>Correos</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_etiquetas_correos">
+											{{.Usuario.EMediosDeContactoUsuario.ECorreos.Ihtml}}
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+							
+							<div class="col-sm-4">
+								<div class="row text-center" style="padding-bottom:10px;">
+									<button id="AgregaTelefono" name="AgregaTelefono" value="AgregaTelefono" type="button" class="btn btn-success btn-lg col-md-8" style="float:right;margin-right:10%;"><span class="glyphicon glyphicon-plus"></span>Agregar Telefono</button>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="Telefono">Telefono:</label>
+									
+									{{if .Usuario.EMediosDeContactoUsuario.ETelefonos.IEstatus}}
+										<input type="text" name="TelefonoPrincipal" id="TelefonoPrincipal" value="{{.Usuario.EMediosDeContactoUsuario.ETelefonos.Principal}}" hidden>
+										<div class="col-sm-8 has-feedback has-error">										
+											<input type="text" name="Telefono" id="Telefono" class="form-control" aria-required="true" aria-describedby="Telefono-error" aria-invalid="true">
+											<span class="glyphicon form-control-feedback glyphicon-remove"></span>																					
+											<em id="Telefono-error" class="error help-block">{{.Usuario.EMediosDeContactoUsuario.ETelefonos.IMsj}}</em>
+										</div>
+									{{else}}
+										<input type="text" name="TelefonoPrincipal" id="TelefonoPrincipal" value="{{.Usuario.EMediosDeContactoUsuario.ETelefonos.Principal}}" hidden>
+										<div class="col-sm-8">																
+											<input type="text" name="Telefono" id="Telefono" class="form-control">
+										</div>  
+									{{end}}
+								</div>
+
+								<div class="col-sm-12 table-responsive container" id="div_tabla_telefonos">
+									<table class="table table-condensed table-hover">
+										<thead class="thead-inverse">
+											<tr>
+												<th>Principal</th>
+												<th>Telefonos</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_etiquetas_telefonos">
+											{{.Usuario.EMediosDeContactoUsuario.ETelefonos.Ihtml}}
+										</tbody>
+									</table>
+								</div>
+								
+							</div>	
+							<div class="col-sm-4">
+								<div class="row text-center" style="padding-bottom:10px;">
+									<button id="AgregaOtro" name="AgregaOtro" value="AgregaOtro" type="button" class="btn btn-success btn-lg col-md-8" style="float:right;margin-right:10%;"><span class="glyphicon glyphicon-plus"></span>Agregar Otro Medio</button>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="Otro">Otros:</label>
+									
+									{{if .Usuario.EMediosDeContactoUsuario.EOtrosMedios.IEstatus}}
+										<div class="col-sm-8 has-feedback has-error">
+										
+											<input type="text" name="Otro" id="Otro" class="form-control" aria-required="true" aria-describedby="Otro-error" aria-invalid="true">
+											<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																					
+											<em id="Otro-error" class="error help-block">{{.Usuario.EMediosDeContactoUsuario.EOtrosMedios.IMsj}}</em>
+										</div>
+									{{else}}
+										<div class="col-sm-8">																
+											<input type="text" name="Otro" id="Otro" class="form-control">
+										</div>  
+									{{end}}
+								</div>
+
+								<div class="col-sm-12 table-responsive container" id="div_tabla_otros">
+									<table class="table table-condensed table-hover">
+										<thead class="thead-inverse">
+											<tr>
+												<th>Otros</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody id="tbody_etiquetas_otros">
+											{{.Usuario.EMediosDeContactoUsuario.EOtrosMedios.Ihtml}}
+										</tbody>
+									</table>
+								</div>
+
+							</div>					
+							
+						</div>
+						
+							
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Usuarios';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

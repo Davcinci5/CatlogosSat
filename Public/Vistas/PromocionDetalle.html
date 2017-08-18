@@ -1,0 +1,277 @@
+
+<!-- ############################## <  VISTA DETALLE  > #####################################-->
+<!-- ############################## <  PromocionDetalle.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Promocion/js/Promocion.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Detalle de Promocions</h1>
+			<form id="Form_Detalle_Promocion" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .Promocion.ENombrePromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Promocion.ENombrePromocion.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Promocion.ENombrePromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Promocion.ENombrePromocion.Nombre}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .Promocion.EDescripcionPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Promocion..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true" readonly>{{.Promocion.EDescripcionPromocion.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.Promocion.EDescripcionPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Promocion..." 
+									style="width: 100%" readonly>{{.Promocion.EDescripcionPromocion.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="PorcentajeDesc">PorcentajeDesc:</label>
+							{{if .Promocion.EPorcentajeDescPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="PorcentajeDesc" id="PorcentajeDesc" class="form-control" value="{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc}}" aria-required="true" aria-describedby="PorcentajeDesc-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="PorcentajeDesc-error" class="error help-block">{{.Promocion.EPorcentajeDescPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="PorcentajeDesc" id="PorcentajeDesc" class="form-control" value="{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="PrecioOferta">PrecioOferta:</label>
+							{{if .Promocion.EPrecioOfertaPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="PrecioOferta" id="PrecioOferta" class="form-control" value="{{.Promocion.EPrecioOfertaPromocion.PrecioOferta}}" aria-required="true" aria-describedby="PrecioOferta-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="PrecioOferta-error" class="error help-block">{{.Promocion.EPrecioOfertaPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="PrecioOferta" id="PrecioOferta" class="form-control" value="{{.Promocion.EPrecioOfertaPromocion.PrecioOferta}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="OfertaMonto">OfertaMonto:</label>
+							{{if .Promocion.EOfertaMontoPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="OfertaMonto" id="OfertaMonto" class="form-control" value="{{.Promocion.EOfertaMontoPromocion.OfertaMonto}}" aria-required="true" aria-describedby="OfertaMonto-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="OfertaMonto-error" class="error help-block">{{.Promocion.EOfertaMontoPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="OfertaMonto" id="OfertaMonto" class="form-control" value="{{.Promocion.EOfertaMontoPromocion.OfertaMonto}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="OfertaPiezaPieza">OfertaPiezaPieza:</label>
+							{{if .Promocion.EOfertaPiezaPiezaPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="OfertaPiezaPieza" id="OfertaPiezaPieza" class="form-control" value="{{.Promocion.EOfertaPiezaPiezaPromocion.OfertaPiezaPieza}}" aria-required="true" aria-describedby="OfertaPiezaPieza-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="OfertaPiezaPieza-error" class="error help-block">{{.Promocion.EOfertaPiezaPiezaPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="OfertaPiezaPieza" id="OfertaPiezaPieza" class="form-control" value="{{.Promocion.EOfertaPiezaPiezaPromocion.OfertaPiezaPieza}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="OfertaPiezaPorcentaje">OfertaPiezaPorcentaje:</label>
+							{{if .Promocion.EOfertaPiezaPorcentajePromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="OfertaPiezaPorcentaje" id="OfertaPiezaPorcentaje" class="form-control" value="{{.Promocion.EOfertaPiezaPorcentajePromocion.OfertaPiezaPorcentaje}}" aria-required="true" aria-describedby="OfertaPiezaPorcentaje-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="OfertaPiezaPorcentaje-error" class="error help-block">{{.Promocion.EOfertaPiezaPorcentajePromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="OfertaPiezaPorcentaje" id="OfertaPiezaPorcentaje" class="form-control" value="{{.Promocion.EOfertaPiezaPorcentajePromocion.OfertaPiezaPorcentaje}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+								{{if .Promocion.EEstatusPromocion.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true" readonly>
+											{{.Promocion.EEstatusPromocion.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Promocion.EEstatusPromocion.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" readonly>
+											{{.Promocion.EEstatusPromocion.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="FechaInicio">FechaInicio:</label>
+							{{if .Promocion.EFechaInicioPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="FechaInicio" id="FechaInicio" class="form-control" value="{{.Promocion.EFechaInicioPromocion.FechaInicio}}" aria-required="true" aria-describedby="FechaInicio-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="FechaInicio-error" class="error help-block">{{.Promocion.EFechaInicioPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="FechaInicio" id="FechaInicio" class="form-control" value="{{.Promocion.EFechaInicioPromocion.FechaInicio}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="FechaFin">FechaFin:</label>
+							{{if .Promocion.EFechaFinPromocion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="FechaFin" id="FechaFin" class="form-control" value="{{.Promocion.EFechaFinPromocion.FechaFin}}" aria-required="true" aria-describedby="FechaFin-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="FechaFin-error" class="error help-block">{{.Promocion.EFechaFinPromocion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="FechaFin" id="FechaFin" class="form-control" value="{{.Promocion.EFechaFinPromocion.FechaFin}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cantidad">Cantidad:</label>
+								
+								{{if .Promocion.EPorcentajeDescPromocion.PorcentajeDesc.ECantidadPorcentajeDesc.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Cantidad" id="Cantidad" class="form-control" value="{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc.ECantidadPorcentajeDesc.Cantidad}}" aria-required="true" aria-describedby="Cantidad-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Cantidad-error" class="error help-block">{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc.ECantidadPorcentajeDesc.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Cantidad" id="Cantidad" class="form-control" value="{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc.ECantidadPorcentajeDesc.Cantidad}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Valor">Valor:</label>
+								
+								{{if .Promocion.EPorcentajeDescPromocion.PorcentajeDesc.EValorPorcentajeDesc.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Valor" id="Valor" class="form-control" value="{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc.EValorPorcentajeDesc.Valor}}" aria-required="true" aria-describedby="Valor-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Valor-error" class="error help-block">{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc.EValorPorcentajeDesc.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Valor" id="Valor" class="form-control" value="{{.Promocion.EPorcentajeDescPromocion.PorcentajeDesc.EValorPorcentajeDesc.Valor}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+							<button type="button" onclick="window.location.href = '/Promocions';" class="btn btn-default btn-lg">Index</button>
+							<button type="button" onclick="EditaPromocion('Detalle')" class="btn btn-primary btn-lg">Edita</button>
+							<button type="button" onclick="window.location.href = '/Promocions/alta';" class="btn btn-success btn-lg">Nuevo</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

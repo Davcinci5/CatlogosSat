@@ -1,0 +1,282 @@
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  PuntoVentaEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="icon" type="image/png" href="../img/k.ico" />
+    <!--#################### ESTILOS GENERALES #########################-->
+    {{template "styles_layout"}}
+    <!--#################### TUS ESTILOS ###############################-->
+
+    <!--#################### SCRIPTS GENERALES #########################-->
+    {{template "scripts_layout"}}
+    <!--#################### TUS SCRIPTS #########################-->
+    <script src="../../Locales/PuntoVenta/js/PuntoVenta.js"></script>
+    <!--#################### CABECERA #########################-->
+    {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+
+<body>
+
+    {{template "menu_layout" }}
+    <div class="col-md-10" style="padding-bottom: 5%;" id="SeccionCuerpo">
+        {{if .SEstado}} {{if .SMsj}}
+        <div class="alert alert-success alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong><h4>{{.SMsj}}</h4></strong>
+        </div>
+        {{end}} {{else}} {{if .SMsj}}
+        <div class="alert alert-danger alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong><h4>{{.SMsj}}</h4></strong>
+        </div>
+        {{end}} {{end}}
+
+        <h1>Edición de Pedido</h1>
+        <form id="Form_Alta_PuntoVenta" class="form-horizontal" method="POST">
+
+            <input type="text" id="Operacion" name="Operacion" value="{{.PuntoVenta.EOperacionPuntoVenta.Operacion.Hex}}" hidden />
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Operacion">Operacion:</label> {{if .PuntoVenta.EOperacionPuntoVenta.IEstatus}}
+                <div class="col-sm-5 has-feedback has-error">
+                    <input type="text" name="identidicadorOp" id="identidicadorOp" class="form-control" value="{{.PuntoVenta.EOperacionPuntoVenta.Operacion.Hex}}" aria-required="true" aria-describedby="Operacion-error" aria-invalid="true">
+                    <span class="glyphicon form-control-feedback glyphicon-remove"></span>
+                    <em id="Operacion-error" class="error help-block">{{.PuntoVenta.EOperacionPuntoVenta.IMsj}}</em>
+                </div>
+                <button type="button" onclick="traeOperacion()" class="btn btn-primary">Buscar</button> {{else}}
+                <div class="col-sm-5">
+                    <input type="text" name="identidicadorOp" id="identidicadorOp" class="form-control" value="{{.PuntoVenta.EOperacionPuntoVenta.Operacion.Hex}}">
+                </div>
+                <button type="button" onclick="traeOperacion()" class="btn btn-primary">Buscar</button> {{end}}
+            </div>
+            <br>
+            <br>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Almacen">Almacen De Busqueda Principal(Provisional):</label> {{if .PuntoVenta.EOperacionPuntoVenta.IEstatus}}
+                <div class="col-sm-5 has-feedback has-error">
+                    <select id="Almacen" name="Almacen" class="form-control selectpicker" aria-required="true" aria-describedby="Almacen-error" aria-invalid="true">
+											{{.PuntoVenta.EOperacionPuntoVenta.Ihtml}}
+										</select>
+                    <span class="glyphicon form-control-feedback glyphicon-remove"></span>
+                    <em id="Almacen-error" class="error help-block">{{.PuntoVenta.EOperacionPuntoVenta.IMsj}}</em>
+                </div>
+                {{else}}
+                <div class="col-sm-5">
+                    <select id="Almacen" name="Almacen" class="form-control selectpicker">
+											{{.PuntoVenta.EOperacionPuntoVenta.Ihtml}}
+										</select>
+                </div>
+                {{end}}
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="Codigo">Código o Descripción:</label> {{if .PuntoVenta.ECodigoPuntoVenta.IEstatus}}
+                <div class="col-sm-5 has-feedback has-error">
+                    <input type="text" name="Codigo" id="Codigo" class="form-control" value="" aria-required="true" aria-describedby="Codigo-error" aria-invalid="true">
+                    <span class="glyphicon form-control-feedback glyphicon-remove"></span>
+                    <em id="Codigo-error" class="error help-block">{{.PuntoVenta.ECodigoPuntoVenta.IMsj}}</em>
+                </div>
+                <button type="button" onclick="traeProducto()" class="btn btn-primary">Buscar Producto</button> {{else}}
+                <div class="col-sm-5">
+                    <input type="text" name="Codigo" id="Codigo" class="form-control" value="">
+                </div>
+                <button type="button" onclick="traeProducto()" class="btn btn-primary">Buscar Producto</button> {{end}}
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{if .PuntoVenta.ECarritoPuntoVenta.IEstatus}}
+                    <div class="row">
+                        <table class="table table-hover table-striped" id="Carrito">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>origen</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Importe</th>
+                                    <th data-editable="true">Impuesto</th>
+                                    <th>Total</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="idbody">
+                                {{.PuntoVenta.ECarritoPuntoVenta.Ihtml}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{else}}
+                    <div class="row">
+                        <table class="table table-hover table-striped" id="Carrito">
+                            <thead>
+                                <tr>
+                                    <th>Código(s)</th>
+                                    <th>Descripción</th>
+                                    <th>Origen</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidad</th>
+                                    <th>Importe</th>
+                                    <th data-editable="true">Impuesto</th>
+                                    <th>Total</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="idbody">
+                                {{.PuntoVenta.ECarritoPuntoVenta.Ihtml}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{end}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-7"></div>
+                <div class="col-md-4">
+                    {{if .PuntoVenta.EResumenPuntoVenta.IEstatus}}
+                    <div class="row">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>RESUMEN DE COMPRA</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="calculadora">
+                                {{if .PuntoVenta.EResumenPuntoVenta.Ihtml}} {{.PuntoVenta.EResumenPuntoVenta.Ihtml}} {{else}}
+                                <tr>
+                                    <td>SubTotal:</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Impuestos:</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Total:</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                        <button type="button" onclick="ValidaVenta()" class="active btn btn-block btn-lg btn-warning">Procesar Pago</button>
+                    </div>
+                    {{else}}
+                    <div class="row">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>RESUMEN DE COMPRA</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="calculadora">
+                                {{if .PuntoVenta.EResumenPuntoVenta.Ihtml}} {{.PuntoVenta.EResumenPuntoVenta.Ihtml}} {{else}}
+                                <tr>
+                                    <td>SubTotal:</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Impuestos:</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Total:</td>
+                                    <td>$0.00</td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                        <button type="button" onclick="ValidaVenta()" class="active btn btn-block btn-lg btn-warning">Procesar Pago</button>
+                    </div>
+                    {{end}}
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <div class="col-md-9 text-right">
+                    <!--<button type="button" onclick="window.location.href = '/PuntoVentas';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>-->
+                    <button style="display: none;" id="BuscaProductos" name="BuscaProductos" value="busqueda" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalProductos"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Modal Productos -->
+        <div id="modalProductos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title">Seleccione Producto</h4>
+                    </div>
+
+                    <div class="modal-body row">
+
+                        <table class="table table-hover table-striped" id="Carrito">
+                            <thead>
+                                <tr>
+                                    <th>Img</th>
+                                    <th>Código(s)</th>
+                                    <th>Descripción</th>
+                                    <th>Unidad</th>
+                                    <th>Precio</th>
+                                    <th>Origen</th>
+                                    <th>Disp</th>
+                                    <th>Agregar</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="BProductos">
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelar_Producto_Modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="AplicaPeticionModal()" id="Aceptar_Producto_Modal">Aceptar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</body>
+
+<footer>    
+    {{template "footer_layout"}}
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

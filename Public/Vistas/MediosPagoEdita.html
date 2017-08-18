@@ -1,0 +1,186 @@
+
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  MediosPagoEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/MediosPago/js/MediosPago.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Edición de MediosPagos</h1>
+			<form id="Form_Alta_MediosPago" class="form-horizontal" method="POST">
+
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+								{{if .MediosPago.ENombreMediosPago.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Nombre" name="Nombre" class="form-control selectpicker" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+											{{.MediosPago.ENombreMediosPago.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Nombre-error" class="error help-block">{{.MediosPago.ENombreMediosPago.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Nombre" name="Nombre" class="form-control selectpicker">
+											{{.MediosPago.ENombreMediosPago.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .MediosPago.EDescripcionMediosPago.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del MediosPago..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true">{{.MediosPago.EDescripcionMediosPago.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.MediosPago.EDescripcionMediosPago.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del MediosPago..." 
+									style="width: 100%">{{.MediosPago.EDescripcionMediosPago.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+								{{if .MediosPago.ETipoMediosPago.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+											{{.MediosPago.ETipoMediosPago.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Tipo-error" class="error help-block">{{.MediosPago.ETipoMediosPago.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Tipo" name="Tipo" class="form-control selectpicker">
+											{{.MediosPago.ETipoMediosPago.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Comision">Comision:</label>
+							{{if .MediosPago.EComisionMediosPago.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Comision" id="Comision" class="form-control" value="{{.MediosPago.EComisionMediosPago.Comision}}" aria-required="true" aria-describedby="Comision-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Comision-error" class="error help-block">{{.MediosPago.EComisionMediosPago.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Comision" id="Comision" class="form-control" value="{{.MediosPago.EComisionMediosPago.Comision}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Cambio">Cambio:</label>
+							{{if .MediosPago.ECambioMediosPago.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="radio" id="Cambio" name="Cambio" value="Cambio"  class="custom-control-input" aria-required="true" aria-describedby="Cambio-error" aria-invalid="true" {{.MediosPago.ECambioMediosPago.Ihtml}}>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Cambio-error" class="error help-block">{{.MediosPago.ECambioMediosPago.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="checkbox" id="Cambio" name="Cambio" value="Cambio"  class="custom-control-input" {{.MediosPago.ECambioMediosPago.Ihtml}}>
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+								{{if .MediosPago.EEstatusMediosPago.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.MediosPago.EEstatusMediosPago.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.MediosPago.EEstatusMediosPago.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker">
+											{{.MediosPago.EEstatusMediosPago.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<input type="text" name="IDname" hidden="true" value="{{.MediosPago.ID.Hex}}">
+
+			<div class="form-group">			
+				<div class="col-md-9 text-right">
+					<button type="button" onclick="window.location.href = '/MediosPagos';" class="btn btn-default btn-lg">Index</button>
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

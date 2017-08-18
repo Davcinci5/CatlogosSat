@@ -1,0 +1,310 @@
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  ListaPrecioAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="icon" type="image/png" href="../img/k.ico" />
+    <!--#################### ESTILOS GENERALES #########################-->
+    {{template "styles_layout"}}
+    <!--#################### TUS ESTILOS ###############################-->
+
+    <style type="text/css">
+        .radiogaga {
+            width: 15px;
+            height: 15px;
+        }
+    </style>
+    <!--#################### SCRIPTS GENERALES #########################-->
+    {{template "scripts_layout"}}
+    <!--#################### TUS SCRIPTS #########################-->
+    <script src="../../Locales/Compra/js/Compra.js"></script>
+    <!--#################### CABECERA #########################-->
+    {{template "header_layout" .SSesion}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+
+<body>
+
+    {{template "menu_layout" }}
+    <div class="col-md-10" style="padding-bottom: 5%;" id="SeccionCuerpo">
+
+        {{if .SEstado}} {{if .SMsj}}
+        <div class="alert alert-success alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong><h4>{{.SMsj}}</h4></strong>
+        </div>
+        {{end}} {{else}} {{if .SMsj}}
+        <div class="alert alert-danger alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong><h4>{{.SMsj}}</h4></strong>
+        </div>
+        {{end}} {{end}}
+        <form role="form" id="Form_Alta_Compra" class="form-horizontal" method="POST">
+            <div class="col-md-12">
+                <h3>
+                    <center>Nueva Compra</center>
+                </h3>
+            </div>
+
+            <div class="container">
+                <div>
+                    <label for="Catalogos" class="control-label input-lg"> Seleccione su almacén: </label>
+                </div>
+                <div class="col-sm-5">
+
+                    {{if eq .AlmacenesDisponibles 0}}
+                    <select id="AlmacenDefecto" name="AlmacenDefecto" class="select form-control input-lg selectpicker" disabled>
+		          {{else}}
+                <select id="AlmacenDefecto" name="AlmacenDefecto" class="select form-control input-lg selectpicker" required>
+		          {{end}}
+
+                  {{.Almacen.ENombreAlmacen.Ihtml}}
+              </select>
+                </div>
+
+                <div class="col-sm-5">
+                    <input type="text" class="form-control custom-control-input" id="Codigo" name="Codigo" placeholder="Código de Producto">
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button" id="btnBuscar" class="btn btn-info btn-lg" onClick="buscarProductos()">
+          <span class="glyphicon glyphicon-search">Buscar</span>
+        </button>
+                    <button id="btnModal" type="button" data-toggle="modal" data-target="#ModalProductos" hidden></button>
+                </div>
+            </div>
+
+
+
+            <br/>
+            <br/>
+
+            <div class="section">
+                <div class="container">
+
+                    <div class="row">
+                        <!-- Contenedor para la sección de precios a establecer -->
+
+                        <div class="col-md-7">
+
+                            <!--Tabla de Productos -->
+                            <div>
+                                <table class="table">
+                                    <thead class="thead-inverse">
+                                        <th> Información del producto </th>
+                                    </thead>
+                                    <tbody id="listaProductos">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--Termina la sección para los detalles del producto -->
+
+                        </div>
+
+                        <div class="col-md-5">
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="CantidadComprada">Cantidad comprada</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    <input class="form-control" id="CantidadComprada" name="CantidadComprada" placeholder="¿Cuantos compraste?" type="number">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="CostoGeneral">Costo unitario de compra</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    <input class="form-control" id="CostoGeneral" name="CostoGeneral" placeholder="Precio compra sin impuestos" type="number">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="PrecioGeneral">Precio unitario para venta</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    <input class="form-control" id="PrecioGeneral" name="PrecioGeneral" placeholder="Precio venta sin impuestos" type="number">
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="TipoImpuesto">Tipo De Impuesto</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    <select id="TipoImpuesto" name="TipoImpuesto" class="select form-control input selectpicker">
+                                        {{.Almacen.ETipoAlmacen.Ihtml}} 
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="Impuesto">Valor:</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    <input class="form-control" id="Impuesto" name="Impuesto" placeholder="0.000" type="number" onchange="ValidaNumero(this)">
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="Factor">Tipo de Factor:</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    Tasa<input type="radio" id="Tasa" name="Factor" value="Tasa" class="custom-control-input radiogaga"> Cuota
+                                    <input type="radio" id="Cuota" name="Factor" value="Cuota" class="custom-control-input radiogaga" checked> Exento
+                                    <input type="radio" id="Exento" name="Factor" value="Exento" class="custom-control-input radiogaga">
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div>
+                                    <label class="control-label" for="Impuesto">¿Retenido o Trasladado?</label>
+                                </div>
+                                <div class="col-sm-5 text-center">
+                                    Trasladado<input type="radio" id="Trasladado" name="Retenido" value="Trasladado" class="custom-control-input radiogaga" checked> Retenido
+                                    <input type="radio" id="Retenido" name="Retenido" value="Retenido" class="custom-control-input radiogaga">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <button id="AgregaImpuesto" name="Agregar" type="button" class="btn btn-success col-md-4"><span class="glyphicon glyphicon-plus"></span>Agregar Impuesto</button>
+                            </div>
+
+                            <hr>
+
+
+                            <!-- Termina el contenedor de la sección de precios -->
+                        </div>
+
+
+
+                        <hr>
+
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="table-responsive container col-md-5" id="div_tabla_impuestos">
+                        <table class="table table-condensed table-hover">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                    <th>Factor</th>
+                                    <th>Retenido</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_impuestos">
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <br/>
+                    <br/>
+                    <!-- Contededor de la tabla de almacenes -->
+                    <div class="col-md-10">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-striped bg-info">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>Alta en</th> -->
+                                        <th>Almacen</th>
+                                        <th>Existencia</th>
+                                        <th>Ultimo P. Costo</th>
+                                        <th>Ultimo P. Venta</th>
+                                        <th>Cantidad a Ingresar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AlmacenesProductos"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--Termina el Contededor de la tabla de almacenes -->
+                    <div class="col-md-10 text-right">
+                        <button type="button" onclick="window.location.href = '/Compras';" class="btn btn-default btn-lg">Index</button> {{if eq .AlmacenesDisponibles 0}}
+                        <button type="submit" class="btn btn-success btn-lg" disabled>Guardar</button> {{else}}
+                        <button type="submit" class="btn btn-success btn-lg">Guardar</button> {{end}}
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal text-center" id="ModalProductos">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Seleccionar productos</h4>
+                        </div>
+                        <div class="modal-body bg-info">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Descripción</th>
+                                                    <th>Codigos</th>
+                                                    <th>Tipo</th>
+                                                    <th>Unidad</th>
+                                                    <th>Estatus</th>
+                                                    <th>Etiquetas extras</th>
+                                                    <th>Imagen</th>
+                                                    <th>Seleccionar</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Carrito">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-default" id="CerrarModal" data-dismiss="modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+
+<footer>
+
+    {{template "footer_layout"}}
+
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

@@ -1,0 +1,306 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  CotizacionAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Cotizacion/js/Cotizacion.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Cotizacions</h1>
+			<form id="Form_Alta_Cotizacion" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Operacion">Operacion:</label>
+							{{if .Cotizacion.EOperacionCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Operacion" id="Operacion" class="form-control" value="{{.Cotizacion.EOperacionCotizacion.Operacion}}" aria-required="true" aria-describedby="Operacion-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Operacion-error" class="error help-block">{{.Cotizacion.EOperacionCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Operacion" id="Operacion" class="form-control" value="{{.Cotizacion.EOperacionCotizacion.Operacion}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Usuario">Usuario:</label>
+							{{if .Cotizacion.EUsuarioCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Cotizacion.EUsuarioCotizacion.Usuario}}" aria-required="true" aria-describedby="Usuario-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Usuario-error" class="error help-block">{{.Cotizacion.EUsuarioCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Cotizacion.EUsuarioCotizacion.Usuario}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Equipo">Equipo:</label>
+							{{if .Cotizacion.EEquipoCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Equipo" id="Equipo" class="form-control" value="{{.Cotizacion.EEquipoCotizacion.Equipo}}" aria-required="true" aria-describedby="Equipo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Equipo-error" class="error help-block">{{.Cotizacion.EEquipoCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Equipo" id="Equipo" class="form-control" value="{{.Cotizacion.EEquipoCotizacion.Equipo}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cliente">Cliente:</label>
+								{{if .Cotizacion.EClienteCotizacion.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Cliente" name="Cliente" class="form-control selectpicker" aria-required="true" aria-describedby="Cliente-error" aria-invalid="true">
+											{{.Cotizacion.EClienteCotizacion.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Cliente-error" class="error help-block">{{.Cotizacion.EClienteCotizacion.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Cliente" name="Cliente" class="form-control selectpicker">
+											{{.Cotizacion.EClienteCotizacion.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Grupo">Grupo:</label>
+								{{if .Cotizacion.EGrupoCotizacion.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Grupo" name="Grupo" class="form-control selectpicker" aria-required="true" aria-describedby="Grupo-error" aria-invalid="true">
+											{{.Cotizacion.EGrupoCotizacion.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Grupo-error" class="error help-block">{{.Cotizacion.EGrupoCotizacion.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Grupo" name="Grupo" class="form-control selectpicker">
+											{{.Cotizacion.EGrupoCotizacion.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .Cotizacion.ENombreCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Cotizacion.ENombreCotizacion.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Cotizacion.ENombreCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Cotizacion.ENombreCotizacion.Nombre}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Telefono">Telefono:</label>
+							{{if .Cotizacion.ETelefonoCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Cotizacion.ETelefonoCotizacion.Telefono}}" aria-required="true" aria-describedby="Telefono-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Telefono-error" class="error help-block">{{.Cotizacion.ETelefonoCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Cotizacion.ETelefonoCotizacion.Telefono}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Correo">Correo:</label>
+							{{if .Cotizacion.ECorreoCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Correo" id="Correo" class="form-control" value="{{.Cotizacion.ECorreoCotizacion.Correo}}" aria-required="true" aria-describedby="Correo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Correo-error" class="error help-block">{{.Cotizacion.ECorreoCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Correo" id="Correo" class="form-control" value="{{.Cotizacion.ECorreoCotizacion.Correo}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="FormaDePago">FormaDePago:</label>
+								{{if .Cotizacion.EFormaDePagoCotizacion.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="FormaDePago" name="FormaDePago" class="form-control selectpicker" aria-required="true" aria-describedby="FormaDePago-error" aria-invalid="true">
+											{{.Cotizacion.EFormaDePagoCotizacion.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="FormaDePago-error" class="error help-block">{{.Cotizacion.EFormaDePagoCotizacion.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="FormaDePago" name="FormaDePago" class="form-control selectpicker">
+											{{.Cotizacion.EFormaDePagoCotizacion.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="FormaDeEnvío">FormaDeEnvío:</label>
+								{{if .Cotizacion.EFormaDeEnvíoCotizacion.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="FormaDeEnvío" name="FormaDeEnvío" class="form-control selectpicker" aria-required="true" aria-describedby="FormaDeEnvío-error" aria-invalid="true">
+											{{.Cotizacion.EFormaDeEnvíoCotizacion.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="FormaDeEnvío-error" class="error help-block">{{.Cotizacion.EFormaDeEnvíoCotizacion.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="FormaDeEnvío" name="FormaDeEnvío" class="form-control selectpicker">
+											{{.Cotizacion.EFormaDeEnvíoCotizacion.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Buscar">Buscar:</label>
+							{{if .Cotizacion.EBuscarCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Buscar" id="Buscar" class="form-control" value="{{.Cotizacion.EBuscarCotizacion.Buscar}}" aria-required="true" aria-describedby="Buscar-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Buscar-error" class="error help-block">{{.Cotizacion.EBuscarCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Buscar" id="Buscar" class="form-control" value="{{.Cotizacion.EBuscarCotizacion.Buscar}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Lista">Lista:</label>
+							{{if .Cotizacion.EListaCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Lista" id="Lista" class="form-control" value="{{.Cotizacion.EListaCotizacion.Lista}}" aria-required="true" aria-describedby="Lista-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Lista-error" class="error help-block">{{.Cotizacion.EListaCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Lista" id="Lista" class="form-control" value="{{.Cotizacion.EListaCotizacion.Lista}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Carrito">Carrito:</label>
+							{{if .Cotizacion.ECarritoCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Carrito" id="Carrito" class="form-control" value="{{.Cotizacion.ECarritoCotizacion.Carrito}}" aria-required="true" aria-describedby="Carrito-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Carrito-error" class="error help-block">{{.Cotizacion.ECarritoCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Carrito" id="Carrito" class="form-control" value="{{.Cotizacion.ECarritoCotizacion.Carrito}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Resumen">Resumen:</label>
+							{{if .Cotizacion.EResumenCotizacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Resumen" id="Resumen" class="form-control" value="{{.Cotizacion.EResumenCotizacion.Resumen}}" aria-required="true" aria-describedby="Resumen-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Resumen-error" class="error help-block">{{.Cotizacion.EResumenCotizacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Resumen" id="Resumen" class="form-control" value="{{.Cotizacion.EResumenCotizacion.Resumen}}">
+								</div>  
+							{{end}}
+						</div>
+					
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Cotizacions';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

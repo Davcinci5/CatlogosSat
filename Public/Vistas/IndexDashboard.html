@@ -1,0 +1,121 @@
+<!-- ############################## <  VISTA LOGIN > #####################################-->
+<!-- ############################## <  Login.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="icon" type="image/png" href="../img/k.ico" />
+    <!--#################### ESTILOS GENERALES #########################-->
+    {{template "styles_layout"}}
+    <!--#################### TUS ESTILOS ###############################-->
+
+    <!--#################### SCRIPTS GENERALES #########################-->
+    {{template "scripts_layout"}}
+    <!--#################### TUS SCRIPTS #########################-->
+    <script src="../../Locales/Login/js/Login.js"></script>
+    <link rel="stylesheet" href="../../Locales/Login/css/Login.css">
+    <!--#################### CABECERA #########################-->
+    {{template "header_layout" .}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+
+<body>
+    {{template "menu_layout" }}
+    <div class="col-md-10" style="padding-bottom: 5%;" id="SeccionCuerpo">
+        <div class="row">
+        <div class="container">
+            <div class="col-sm-4"></div>
+
+            <div class="col-sm-6">
+                <h1 class="recuperarh1">Bienvenido {{.Name}}</h1>
+                <div class="col-sm-3"></div>
+                <!--
+                <div class="col-sm-9">
+                    <p>Fecha: 37 de diciembre de 2117</p>
+                    <br>
+                    <p>Hora: 1800 </p>
+                    <br>
+                    <p>
+                        <h1>Te encuentras en el Acceso 10</h1>
+                    </p>
+                </div>
+                -->
+                <div class="clearfix"></div>
+                <br>
+
+            </div>
+
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+
+
+                </div>
+            </div>
+
+            <div class="col-sm-offset-3 col-sm-9">
+                <div class="col-sm-3">
+                    <label for="">Ver perfil:</label>
+                </div>
+                <div class="col-sm-3">
+                    <a href="/Cuenta/{{.IDS}}">
+                        <img src="../../img/gears.png" alt="AdminGears" style="width:42px;height:42px;border:0;">
+                    </a>
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="">Notificaciones:</label>
+                </div>
+
+                <div class="col-sm-3">
+                    <a href="/Notificaciones/{{.IDS}}">
+                        <img src="../../img/gear.png" alt="AdminGear" style="width:42px;height:42px;border:0;">
+                    </a>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <br>
+
+            <div class="col-sm-offset-9 col-sm-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Administrador
+                <span class="caret"></span>
+                </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Politicas</a></li>
+                        <li><a href="#">Accesos</a></li>
+                        <li><a href="#">Usuarios</a></li>
+                        <li><a href="#">Grupos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+
+<footer>
+
+    {{template "footer_layout"}}
+
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

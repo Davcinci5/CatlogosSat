@@ -1,0 +1,228 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  KitAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Kit/js/Kit.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Kits</h1>
+			<form id="Form_Alta_Kit" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .Kit.ENombreKit.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Kit.ENombreKit.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Kit.ENombreKit.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Kit.ENombreKit.Nombre}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+								{{if .Kit.ETipoKit.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+											{{.Kit.ETipoKit.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Tipo-error" class="error help-block">{{.Kit.ETipoKit.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Tipo" name="Tipo" class="form-control selectpicker">
+											{{.Kit.ETipoKit.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Aplicación">Aplicación:</label>
+								{{if .Kit.EAplicaciónKit.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Aplicación" name="Aplicación" class="form-control selectpicker" aria-required="true" aria-describedby="Aplicación-error" aria-invalid="true">
+											{{.Kit.EAplicaciónKit.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Aplicación-error" class="error help-block">{{.Kit.EAplicaciónKit.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Aplicación" name="Aplicación" class="form-control selectpicker">
+											{{.Kit.EAplicaciónKit.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Imagenes">Imagenes:</label>
+							{{if .Kit.EImagenesKit.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Imagenes" id="Imagenes" class="form-control" value="{{.Kit.EImagenesKit.Imagenes}}" aria-required="true" aria-describedby="Imagenes-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Imagenes-error" class="error help-block">{{.Kit.EImagenesKit.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Imagenes" id="Imagenes" class="form-control" value="{{.Kit.EImagenesKit.Imagenes}}">
+								</div>  
+							{{end}}
+						</div>
+					
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Almacen">Almacen:</label>
+								
+								{{if .Kit.EConformacionKit.Conformacion.EAlmacenConformacion.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Almacen" name="Almacen" class="form-control selectpicker" aria-required="true" aria-describedby="Almacen-error" aria-invalid="true">
+												{{.Kit.EConformacionKit.Conformacion.EAlmacenConformacion.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Almacen-error" class="error help-block">{{.Kit.EConformacionKit.Conformacion.EAlmacenConformacion.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Almacen" name="Almacen" class="form-control selectpicker">
+											{{.Kit.EConformacionKit.Conformacion.EAlmacenConformacion.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="IDProducto">IDProducto:</label>
+								
+								{{if .Kit.EProductosKit.Productos.EIDProductoProductos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="IDProducto" id="IDProducto" class="form-control" value="{{.Kit.EProductosKit.Productos.EIDProductoProductos.IDProducto}}" aria-required="true" aria-describedby="IDProducto-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="IDProducto-error" class="error help-block">{{.Kit.EProductosKit.Productos.EIDProductoProductos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="IDProducto" id="IDProducto" class="form-control" value="{{.Kit.EProductosKit.Productos.EIDProductoProductos.IDProducto}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cantidad">Cantidad:</label>
+								
+								{{if .Kit.EProductosKit.Productos.ECantidadProductos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Cantidad" id="Cantidad" class="form-control" value="{{.Kit.EProductosKit.Productos.ECantidadProductos.Cantidad}}" aria-required="true" aria-describedby="Cantidad-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Cantidad-error" class="error help-block">{{.Kit.EProductosKit.Productos.ECantidadProductos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Cantidad" id="Cantidad" class="form-control" value="{{.Kit.EProductosKit.Productos.ECantidadProductos.Cantidad}}">
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Precio">Precio:</label>
+								
+								{{if .Kit.EProductosKit.Productos.EPrecioProductos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Precio" id="Precio" class="form-control" value="{{.Kit.EProductosKit.Productos.EPrecioProductos.Precio}}" aria-required="true" aria-describedby="Precio-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Precio-error" class="error help-block">{{.Kit.EProductosKit.Productos.EPrecioProductos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Precio" id="Precio" class="form-control" value="{{.Kit.EProductosKit.Productos.EPrecioProductos.Precio}}">
+									</div>  
+								{{end}}
+							</div>
+						
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Kits';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Minisuper 404</title>
+    <meta name="description" content="Control de errores, página no enocntrada">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {margin:0; padding:0;}
+        body {
+            background:#e8eef0  no-repeat top center;
+            font-family:Helvetica Neue, Helvetica, sans-serif;
+            line-height:1.6em;
+            font-size:20px;
+            text-align:center;
+        }
+        #main {width:650px; margin:230px auto;}
+        #message {margin-bottom:30px;  margin-top:30px; }
+        #support {font-size:16px; color:#666;}
+    </style>
+</head>
+<body>
+<div id="main">
+    <p id="error">        
+        {{.Tipo}}
+    </p>
+    <p id="message">        
+{{.Mensaje}}
+    </p>
+    <p id="support">
+        {{.Soporte}}
+    </p>
+</div>
+<!-- 404 Page Not Found		<p>The page you requested was not found.</p>		-->
+</body>
+</html>

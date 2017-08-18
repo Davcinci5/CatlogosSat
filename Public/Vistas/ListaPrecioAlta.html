@@ -1,0 +1,133 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  ListaPrecioAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/ListaPrecio/js/ListaPrecio.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de ListaPrecios</h1>
+			<form id="Form_Alta_ListaPrecio" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .ListaPrecio.ENombreListaPrecio.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.ListaPrecio.ENombreListaPrecio.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.ListaPrecio.ENombreListaPrecio.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.ListaPrecio.ENombreListaPrecio.Nombre}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .ListaPrecio.EDescripcionListaPrecio.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del ListaPrecio..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true">{{.ListaPrecio.EDescripcionListaPrecio.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.ListaPrecio.EDescripcionListaPrecio.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del ListaPrecio..." 
+									style="width: 100%">{{.ListaPrecio.EDescripcionListaPrecio.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="GrupoP">GrupoP:</label>
+								{{if .ListaPrecio.EGrupoPListaPrecio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="GrupoP" name="GrupoP" class="form-control selectpicker" aria-required="true" aria-describedby="GrupoP-error" aria-invalid="true">
+											{{.ListaPrecio.EGrupoPListaPrecio.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="GrupoP-error" class="error help-block">{{.ListaPrecio.EGrupoPListaPrecio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="GrupoP" name="GrupoP" class="form-control selectpicker">
+											{{.ListaPrecio.EGrupoPListaPrecio.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/ListaPrecios';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

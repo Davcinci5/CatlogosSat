@@ -1,0 +1,35 @@
+.divPerContacto{
+    border: 1px solid #337ab7;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+
+.CabContactoPersona{
+    border-bottom: 1px solid #337ab7;
+    color: #fff;
+    background-color: #337ab7;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 18px;
+}
+
+.CabContactoPersona:hover{
+    cursor: pointer;
+}
+
+.titlePerCon{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.botonDeleteCP{
+    float: right;
+}
+
+.botonDeleteCP:Hover{
+    color: #ff0000;
+    text-decoration: underline;
+}

@@ -1,0 +1,27 @@
+
+<h4>RESUMEN</h4>
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Operacion</th>
+        <th>Cargo</th>
+        <th>Abono</th>
+		<th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+		{{range .caja}}
+      <tr>
+        <td>{{.ID.Hex}}</td>	
+        <td>{{.Cargo}}</td>
+        <td>{{.Abono}}</td>
+		<td>{{.FechaHora}}</td>
+      </tr>
+		{{end}}
+    </tbody>
+	<tfoot>
+		<tr>
+	
+		</tr>
+	</tfoot>
+  </table>

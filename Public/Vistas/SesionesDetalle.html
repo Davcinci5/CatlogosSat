@@ -1,0 +1,97 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  SesionesDetalle.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->		
+	<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.mobile.min.css" />
+<!--#################### CABECERA #########################-->
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+	<script src="../../Locales/Sesion/js/Sesion.js"></script>		
+	<script src="/Plugins/Kendo/js/kendo.all.min.js" type="text/javascript" ></script>
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Detalle de Sesion</h1>
+			<br>
+			<form id="Form_Detalle_Sesion" class="form-horizontal" method="POST">
+				
+				{{if .Sesion.IEstatus}}
+					<div class="alert alert-danger alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong><h3>{{.Sesion.IMsj}}</h3></strong> 
+					</div>
+				{{else}}
+					<div class="col-md-offset-4"><h2> Sesiones De Usuario: {{.Sesion.Nombre}}<h2></div>
+					<input type="text" id="ID" name="IDname" hidden="true" value="{{.Sesion.Nombre}}">
+						<div class="col-md-10 col-md-offset-1">	
+						{{.Sesion.Ihtml}}
+					</div>	
+				{{end}}
+
+									
+						
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Sesiones';" class="btn btn-default btn-lg">Index</button>
+							<button type="button" onclick="EditaSesion('Detalle')" class="btn btn-primary btn-lg">Edita</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

@@ -1,0 +1,83 @@
+{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Caja/js/Caja.js"></script>
+		<script src="../../Plugins/JquerySorteable/jquery.sortable.js"></script>
+<div class="container">
+	<div class="row">
+    <div class="col col-lg-6">
+		<table class="table table-hover table-sm table-bordered">
+		<thead>
+			<tr>
+			<th>Código</th>
+			<th>Descripción</th>
+			<th>Cantidad</th>
+			<th>Precio</th>
+			<th>Unidad</th>
+			<th>Importe</th>
+			</tr>
+		</thead>		
+		<tbody>
+			<input type="hidden" class="form-control" id="documentoIDx" value="{{.idOperacion}}">
+			<input type="hidden" class="form-control" id="importeDocumento" value="{{.total}}">
+			{{range .caja}}
+			<tr>
+			
+			<th scope="row">{{.ID.Hex}}<input type="text" class="form-control" id="documentoIDx" value="{{.ID.Hex}}"></th>
+			<td>{{.Tipo}}</td>
+			<td>{{.Concepto}}</td>
+			<td>{{.Monto}}<input type="text" class="form-control" id="importeDocumento" value="{{.Monto}}"></td>
+			</tr>
+			
+			{{end}}
+			{{.html}}
+		</tbody>
+		<tfoot>
+			<div class="pull-left">
+			{{.calculadora}}
+			</div>
+		</tfoot>
+		</table>
+		<div class="col col-lg-6">
+		</div>
+		<div class="col col-lg-6">
+			<!--<p><div style="border-style: dotted; font-size:09pt; height:30vh" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div></p>-->
+			<!--
+			<ul style="font-size:09pt;" class="source connected">
+				<li class="list-group-item active">+ Formas de pago</li>
+				<li class="list-group-item"></li>			
+			</ul>
+			-->
+			<div class="input-group">
+			<input type="text" id="cambio" class="form-control input-lg" placeholder="Su cambio" readonly>
+			<span class="input-group-btn">
+				<!--<button class="btn btn-secondary" type="button">Go!</button>-->
+				<button type="button" class="btn btn-primary btn-lg btn-block" onclick="insertaDocumento()">Aplicar</button>
+			</span>
+			</div>
+		</div>
+    </div>
+	<div class="col col-lg-4">
+		<!--
+		<ul class="list-group">
+			<li class="list-group-item active">Formas de pago</li>
+			{{range .formasdepago}}
+			<li style="cursor:move;" id="drag1" class="list-group-item" draggable="true" ondragstart="drag(event)"><p class="mb-1">{{.Nombre}}</p></li>
+			{{end}}
+		</ul>
+		-->
+		<ul class="list-group target compra connected" style="font-size:09pt;">
+			<li class="list-group-item active">Formas de pago</li>
+			{{range .formasdepago}}
+				<li style="cursor:move" title="arrastre y suelte" class="list-group-item"></span> {{.Descripcion}} <div class="input-group"><span class="input-group-addon">Monto</span><input onkeyup="validaMonto('{{.ID.Hex}}','{{.Cambio}}')" id="{{.ID.Hex}}" type="text" class="form-control fpagos" placeholder="0.00" aria-describedby="basic-addon1"></div>
+				{{if .Cambio}}
+				<span class="label label-info">ACEPTA CAMBIO</span>
+				{{else}}
+				<span class="label label-danger">NO ACEPTA CAMBIO</span>
+				{{end}}
+				</li>
+			{{end}}
+		</ul>
+
+	</div>
+	</div>
+</div>

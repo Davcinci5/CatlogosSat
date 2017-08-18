@@ -1,0 +1,92 @@
+// package BugControler
+
+// import (
+// 	"encoding/json"
+// 	"time"
+
+// 	"../../Modelos/BugModel"
+// 	"gopkg.in/kataras/iris.v6"
+
+// 	"../../Modulos/Session"
+// )
+
+// // AltaBug agrega problemas encontrados a mongo
+// func AltaBug(ctx *iris.Context) {
+// 	var Send BugModel.DataSBug
+// 	var BugMgo BugModel.BugMgo
+
+// 	SesionActiva, funcion, UsuarioLogeado, errSes := Session.GetDataSessionAJAX(ctx)
+
+// 	if errSes != nil {
+// 		Send.SEstado = false
+// 		Send.SMsj = errSes.Error()
+// 	}
+
+// 	if !SesionActiva {
+// 		Send.SEstado = false
+// 		Send.SMsj = "Necesitas iniciar Sesion"
+// 		Send.SFuncion = funcion
+// 		jData, _ := json.Marshal(Send)
+// 		ctx.Header().Set("Content-Type", "application/json")
+// 		ctx.Write(jData)
+// 		return
+// 	}
+
+// 	Send.SEstado = true
+// 	Titulo := ctx.FormValue("Titulo")
+// 	BugMgo.Titulo = Titulo
+
+// 	if Titulo == "" {
+// 		Send.SEstado = false
+// 		Send.SMsj = "Debes agregar un TITULO para identificar tu problema"
+// 	}
+
+// 	Contenido := ctx.FormValue("Contenido")
+// 	BugMgo.Contenido = Contenido
+// 	if Titulo == "" {
+// 		Send.SEstado = false
+// 		Send.SMsj = "Digas mam.. si agregas un problema, tienes que describir que ocurrio"
+// 	}
+
+// 	Ruta := ctx.FormValue("Ruta")
+// 	BugMgo.Ruta = Ruta
+// 	if Ruta == "" {
+// 		Send.SEstado = false
+// 		Send.SMsj = "No se recibio la RUTA de manera correcta"
+// 	}
+
+// 	BugMgo.Usuario = UsuarioLogeado
+
+// 	BugMgo.FechaHora = time.Now()
+
+// 	// BugMgo.Estatus  //Falta crear catalogo
+
+// 	if Send.SEstado {
+// 		if BugMgo.InsertaMgo() {
+// 			Send.SMsj = "Tu problema ha sido guardado, y sera atendido lo antes posible."
+// 			jData, _ := json.Marshal(Send)
+// 			ctx.Header().Set("Content-Type", "application/json")
+// 			ctx.Write(jData)
+// 			return
+// 		}
+// 		Send.SMsj = "Existio un problema al guardar el problema en Mongo"
+// 	}
+
+// 	jData, _ := json.Marshal(Send)
+// 	ctx.Header().Set("Content-Type", "application/json")
+// 	ctx.Write(jData)
+// 	return
+// }
+
+
+
+//GetValorDefaultCatalogoBugs regresa el (estatus)valor por defecto al dar de alta un bug
+func GetValorDefaultCatalogoBugs(Clave int) bson.ObjectId {
+	Magnitudes := GetEspecificByFields("Clave", int64(Clave))
+	for _, v := range Magnitudes.Valores {
+		if v.Valor == "PENDIENTE" {
+			return v.ID.Hex()
+		}
+	}
+	return ""
+}

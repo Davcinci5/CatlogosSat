@@ -1,0 +1,9 @@
+diff a/Controladores/CompraControler/CompraControler.go b/Controladores/CompraControler/CompraControler.go	(rejected hunks)
+@@ -332,6 +332,7 @@
+ 	if err == nil {
+ 		if encontrado {
+ 			producto.ActualizaAlmacenes(idAlmacen)
++			SKardex := EstructuraKardexvista(&kardexTotal, NameUsrLoged, IDUSR)
+ 			//SE PUEDE TOMA LA DECICIÓN QUE SE CREA MÁS PERTINENTE, EN ESTE CASO SE CONSIDERA EL DETALLE DEL OBJETO.
+ 			ctx.Render("ComprasDetalle.html", SKardex)
+ 		} else {

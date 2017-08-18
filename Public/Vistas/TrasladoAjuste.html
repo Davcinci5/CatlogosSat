@@ -1,0 +1,210 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  AlmacenMovimientos.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="icon" type="image/png" href="../img/k.ico" />
+	<!--#################### ESTILOS GENERALES #########################-->
+	{{template "styles_layout"}}
+	<!--#################### TUS ESTILOS ###############################-->
+	<link href="../../Locales/TrasladoAjuste/css/TrasladoAjuste.css" rel="stylesheet" type="text/css">
+	<!--#################### SCRIPTS GENERALES #########################-->
+	{{template "scripts_layout"}}
+	<!--#################### TUS SCRIPTS #########################-->
+	<script src="../../Locales/TrasladoAjuste/js/TrasladoAjuste.js"></script>
+	<!--#################### CABECERA #########################-->
+	{{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+
+<body>
+	{{template "menu_layout" }}
+	<div class="col-md-10" style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+		
+		<div class="container-fluid">
+			<div class="text-center">
+				<h2>Movimientos y Operaciones entre Almacenes</h2>
+			</div>
+			<div class="text-center">
+				<h3>Selecciona tus Alamacenes:</h3>
+			</div>
+			<div class="form-inline row">
+				<div class="form-group col-md-6 ">
+					<div class="input-group pull-right">
+						<div class="input-group-addon">Almacén Origen:</div>
+						<select class="form-control selectAlmacen" onchange="AjusteTraslado();" name="s_origen" id="s_origen">
+							<option selected="" value="Seleccione Origen..">Seleccione Origen</option>
+							{{.Ihtml}}
+						</select>
+					</div>
+				</div>
+				<div class="form-group col-md-6">
+					<div class="input-group">
+						<div class="input-group-addon">Almacén Destino:</div>
+						<select class="form-control selectAlmacen" onchange="AjusteTraslado();" name="s_destino" id="s_destino">
+							<option selected="" value="Seleccione Destino..">Seleccione Destino</option>
+							{{.Ihtml}}
+						</select>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div id="contenedorajustes" >
+			</div>
+			<br>
+
+<!--INicio del div, que se pasó del controlador de go a la vista, (editado por ramon cruz juarez) -->
+        <div class="page-header">
+			<h3 class="text-center" id="textoTipoMovimiento">Tipo movimiento : </h3>
+    	</div>
+        <div class="col-sm-12">
+        	<div class="checkbox">
+            	<label>
+                	<input id="agregarcantidad" name="agregarcantidad" type="checkbox">
+                    	Agregar cantidad al insertar codigo de barra
+                </label>
+            </div>
+        </div>
+        <div class="input-group input-group-md">
+            <span class="input-group-addon">Buscar Articulo:</span>
+            	<input type="text" name="elarticulo" onKeydown="Javascript: if (event.keyCode==13) buscarProducto();"  id="elarticulo" class="form-control selectpicker" disabled>
+                <input type="hidden" id="tipomovimiento" name="tipomovimiento">
+                <span class="input-group-addon">
+                <button type="button" class="btn btn-primary" onClick="buscarProducto();" > <span class="glyphicon glyphicon-search"></span>  Buscar</button>
+            </span>
+		</div>
+<!-- FIn del div que se agrego, en la co0rrecion de Ramon -->													
+			<div id="contenedortabla">
+				<table class="table table-bordered text-center">
+					<thead id="cabeceraajuste">
+							<tr>
+								<th hidden>Codigo</th>
+								<th>Nombre</th>
+								<th>Precio</th>
+								<th>Existencia</th>
+								<th>Operación</th>
+								<th>Cantidad a Ajustar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody id="contenedordeproductos">
+						</tbody>
+						<thead id="cabeceratraslado">
+							<tr>
+								<th hidden>Codigo</th>
+								<th>Nombre</th>
+								<th>Precio Or</th>
+								<th>Precio Dt</th>
+								<th>Exist Or</th>
+								<th>Exist Dt</th>
+								<th>Cantidad a Ajustar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<br>
+				<div id="contenedorbotonguardar">
+					<button class="btn btn-primary pull-right  btn-lg" onClick="Ejecutar()" name="realizarmov" id="realizarmov"><span class="glyphicon glyphicon-hand-right"></span> Realizar</button>
+					<!--<input type="button" class="btn btn-primary pull-right  btn-lg" onClick="Ejecutar()" value="Realizar" name="realizarmov" id="realizarmov">-->
+				</div>
+				<br>
+				<div id="contenedornoencontrado">
+				</div>
+		</div>
+
+
+
+		<!--Modal para busqueda -->
+		<div class="modal fade bd-example-modal-lg" id="modal-search" data-backdrop="static" data-keyboard="false" tabindex="-1"
+		 role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!--<div class="modal-header">
+						<h5 class="modal-title">Buscar articulo</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          			<span aria-hidden="true">&times;</span>
+		        		</button>
+					</div>-->
+					<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title" id="exampleModalLabel">Seleccionar Articulo.</h4>
+      				</div>
+					<div class="modal-body">
+						<div style="margin-top:10px"></div>
+						<div class="container-fluid" id="result-mongo-range-search">
+							<table class="table table-hover table-striped">
+								<thead>
+									<tr>
+										<th>Descripción</th>
+										<th>Codigos</th>
+										<th>Tipo</th>
+										<th>Unidad</th>
+										<th>Estatus</th>
+										<th>Etiquetas extras</th>
+										<th>Seleccionar</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="Carrito">
+								</tbody>
+							</table>
+						</div>
+
+						<nav id="search-pagination" aria-label="Page navigation example" style="text-align: center;">
+
+						</nav>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="CerrarModal" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

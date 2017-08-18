@@ -1,0 +1,353 @@
+<!-- ############################## <  VISTA DETALLE  > #####################################-->
+<!-- ############################## <  ClienteDetalle.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+	<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.common.min.css" />
+	<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.min.css" />
+	<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.mobile.min.css" />
+	<link rel="stylesheet" href="../../Locales/Cliente/css/Cliente.css" />
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="/Plugins/Kendo/js/kendo.all.min.js" type="text/javascript"></script>
+		<script src="../../Locales/Cliente/js/Cliente.js"></script>
+		<script src="../../Locales/Cliente/js/FunctionsCliente.js"></script>
+		<script src="../../Locales/Cliente/js/ClienteDetalle.js"></script>
+		<script src="../../Locales/Cliente/js/ClienteKendo.js"></script>
+	<!--#################### CABECERA #########################-->
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		<div id="MensagesClientes">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+		</div>
+			<h2 class="text-center" >  <strong>Detalle de Clientes</strong></h2>
+			<form id="Form_Alta_Cliente" class="form-horizontal" method="POST">
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="Tipo">Tipo :</label> {{if .Cliente.ETipoCliente.IEstatus}}
+					<div class="col-sm-5 has-feedback has-error">
+
+						<select id="Tipo" name="Tipo" class="form-control" aria-required="true" aria-describedby="Tipo-error"
+						aria-invalid="true" disabled>
+							{{.Cliente.ETipoCliente.Ihtml}}
+						</select>
+						<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+						<em id="Tipo-error" class="error help-block">{{.Cliente.ETipoCliente.IMsj}}</em>
+					</div>
+					{{else}}
+					<div class="col-sm-5">
+						<select id="Tipo" name="Tipo" class="form-control" disabled>
+												{{.Cliente.ETipoCliente.Ihtml}}
+											</select>
+					</div>
+					{{end}}
+				</div>
+
+				<div class="form-group">
+
+					<label class="col-sm-4 control-label" for="Nombre">Nombre:</label> {{if .Cliente.EIDPersonaCliente.ENombrePersona.IEstatus}}
+					<div class="col-sm-5 has-feedback has-error">
+						<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Cliente.EIDPersonaCliente.ENombrePersona.Nombre}}"
+						aria-required="true" aria-describedby="Nombre-error" aria-invalid="true" disabled>
+						<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+						<em id="Nombre-error" class="error help-block">{{.Cliente.EIDPersonaCliente.ENombrePersona.IMsj}}</em>
+					</div>
+					{{else}}
+					<div class="col-sm-5">
+						<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Cliente.EIDPersonaCliente.ENombrePersona.Nombre}}" disabled>
+					</div>
+					{{end}}
+				</div>
+
+				<div id="contentPersonaFisica" {{if eq .Cliente.ETipoCliente.TipoCliente.Hex "5936efac8c649f1b8839e48e"}} style="display: none;" {{end}} >
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="Sexo">Sexo :</label> {{if .Cliente.EIDPersonaCliente.ESexo.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+
+							<select id="Sexo" name="Sexo" class="form-control" aria-required="true" aria-describedby="Tipo-error"
+							aria-invalid="true" disabled>
+								{{.Cliente.EIDPersonaCliente.ESexo.Ihtml}}
+							</select>
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+							<em id="Tipo-error" class="error help-block">{{.Cliente.EIDPersonaCliente.ESexo.IMsj}}</em>
+						</div>
+						{{else}}
+						<div class="col-sm-5">
+							<select id="Sexo" name="Sexo" class="form-control" disabled>
+													{{.Cliente.EIDPersonaCliente.ESexo.Ihtml}}
+												</select>
+						</div>
+						{{end}}
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="FechaNacimiento">Fecha De Nacimiento:</label> {{if.Cliente.EIDPersonaCliente.EFechaNacimiento.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<input type="text" name="FechaNacimiento" id="FechaNacimiento" class="form-control" value="{{.Cliente.EIDPersonaCliente.EFechaNacimiento.FechaNacimiento}}" aria-required="true" aria-describedby="RFC-error"
+							aria-invalid="true" disabled>
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="RFC-error" class="error help-block">{{.Cliente.EIDPersonaCliente.EFechaNacimiento.IMsj}}</em>
+						</div>
+						{{else}}
+						<div class="col-sm-5">
+							<input type="text" name="FechaNacimiento" id="FechaNacimiento" class="form-control" value="{{.Cliente.EIDPersonaCliente.EFechaNacimiento.FechaNacimiento}}" disabled>
+						</div>
+						{{end}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="Grupos">Grupos:</label> {{if .Cliente.EIDPersonaCliente.EGruposPersona.IEstatus}}
+					<div class="col-sm-5 has-feedback has-error">
+
+						<select id="Grupos" name="Grupos" multiple="multiple" class="form-control selectpicker" aria-required="true" aria-describedby="Grupos-error"
+						aria-invalid="true" disabled>
+							{{.Cliente.EIDPersonaCliente.EGruposPersona.Ihtml}}
+						</select>
+						<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+						<em id="Grupos-error" class="error help-block">{{.Cliente.EIDPersonaCliente.EGruposPersona.IMsj}}</em>
+					</div>
+					{{else}}
+					<div class="col-sm-5">
+
+						<select id="Grupos" name="Grupos" multiple="multiple" class="form-control selectpicker" data-placeholder="Selecciona los Grupos..." disabled>
+							{{.Cliente.EIDPersonaCliente.EGruposPersona.Ihtml}}
+						</select>
+					</div>
+					{{end}}
+				</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="Predecesor">Predecesor:</label> {{if .Cliente.EIDPersonaCliente.EPredecesorPersona.IEstatus}}
+				<div class="col-sm-5 has-feedback has-error">
+
+					<select id="Predecesor" name="Predecesor" class="form-control selectpicker" aria-required="true" aria-describedby="Predecesor-error"
+					 aria-invalid="true" disabled>
+						{{.Cliente.EIDPersonaCliente.EPredecesorPersona.Ihtml}}
+					</select>
+					<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+					<em id="Predecesor-error" class="error help-block">{{.Cliente.EIDPersonaCliente.EPredecesorPersona.IMsj}}</em>
+				</div>
+				{{else}}
+				<div class="col-sm-5">
+
+					<select id="Predecesor" name="Predecesor" class="form-control selectpicker" disabled>
+											{{.Cliente.EIDPersonaCliente.EPredecesorPersona.Ihtml}}
+										</select>
+				</div>
+				{{end}}
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="RFC">RFC:</label> {{if .Cliente.ERFCCliente.IEstatus}}
+				<div class="col-sm-5 has-feedback has-error">
+					<input type="text" name="RFC" id="RFC" class="form-control" value="{{.Cliente.ERFCCliente.RFC}}" aria-required="true" aria-describedby="RFC-error"
+					 aria-invalid="true" disabled>
+					<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+					<em id="RFC-error" class="error help-block">{{.Cliente.ERFCCliente.IMsj}}</em>
+				</div>
+				{{else}}
+				<div class="col-sm-5">
+					<input type="text" name="RFC" id="RFC" class="form-control" value="{{.Cliente.ERFCCliente.RFC}}" disabled>
+				</div>
+				{{end}}
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="Almacenes">Almacenes:</label> {{if .Cliente.EAlmacenesCliente.IEstatus}}
+				<div class="col-sm-5 has-feedback has-error">
+					<select id="Almacenes" name="Almacenes" class="form-control selectpicker" aria-required="true" aria-describedby="Almacenes-error"
+					 aria-invalid="true" disabled>
+											{{.Cliente.EAlmacenesCliente.Ihtml}}
+										</select>
+					<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+					<em id="Almacenes-error" class="error help-block">{{.Cliente.EAlmacenesCliente.IMsj}}</em>
+				</div>
+				{{else}}
+				<div class="col-sm-5">
+					<select id="Almacenes" multiple="multiple" name="Almacenes" class="form-control selectpicker" disabled>
+											{{.Cliente.EAlmacenesCliente.Ihtml}}
+										</select>
+				</div>
+				{{end}}
+			</div>
+
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="Estatus">Estatus:</label> {{if .Cliente.EEstatusCliente.Estatus}}
+				<div class="col-sm-5 has-feedback has-error">
+
+					<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error"
+					 aria-invalid="true" disabled>
+						{{.Cliente.EEstatusCliente.Ihtml}}
+					</select>
+					<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+
+					<em id="Estatus-error" class="error help-block">{{.Cliente.EEstatusCliente.IMsj}}</em>
+				</div>
+				{{else}}
+				<div class="col-sm-5">
+
+					<select id="Estatus" name="Estatus" class="form-control selectpicker" disabled>
+											{{.Cliente.EEstatusCliente.Ihtml}}
+										</select>
+				</div>
+				{{end}}
+			</div>
+				<h3 class="text-center"><strong>Direcciones<strong></h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Estado</th>
+						<th>Municipio</th>
+						<th>Colonia</th>
+						<th>Cp</th>
+						<th>Calle</th>
+						<th>Num. Ext</th>
+						<th>Num. Int</th>
+						<th>Tipo</th>
+						<th>Eliminar</th>
+					</tr>
+				</thead>
+				<tbody id="cuerpoDirecciones">
+					{{.Cliente.EDireccionesCliente.Ihtml}}
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="col-sm-4">
+							<h3 class="text-center"><strong>Correos<strong></h3>
+						<div class="col-sm-12 table-responsive container" id="div_tabla_correos">
+							<table class="table table-condensed table-hover">
+								<thead class="thead-inverse">
+									<tr>
+										<th>Principal</th>
+										<th>Correos</th>
+										<th>Eliminar</th>
+									</tr>
+								</thead>
+								<tbody id="tbody_etiquetas_correos">
+									{{.Cliente.EMediosDeContactoCliente.MediosDeContacto.ECorreosMediosDeContacto.Correos.ECorreosCorreos.Ihtml}}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+					<div class="col-sm-4">
+						<h3 class="text-center"><strong>Telefonos<strong></h3>
+						<div class="col-sm-12 table-responsive container" id="div_tabla_telefonos">
+							<table class="table table-condensed table-hover">
+								<thead class="thead-inverse">
+									<tr>
+										<th>Principal</th>
+										<th>Telefonos</th>
+										<th>Eliminar</th>
+									</tr>
+								</thead>
+								<tbody id="tbody_etiquetas_telefonos">
+									{{.Cliente.EMediosDeContactoCliente.MediosDeContacto.ETelefonosMediosDeContacto.Telefonos.ETelefonosTelefonos.Ihtml}}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					<div class="col-sm-4">
+						<h3 class="text-center"><strong>Otros<strong></h3>
+						<div class="col-sm-12 table-responsive container" id="div_tabla_otros">
+							<table class="table table-condensed table-hover">
+								<thead class="thead-inverse">
+									<tr>
+										<th>Otros</th>
+										<th>Eliminar</th>
+									</tr>
+								</thead>
+								<tbody id="tbody_etiquetas_otros">
+									{{.Cliente.EMediosDeContactoCliente.MediosDeContacto.EOtrosMediosDeContacto.Ihtml}}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<button type="button" class="btn btn-link disable"  	>
+						<h4>
+							<span class="glyphicon glyphicon-plus" ></span>
+          					Agregar Persona Contacto
+						</h4>
+					</button>
+					<input type="hidden" id="ContadorPerCont" name="ContadorPerCont" value="{{.Cliente.EPersonasContactoCliente.NumPerCont}}" >
+					<div id="identificadoresPersonas"></div>
+				</div>
+			</div>
+			<div id="PersonasContactos">
+				{{.Cliente.EPersonasContactoCliente.Ihtml}}
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Clientes';" class="btn btn-default btn-lg">Index</button>
+						<button type="button" onclick="window.location.href = '/Clientes/edita/{{.Cliente.ID.Hex}}'"  class="btn btn-primary btn-lg">Edita</button>
+						<button type="button" onclick="window.location.href = '/Clientes/alta';" class="btn btn-success btn-lg">Nuevo</button>
+				</div>
+			</div>
+				
+			</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

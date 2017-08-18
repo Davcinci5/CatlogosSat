@@ -1,0 +1,11 @@
+fieldset.marco { border:1px solid black; padding: 10px; margin:10px;}
+
+legend.marco {
+    padding: 0.2em 0.5em;
+    border:1px solid black;
+    color:#efefef;
+    background-color: #337ab7;
+    /*font-size:90%;*/
+    text-align:right;
+    width: 25%;
+}

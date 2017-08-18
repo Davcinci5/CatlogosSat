@@ -1,0 +1,138 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  RolAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Rol/js/Rol.js"></script>
+	
+		<script src="/Plugins/Kendo/js/kendo.all.min.js" type="text/javascript" ></script>
+		<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.common.min.css" />
+		<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.min.css" />
+		<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.mobile.min.css" />
+
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Rols</h1>
+			<form id="Form_Alta_Rol" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .Rol.ENombreRol.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Rol.ENombreRol.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Rol.ENombreRol.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Rol.ENombreRol.Nombre}}" required>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .Rol.EDescripcionRol.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Rol..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true">{{.Rol.EDescripcionRol.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.Rol.EDescripcionRol.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Rol..." 
+									style="width: 100%">{{.Rol.EDescripcionRol.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Permisos">Permisos:</label>
+								{{if .Rol.EPermisosRol.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Permisos" name="Permisos" multiple="multiple" class="form-control selectpicker" data-placeholder="--SELECCIONE--" aria-required="true" aria-describedby="Permisos-error" aria-invalid="true">
+											{{.Rol.EPermisosRol.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Permisos-error" class="error help-block">{{.Rol.EPermisosRol.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Permisos" name="Permisos" multiple="multiple" data-placeholder="--SELECCIONE--" required>
+											{{.Rol.EPermisosRol.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Rols';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

@@ -1,0 +1,122 @@
+
+<!-- ############################## <  VISTA DETALLE  > #####################################-->
+<!-- ############################## <  ListaPrecioDetalle.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/ListaPrecio/js/ListaPrecio.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+            <h3><center>Detalles de la compra realizada</center></h3>
+			<form id="Form_Detalle_ListaPrecio" class="form-horizontal" method="POST">
+
+				<!--Tabla de Productos -->
+				<div>
+				<table class="table">
+					<thead class="thead-inverse">
+					<th> Almacen </th>
+					<th> Producto </th>
+					<th> Cantidad comprada </th>
+					<th> Costo unitario</th>
+					<th> Precio unitario</th>
+                    <th> Tipo Operacion</th>
+                    <th> Fecha</th>
+					</thead>
+					<tbody>
+					{{ range $key, $value := .Kardex }}
+						<tr>
+                            <td>
+                                <input type="text" class="form-control" value='{{$value.NombreAlmacen}}' readonly>
+                            </td>
+                            <td>
+						        <input type="text" class="form-control" value="{{$value.IDProducto}}" readonly>
+                            </td>
+						    <td>
+                                <input type="text" class="form-control" value="{{$value.Cantidad}}" readonly>
+                            </td>
+							<td>
+                                <input type="text" class="form-control" value="{{$value.Costo}}" readonly>
+							</td>
+							<td>
+                                <input type="text" class="form-control" value="{{$value.Precio}}" readonly>
+							</td>
+							<td>
+                                <input type="text" class="form-control" value="{{$value.TipoOperacion}}" readonly>
+							</td>
+							<td>
+                                <input type="text" class="form-control" value="{{$value.FechaHora}}" readonly>
+							</td>                            
+						</tr>
+
+					{{ end }}
+					</tbody>
+				</table>
+				</div>				
+						
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+							<button type="button"  onclick="window.location.href = '/Compras';"  class="btn btn-default btn-lg">Index</button>
+							<button type="button" onclick="window.location.href = '/Compras/alta';" class="btn btn-success btn-lg">Nuevo</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

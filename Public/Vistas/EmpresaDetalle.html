@@ -1,0 +1,538 @@
+
+<!-- ############################## <  VISTA DETALLE  > #####################################-->
+<!-- ############################## <  EmpresaDetalle.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Empresa/js/Empresa.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Detalle de Empresas</h1>
+			<form id="Form_Detalle_Empresa" class="form-horizontal" method="POST">
+
+
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+								
+								{{if .Empresa.EDatosCommercialesEmpresa.DatosCommerciales.ENombreDatosCommerciales.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Empresa.EDatosCommercialesEmpresa.DatosCommerciales.ENombreDatosCommerciales.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Nombre-error" class="error help-block">{{.Empresa.EDatosCommercialesEmpresa.DatosCommerciales.ENombreDatosCommerciales.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Empresa.EDatosCommercialesEmpresa.DatosCommerciales.ENombreDatosCommerciales.Nombre}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="RazonSocial">RazonSocial:</label>
+								
+								{{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="RazonSocial" id="RazonSocial" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.RazonSocial}}" aria-required="true" aria-describedby="RazonSocial-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="RazonSocial-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="RazonSocial" id="RazonSocial" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERazonSocialDatosFiscales.RazonSocial}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="RFC">RFC:</label>
+								
+								{{if .Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="RFC" id="RFC" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.RFC}}" aria-required="true" aria-describedby="RFC-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="RFC-error" class="error help-block">{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="RFC" id="RFC" class="form-control" value="{{.Empresa.EDatosFiscalesEmpresa.DatosFiscales.ERFCDatosFiscales.RFC}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Key">Key:</label>
+								
+								{{if .Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Key" id="Key" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.Key}}" aria-required="true" aria-describedby="Key-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Key-error" class="error help-block">{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Key" id="Key" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EKeyDatosFactura.Key}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cer">Cer:</label>
+								
+								{{if .Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Cer" id="Cer" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.Cer}}" aria-required="true" aria-describedby="Cer-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Cer-error" class="error help-block">{{.Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Cer" id="Cer" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.ECerDatosFactura.Cer}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pem">Pem:</label>
+								
+								{{if .Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Pem" id="Pem" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.Pem}}" aria-required="true" aria-describedby="Pem-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Pem-error" class="error help-block">{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Pem" id="Pem" class="form-control" value="{{.Empresa.EDatosFacturaEmpresa.DatosFactura.EPemDatosFactura.Pem}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Correo">Correo:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Correo" id="Correo" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.Correo}}" aria-required="true" aria-describedby="Correo-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Correo-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Correo" id="Correo" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECorreoCorreoYEnvio.Correo}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pass">Pass:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Pass" id="Pass" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.Pass}}" aria-required="true" aria-describedby="Pass-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Pass-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Pass" id="Pass" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPassCorreoYEnvio.Pass}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true" readonly>
+												{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Tipo-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" readonly>
+											{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ETipoCorreoYEnvio.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Puerto">Puerto:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Puerto" id="Puerto" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.Puerto}}" aria-required="true" aria-describedby="Puerto-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Puerto-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Puerto" id="Puerto" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.EPuertoCorreoYEnvio.Puerto}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Cifrado">Cifrado:</label>
+								
+								{{if .Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Cifrado" id="Cifrado" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.Cifrado}}" aria-required="true" aria-describedby="Cifrado-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Cifrado-error" class="error help-block">{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Cifrado" id="Cifrado" class="form-control" value="{{.Empresa.ECorreoYEnvioEmpresa.CorreoYEnvio.ECifradoCorreoYEnvio.Cifrado}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Calle">Calle:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.ECalleDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Calle" id="Calle" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ECalleDomicilio.Calle}}" aria-required="true" aria-describedby="Calle-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Calle-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.ECalleDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Calle" id="Calle" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ECalleDomicilio.Calle}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="NumInterior">NumInterior:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.ENumInteriorDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="NumInterior" id="NumInterior" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ENumInteriorDomicilio.NumInterior}}" aria-required="true" aria-describedby="NumInterior-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="NumInterior-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.ENumInteriorDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="NumInterior" id="NumInterior" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ENumInteriorDomicilio.NumInterior}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="NumExterior">NumExterior:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.ENumExteriorDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="NumExterior" id="NumExterior" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ENumExteriorDomicilio.NumExterior}}" aria-required="true" aria-describedby="NumExterior-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="NumExterior-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.ENumExteriorDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="NumExterior" id="NumExterior" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ENumExteriorDomicilio.NumExterior}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Colonia">Colonia:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.EColoniaDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Colonia" name="Colonia" class="form-control selectpicker" aria-required="true" aria-describedby="Colonia-error" aria-invalid="true" readonly>
+												{{.Empresa.EDomicilioEmpresa.Domicilio.EColoniaDomicilio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Colonia-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.EColoniaDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Colonia" name="Colonia" class="form-control selectpicker" readonly>
+											{{.Empresa.EDomicilioEmpresa.Domicilio.EColoniaDomicilio.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Municipio">Municipio:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.EMunicipioDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Municipio" name="Municipio" class="form-control selectpicker" aria-required="true" aria-describedby="Municipio-error" aria-invalid="true" readonly>
+												{{.Empresa.EDomicilioEmpresa.Domicilio.EMunicipioDomicilio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Municipio-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.EMunicipioDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Municipio" name="Municipio" class="form-control selectpicker" readonly>
+											{{.Empresa.EDomicilioEmpresa.Domicilio.EMunicipioDomicilio.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estado">Estado:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.EEstadoDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Estado" name="Estado" class="form-control selectpicker" aria-required="true" aria-describedby="Estado-error" aria-invalid="true" readonly>
+												{{.Empresa.EDomicilioEmpresa.Domicilio.EEstadoDomicilio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Estado-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.EEstadoDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Estado" name="Estado" class="form-control selectpicker" readonly>
+											{{.Empresa.EDomicilioEmpresa.Domicilio.EEstadoDomicilio.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Pais">Pais:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.EPaisDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<select id="Pais" name="Pais" class="form-control selectpicker" aria-required="true" aria-describedby="Pais-error" aria-invalid="true" readonly>
+												{{.Empresa.EDomicilioEmpresa.Domicilio.EPaisDomicilio.Ihtml}}
+										</select>  										
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Pais-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.EPaisDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<select id="Pais" name="Pais" class="form-control selectpicker" readonly>
+											{{.Empresa.EDomicilioEmpresa.Domicilio.EPaisDomicilio.Ihtml}}
+										</select> 
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="CP">CP:</label>
+								
+								{{if .Empresa.EDomicilioEmpresa.Domicilio.ECPDomicilio.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="CP" id="CP" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ECPDomicilio.CP}}" aria-required="true" aria-describedby="CP-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="CP-error" class="error help-block">{{.Empresa.EDomicilioEmpresa.Domicilio.ECPDomicilio.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="CP" id="CP" class="form-control" value="{{.Empresa.EDomicilioEmpresa.Domicilio.ECPDomicilio.CP}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Alias">Alias:</label>
+								
+								{{if .Empresa.EContactosEmpresa.Contactos.EAliasContactos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Alias" id="Alias" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.EAliasContactos.Alias}}" aria-required="true" aria-describedby="Alias-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Alias-error" class="error help-block">{{.Empresa.EContactosEmpresa.Contactos.EAliasContactos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Alias" id="Alias" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.EAliasContactos.Alias}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Email">Email:</label>
+								
+								{{if .Empresa.EContactosEmpresa.Contactos.EEmailContactos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Email" id="Email" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.EEmailContactos.Email}}" aria-required="true" aria-describedby="Email-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Email-error" class="error help-block">{{.Empresa.EContactosEmpresa.Contactos.EEmailContactos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Email" id="Email" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.EEmailContactos.Email}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Telefono">Telefono:</label>
+								
+								{{if .Empresa.EContactosEmpresa.Contactos.ETelefonoContactos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.ETelefonoContactos.Telefono}}" aria-required="true" aria-describedby="Telefono-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Telefono-error" class="error help-block">{{.Empresa.EContactosEmpresa.Contactos.ETelefonoContactos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.ETelefonoContactos.Telefono}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Movil">Movil:</label>
+								
+								{{if .Empresa.EContactosEmpresa.Contactos.EMovilContactos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Movil" id="Movil" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.EMovilContactos.Movil}}" aria-required="true" aria-describedby="Movil-error" aria-invalid="true" readonly>
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Movil-error" class="error help-block">{{.Empresa.EContactosEmpresa.Contactos.EMovilContactos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">
+															
+										<input type="text" name="Movil" id="Movil" class="form-control" value="{{.Empresa.EContactosEmpresa.Contactos.EMovilContactos.Movil}}" readonly>
+									</div>  
+								{{end}}
+							</div>
+						
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+							<button type="button" onclick="window.location.href = '/Empresas';" class="btn btn-default btn-lg">Index</button>
+							<button type="button" onclick="EditaEmpresa('Detalle')" class="btn btn-primary btn-lg">Edita</button>
+							<button type="button" onclick="window.location.href = '/Empresas/alta';" class="btn btn-success btn-lg">Nuevo</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

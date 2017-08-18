@@ -1,0 +1,200 @@
+
+<!-- ############################## <  VISTA LOGIN > #####################################-->
+<!-- ############################## <  Login.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Login/js/Login.js"></script>
+        <link rel="stylesheet" href="../../Locales/Login/css/Login.css">
+<!--#################### CABECERA #########################-->
+        
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+
+<!--<div class="sesiondeusuario">
+    <button class="botonlogeado" data-toggle="modal" data-target="#myModal5">Iniciar Sesion</button>
+</div>
+	
+ <div class="modal fade" id="myModal5">
+    <div class="modal-dialog  modal-md">    
+        <div class="modal-content">
+            <form id="modalform5" name="modalform5" action="/Login" method="POST" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title etiquetatitulomodal">Iniciar Sesi&oacute;n :</h4>
+                </div>
+
+                <div class="modal-body">
+
+
+                <div class="form-group">
+
+                    <div class="col-lg-6 col-md-6">
+                        
+                    <label for="userName" class="etiquetas5">Usuario : </label><input type="text" form="modalform5" name="userName" id="userName" class="form-control">
+
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                    <label for="userPass" class="etiquetas5">Constraseña : </label><input form="modalform5" type="password" name="userPass" id="userPass" class="form-control">
+                    
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <a class="etiquetalogeo" id="revelarcontraseña" href="#" onclick="MostrarSolicitud()">Olvide mi contraseña</a>
+
+                    <a class="etiquetaregistrarse" id="registrarusuario" href="#" onclick="Registrarse()">Registrarse</a>
+
+                    <div class="clearfix"></div>
+                   
+                    <div id="solicitudcontraseña"  hidden="true">
+                        <br>
+                        <div class="col-lg-6 col-md-4">
+                                <label for="CorreoRecovery" class="etiquetas5">Correo Electronico : </label>
+                                <input type="text" name="CorreoRecovery" id="CorreoRecovery" class="form-control etiquetas5">
+                        </div>
+
+                         <div class="col-lg-offset-1 col-md-offset-1 col-lg-4 col-md-4">
+                            <button type="submit" class="btn btn-primary etiquetas6 botonrecuperar" onclick="RecuperarContraseña()" data-dismiss="modal">Recuperar</button>
+                        </div>
+                        <br>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                </div>
+
+                </div>
+            </form> 
+
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger etiquetas6"  data-dismiss="modal">Cerrar</button>
+                <button type="submit" form="modalform5" class="btn btn-primary etiquetas6" id="botoniniciarsesion" onclick="IniciarSesion()" data-dismiss="modal" >Iniciar</button>
+                </div>
+        </div>  
+    </div>
+</div>-->
+
+
+<div class="row">
+
+    <div class="container">
+        <div class="col-sm-5 logologin">
+            <a href="https://www.facebook.com/KoreIngenieria/">
+                <img src='../../img/korelogo_big.png' alt='Lights' style='width:50%'>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<br>
+
+<div class="row">
+
+    <div class="container">
+
+        <div class="col-sm-4">
+
+
+        </div>
+
+        <div class="col-sm-6">
+            
+            <h1 class="recuperarh1">¿Olvidaste tu contraseña?</h1>
+
+
+
+            <form action="/Recuperar" method="POST">
+
+                <div class="col-sm-3">
+                    <label for="userName">Usuario:</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" id="userName" name="userName" class="form-control" placeholder="¿recuerdas el nombre de usuario?" >
+                </div>
+
+                <div class="clearfix"></div>
+                <br>
+
+                <div class="col-sm-3">
+                    <label for="userCorreo">ó</label>
+                </div>
+
+                <div class="col-sm-9">
+                    
+                </div>
+                
+                <div class="clearfix"></div>
+                <br>
+
+                <div class="col-sm-3">
+                    <label for="userCorreo">Correo:</label>
+                </div>
+
+                <div class="col-sm-9">
+                    <input type="text" id="userCorreo" name="userCorreo" class="form-control" placeholder="¿recuerdas tu correo electronico?" >
+                </div>
+                
+                <div class="clearfix"></div>
+                <br>
+                <br>
+
+                <div class="col-sm-3">
+                </div>
+
+                <div class="col-sm-9">
+                    <input type="button" id="" name="" class="loginbtn" onClick="window.location.href = '/Login'" value="Cancelar" >
+                    <input type="submit" id="" name="" class="loginbtn" value="Enviar" >
+                </div>
+
+                <div class="clearfix"></div>
+                <br>
+                <br>
+           
+            </form>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>
+

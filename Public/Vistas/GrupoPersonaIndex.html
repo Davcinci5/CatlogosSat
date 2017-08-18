@@ -1,0 +1,125 @@
+
+<!-- ############################## <  VISTA INDEX > #####################################-->
+<!-- ############################## <  index.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/GrupoPersona/js/GrupoPersona.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+
+		{{if .SEstado}}
+
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+
+		{{end}}	
+
+			<div class="row">
+				<div class="container">
+					<div class="col-lg-8 col-md-8 well">
+						<form action="/GrupoPersonas" id="searchform" method="POST" class="form-horizontal">
+							<div class="form-group">
+									<div class="col-sm-8">
+										<input class="form-control" type="text" id="searchbox" name="searchbox" placeholder="buscar GrupoPersona" required />
+										<input type="text" id="buscaren" name="buscaren" value="GrupoPersonas" hidden />
+									</div>
+									<div class="col-sm-4">
+										<input class="btn" type="submit" value="Buscar" form="searchform" />
+									</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+<!-- INICIO MODULO DE MOSTRAR RESULTADOS -->
+				<div class="row">
+					<div class="container">
+						<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+							<table class="table table-bordered">
+							<thead>
+								<tr>
+						
+								</tr>
+							</thead>
+							<tbody>
+								
+							{{if .result}}
+								{{range $indexz, $documento := .result}}
+									<tr>
+										
+									</tr>
+								{{end}}
+							{{else}}
+							<tr>
+							<h3>No se han encontrado resultados</h3>
+							</tr>
+							{{end}}
+							
+							</tbody>
+								
+							</table>
+						</div>
+						{{.PaginacionT}}													
+					</div>
+				</div>
+			<!-- FIN MODULO DE MOSTRAR RESULTADOS -->
+
+	<div class="form-group">
+		<div class="col-md-11 text-right">
+			<button type="button" onclick="window.location.href = '/GrupoPersonas/alta';" class="btn-lg btn-primary">Nuevo</button>
+			<button type="button" onclick="EditaGrupoPersona('Index')" class="btn-lg btn-default">Edita</button>
+			<button type="button" onclick="DetalleGrupoPersona()" class="btn-lg btn-info">Detalle</button>			
+		</div>															
+	</div>
+		
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>
+

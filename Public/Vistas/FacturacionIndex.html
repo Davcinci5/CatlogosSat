@@ -1,0 +1,111 @@
+
+<!-- ############################## <  VISTA INDEX > #####################################-->
+<!-- ############################## <  index.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Facturacion/js/Facturacion.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Edición de Facturacions</h1>
+			<form id="Form_Alta_Facturacion" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Operacion">Operacion:</label>
+							{{if .Facturacion.EOperacionFacturacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Operacion" id="Operacion" class="form-control" value="{{.Facturacion.EOperacionFacturacion.Operacion}}" aria-required="true" aria-describedby="Operacion-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Operacion-error" class="error help-block">{{.Facturacion.EOperacionFacturacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Operacion" id="Operacion" class="form-control" value="{{.Facturacion.EOperacionFacturacion.Operacion}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Detalle">Detalle:</label>
+							{{if .Facturacion.EDetalleFacturacion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Detalle" id="Detalle" class="form-control" value="{{.Facturacion.EDetalleFacturacion.Detalle}}" aria-required="true" aria-describedby="Detalle-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Detalle-error" class="error help-block">{{.Facturacion.EDetalleFacturacion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Detalle" id="Detalle" class="form-control" value="{{.Facturacion.EDetalleFacturacion.Detalle}}">
+								</div>  
+							{{end}}
+						</div>
+					
+					
+
+			<div class="form-group">			
+				<div class="col-md-9 text-right">
+					<button type="button" onclick="window.location.href = '/Facturacions';" class="btn btn-default btn-lg">Index</button>
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+		
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>
+

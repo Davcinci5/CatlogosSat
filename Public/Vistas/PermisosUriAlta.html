@@ -1,0 +1,139 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  PermisosUriAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/PermisoUri/js/PermisosUri.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de PermisosUris</h1>
+			<form id="Form_Alta_PermisosUri" class="form-horizontal" method="POST">
+
+						<input type="text" id="ID" name="ID" value="{{.PermisosUri.ID.Hex}}" hidden>
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Grupo">Grupo:</label>
+							{{if .PermisosUri.EGrupoPermisosUri.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Grupo" id="Grupo" class="form-control" value="{{.PermisosUri.EGrupoPermisosUri.Grupo}}" aria-required="true" aria-describedby="Grupo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Grupo-error" class="error help-block">{{.PermisosUri.EGrupoPermisosUri.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Grupo" id="Grupo" class="form-control" value="{{.PermisosUri.EGrupoPermisosUri.Grupo}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						
+
+						<div class="container">
+							{{if .PermisosUri.EPermisoAceptadoPermisosUri.IEstatus}}
+							<div class="col-md-12 text-center  has-feedback has-error">
+								<h2><label class="control-label" for="Miembros">Permisos</label></h2>
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+								<em id="Miembros-error" class="error help-block">{{.PermisosUri.EPermisoAceptadoPermisosUri.IMsj}}</em>
+								<br>
+								<h3><div class="col-md-6 text-center"><label class="control-label" for="Permisos">Negados</label></div></h3>
+								<h3><div class="col-md-6 text-center"><label class="control-label" for="Permisos">Permitidos</label></div></h3>
+								<br>
+							</div>
+							
+								<div class="row">
+									<div class="row">
+										<div id="outgroup" class="col-md-4 col-md-offset-2 well" style="height: 400px; overflow: auto" ondrop="drop(event)" ondragover="allowDrop(event)">
+												{{.PermisosUri.EPermisoNegadoPermisosUri.Ihtml}}											
+										</div>
+										<div id="ingroup" class="list-group col-md-4 col-md-offset-1 well" style="height: 400px; overflow: auto;" ondrop="drop(event)" ondragover="allowDrop(event)">	
+												{{.PermisosUri.EPermisoAceptadoPermisosUri.Ihtml}}
+										</div>										
+									</div>									
+								</div>
+								
+							{{else}}
+							<div class="col-md-12 text-center">
+								<h2><label class="control-label" for="Permisos">Permisos</label></h2>
+								<br>
+								<h3><div class="col-md-6 text-center"><label class="control-label" for="Permisos">Negados</label></div></h3>
+								<h3><div class="col-md-6 text-center"><label class="control-label" for="Permisos">Permitidos</label></div></h3>
+								<br>
+							</div>
+								<div class="row">
+									<div id="outgroup" class="col-md-4 col-md-offset-2 well" style="height: 400px; overflow: auto" ondrop="drop(event)" ondragover="allowDrop(event)">
+											{{.PermisosUri.EPermisoNegadoPermisosUri.Ihtml}}											
+									</div>
+									<div id="ingroup" class="list-group col-md-4 col-md-offset-1 well" style="height: 400px; overflow: auto;" ondrop="drop(event)" ondragover="allowDrop(event)">	
+											{{.PermisosUri.EPermisoAceptadoPermisosUri.Ihtml}}
+									</div>
+								</div>
+							{{end}}
+						</div>	
+					
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/PermisosUris';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

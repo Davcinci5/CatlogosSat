@@ -1,0 +1,46 @@
+{{define "footer_layout"}}
+
+    <div class="navbar navbar-default footer navbar-fixed-bottom  text-center" id="footerPage" >
+        <span class="row">&copy; Copyright 2017 KoreIngeniaria  -Todos los derechos reservados.
+            <b>[2017/05/12  13:07 p.m Demo v0.6]</b>
+            <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#ProblemLayout">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true">Reportar problema</span>
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            </button>
+        </span>
+    </div>
+       
+
+    <!-- Modal De Problemas -->
+    <div class="modal fade" id="ProblemLayout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Titulo:</label>
+            <input type="text" class="form-control" id="TituloProblema">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Describe lo que Ocurrio:</label>
+            <textarea class="form-control" id="ContenidoProblema"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="CerrarModalProblemas">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="ReportarProblema()">Enviar Mensaje</button>
+      </div>
+        </div>
+    </div>
+    </div>
+
+
+   
+{{end}}

@@ -1,0 +1,508 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  CotizacionAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		<link href="../../Locales/Cotizacion/css/wizard.css" rel="stylesheet" type="text/css" />		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        		        
+    	<script src="../../Locales/Cotizacion/js/Cotizacion.js"></script>      		        
+    	<script src="../../Locales/Cotizacion/js/wizard.js"></script>     		        
+    	<script src="../../Plugins/JQueryWizard/jquery.bootstrap.wizard.js"></script>     		        
+    	<script src="../../Plugins/JQueryWizard/jquery.bootstrap.wizard.min.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Cotizacions</h1>
+			<div class="container">
+				<div class="row">
+					<section>
+						<div class="wizard">
+							
+							<div class="wizard-inner">
+								<div class="connecting-line"></div>
+								<ul class="nav nav-tabs" role="tablist">
+
+									<li role="presentation" class="active">
+										<a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Cliente">
+											<span class="round-tab">
+												<i class="glyphicon glyphicon-user"></i>
+											</span>
+										</a>
+									</li>
+
+									<li role="presentation">
+										<a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Productos">
+											<span class="round-tab">
+												<i class="glyphicon glyphicon-shopping-cart"></i>
+											</span>
+										</a>
+									</li>
+									<li role="presentation">
+										<a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Formas De Pago">
+											<span class="round-tab">
+												<i class="glyphicon glyphicon-credit-card"></i>
+											</span>
+										</a>
+									</li>
+
+									<li role="presentation">
+										<a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Confirmar">
+											<span class="round-tab">
+												<i class="glyphicon glyphicon-ok"></i>
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+							
+							<form  id="Form_Alta_Cotizacion" class="form-horizontal" method="POST">
+								<input type="hidden" name="ID" id="ID" value="{{.Cotizacion.ID.Hex}}" />
+								<div class="tab-content">
+																		
+									<!-- contenido de cada tab -->
+									<div class="tab-pane active" role="tabpanel" id="step1">	
+
+										<div class="form-group">
+											<div class="col-sm-6 col-sm-offset-3 " id="tabBusquedaCliente">
+												<table class="table table-sm">
+													<thead class="thead-inverse">
+														<tr>
+														<th>#</th>
+														<th>Nombre</th>
+														<th>Direccion</th>
+														<th>Correo</th>
+														<th>Telefono</th>
+														<th>Estatus</th>
+														<th>Seleccionar</th>
+														</tr>
+													</thead>
+													<tbody id="BBusquedaClientes">
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-4 control-label" for="ClienteNom">Cliente:</label> 
+											<div class="col-sm-4">
+												<input type="text" name="ClienteNom" id="ClienteNom" class="form-control">
+											</div>
+											<button type="button" onclick="traeCliente()" class="btn btn-primary">Buscar Cliente</button>										
+										</div>	
+
+										<div class="form-group">
+											<div class="col-sm-6 col-sm-offset-3" id="tabcliente">
+												<table class="table">
+													<thead class="thead-inverse">
+														<tr>
+															<th>#</th>
+															<th>Nombre</th>
+															<th>Direccion</th>
+															<th>Correo</th>
+															<th>Telefono</th>
+															<th>Estatus</th>
+															<th>Seleccionar</th>
+														</tr>
+													</thead>
+													<tbody id="BClientes">
+														{{if .Cotizacion.EClienteCotizacion.IEstatus}}
+															<div class="col-sm-5 has-feedback has-error">
+																{{.Cotizacion.EClienteCotizacion.Ihtml}}
+																<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																<em id="Cliente-error" class="error help-block">{{.Cotizacion.EClienteCotizacion.IMsj}}</em>
+															</div>
+														{{else}}
+															{{.Cotizacion.EClienteCotizacion.Ihtml}}
+														{{end}}
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="step33" id="DatosMinimos">
+											<div class="form-group">											
+												<div class="col-sm-5">
+													<input type="hidden" name="Usuario" id="Usuario" class="form-control" value="{{.Cotizacion.EUsuarioCotizacion.Usuario.Hex}}">
+												</div>  
+											</div>												
+										
+											<!-- <div class="form-group">
+												<label class="col-sm-4 control-label" for="Equipo">Equipo:</label>
+												{{if .Cotizacion.EEquipoCotizacion.IEstatus}}
+													<div class="col-sm-5 has-feedback has-error">
+														<input type="text" name="Equipo" id="Equipo" class="form-control" value="{{.Cotizacion.EEquipoCotizacion.Equipo}}" aria-required="true" aria-describedby="Equipo-error" aria-invalid="true">
+														<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+														<em id="Equipo-error" class="error help-block">{{.Cotizacion.EEquipoCotizacion.IMsj}}</em>
+													</div>
+												{{else}}
+													<div class="col-sm-5">
+														<input type="text" name="Equipo" id="Equipo" class="form-control" value="{{.Cotizacion.EEquipoCotizacion.Equipo}}">
+													</div>  
+												{{end}}
+											</div> -->
+											
+										
+											<div class="form-group">
+												<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+												{{if .Cotizacion.ENombreCotizacion.IEstatus}}
+													<div class="col-sm-5 has-feedback has-error">
+														<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Cotizacion.ENombreCotizacion.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+														<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+														<em id="Nombre-error" class="error help-block">{{.Cotizacion.ENombreCotizacion.IMsj}}</em>
+													</div>
+												{{else}}
+													<div class="col-sm-5">
+														<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Cotizacion.ENombreCotizacion.Nombre}}">
+													</div>  
+												{{end}}
+											</div>
+										
+											<div class="form-group">
+												<label class="col-sm-4 control-label" for="Telefono">Telefono:</label>
+												{{if .Cotizacion.ETelefonoCotizacion.IEstatus}}
+													<div class="col-sm-5 has-feedback has-error">
+														<input type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Cotizacion.ETelefonoCotizacion.Telefono}}" aria-required="true" aria-describedby="Telefono-error" aria-invalid="true">
+														<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+														<em id="Telefono-error" class="error help-block">{{.Cotizacion.ETelefonoCotizacion.IMsj}}</em>
+													</div>
+												{{else}}
+													<div class="col-sm-5">
+														<input type="text" name="Telefono" id="Telefono" class="form-control" value="{{.Cotizacion.ETelefonoCotizacion.Telefono}}">
+													</div>  
+												{{end}}
+											</div>
+										
+											<div class="form-group">
+												<label class="col-sm-4 control-label" for="Correo">Correo:</label>
+												{{if .Cotizacion.ECorreoCotizacion.IEstatus}}
+													<div class="col-sm-5 has-feedback has-error">
+														<input type="text" name="Correo" id="Correo" class="form-control" value="{{.Cotizacion.ECorreoCotizacion.Correo}}" aria-required="true" aria-describedby="Correo-error" aria-invalid="true">
+														<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+														<em id="Correo-error" class="error help-block">{{.Cotizacion.ECorreoCotizacion.IMsj}}</em>
+													</div>
+												{{else}}
+													<div class="col-sm-5">
+														<input type="text" name="Correo" id="Correo" class="form-control" value="{{.Cotizacion.ECorreoCotizacion.Correo}}">
+													</div>  
+												{{end}}
+											</div>
+										</div>
+										<ul class="list-inline pull-right">
+											<li>
+												<button type="button" class="btn btn-primary next-step">
+													 Continuar <span class="glyphicon glyphicon-arrow-right"></span>
+												</button>
+											</li>
+										</ul>
+									</div>
+
+									<div class="tab-pane" role="tabpanel" id="step2">
+										<div class="step2">
+											<div class="step_21">
+
+												<div class="form-group">
+													<div class="col-sm-6 col-sm-offset-3 " id="tabBusquedaProductos">
+														<table class="table table-sm">
+															<thead class="thead-inverse">
+																<tr>
+																<th>#</th>
+																<th>Codigo(s)</th>
+																<th>Descripción</th>
+																<th>Prcio</th>
+																<th>Almacen</th>
+																<th>Existencia</th>
+																<th>Cantidad</th>
+																<th>Seleccionar</th>
+																</tr>
+															</thead>
+															<tbody id="BBusquedaProductos">
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-sm-4 control-label" for="Buscar">Código o Descripción</label>
+													{{if .Cotizacion.EBuscarCotizacion.IEstatus}}
+														<div class="col-sm-5 has-feedback has-error">
+															<input type="text" name="Buscar" id="Buscar" class="form-control" value="{{.Cotizacion.EBuscarCotizacion.Buscar}}" aria-required="true" aria-describedby="Buscar-error" aria-invalid="true">
+															<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+															<em id="Buscar-error" class="error help-block">{{.Cotizacion.EBuscarCotizacion.IMsj}}</em>
+														</div>
+														<button type="button" onclick="traeProductos()" class="btn btn-primary">Buscar Producto</button>
+													{{else}}
+														<div class="col-sm-5">
+															<input type="text" name="Buscar" id="Buscar" class="form-control" value="{{.Cotizacion.EBuscarCotizacion.Buscar}}">
+														</div>
+														<button type="button" onclick="traeProductos()" class="btn btn-primary">Buscar Producto</button>  
+													{{end}}
+												</div>
+											</div>
+											<div class="col-sm-3 pull-right">												
+												<div class="row">
+													<table class="table table-hover">
+														<thead>
+															<tr>
+																<th>RESUMEN DE COMPRA</th>
+																<th></th>
+															</tr>
+														</thead>
+														{{if .Cotizacion.EResumenCotizacion.IEstatus}}
+														<tbody id="calculadora">
+															{{.Cotizacion.EResumenCotizacion.Ihtml}}
+														</tbody>
+														{{else}}
+															{{if .Cotizacion.EResumenCotizacion.Ihtml}}
+															<tbody id="calculadora">
+																{{.Cotizacion.EResumenCotizacion.Ihtml}}
+															</tbody>
+															{{else}}
+																<tbody id="calculadora">
+																	<tr>
+																		<td>SubTotal:</td>
+																		<td>$0.00</td>
+																	</tr>
+																	<tr>
+																		<td>Impuestos:</td>
+																		<td>$0.00</td>
+																	</tr>
+																	<tr>
+																		<td>Total:</td>
+																		<td>$0.00</td>
+																	</tr>
+																</tbody>
+															{{end}}
+														
+														{{end}}
+													</table>
+													</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-6" id="tabProductos">
+												<table class="table">
+													<thead class="thead-inverse">
+														<tr>
+															<th>#Codigo</th>
+															<th>Descripcion</th>
+															<th>Almacen</th>
+															<th>Precio</th>
+															<th>Cantidad</th>
+															<th>Unidad</th>
+															<th>Precio S/Impuesto</th>
+															<th>Impuesto</th>
+															<th>Precio C/Impuesto</th>
+														</tr>
+													</thead>
+													<tbody id="BProductos">
+														{{if .Cotizacion.ECarritoCotizacion.IEstatus}}
+															<div class="col-sm-5 has-feedback has-error">
+																{{.Cotizacion.ECarritoCotizacion.Ihtml}}
+																<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																<em id="Cliente-error" class="error help-block">{{.Cotizacion.ECarritoCotizacion.IMsj}}</em>
+															</div>
+														{{else}}
+															{{.Cotizacion.ECarritoCotizacion.Ihtml}}
+														{{end}}
+													</tbody>
+												</table>
+											</div>											
+										</div>
+										<ul class="list-inline pull-right">
+											<li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+											<li>
+												<button type="button" class="btn btn-primary next-step">
+													 Continuar <span class="glyphicon glyphicon-arrow-right"></span>
+												</button>
+											</li>
+										</ul>
+									</div>
+
+									<div class="tab-pane" role="tabpanel" id="step3">
+										<div class="step2">
+											<h5><strong>Método De Pago</strong></h5>
+											<hr>
+											<div class="row mar_ned">
+												<div class="form-group">
+													<label class="col-sm-4 control-label" for="FormaDePago">FormaDePago:</label>
+													{{if .Cotizacion.EFormaDePagoCotizacion.IEstatus}}
+														<div class="col-sm-5 has-feedback has-error">
+															<select id="FormaDePago" name="FormaDePago" class="form-control selectpicker" aria-required="true" aria-describedby="FormaDePago-error" aria-invalid="true">
+																{{.Cotizacion.EFormaDePagoCotizacion.Ihtml}}
+															</select>  
+															<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+															<em id="FormaDePago-error" class="error help-block">{{.Cotizacion.EFormaDePagoCotizacion.IMsj}}</em>
+														</div>
+													{{else}}
+														<div class="col-sm-5">									
+															<select id="FormaDePago" name="FormaDePago" class="form-control selectpicker">
+																{{.Cotizacion.EFormaDePagoCotizacion.Ihtml}}
+															</select>  
+														</div>  
+													{{end}}
+												</div>
+											
+												<div class="form-group">
+													<label class="col-sm-4 control-label" for="FormaDeEnvío">FormaDeEnvío:</label>
+													{{if .Cotizacion.EFormaDeEnvíoCotizacion.IEstatus}}
+														<div class="col-sm-5 has-feedback has-error">
+															<select id="FormaDeEnvío" name="FormaDeEnvío" class="form-control selectpicker" aria-required="true" aria-describedby="FormaDeEnvío-error" aria-invalid="true">
+																{{.Cotizacion.EFormaDeEnvíoCotizacion.Ihtml}}
+															</select>  
+															<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+															<em id="FormaDeEnvío-error" class="error help-block">{{.Cotizacion.EFormaDeEnvíoCotizacion.IMsj}}</em>
+														</div>
+													{{else}}
+														<div class="col-sm-5">									
+															<select id="FormaDeEnvío" name="FormaDeEnvío" class="form-control selectpicker">
+																{{.Cotizacion.EFormaDeEnvíoCotizacion.Ihtml}}
+															</select>  
+														</div>  
+													{{end}}
+												</div>
+											</div>
+										</div>
+										<ul class="list-inline pull-right">
+											<li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+											<li><button type="button" class="btn btn-default next-step">Saltar</button></li>
+											<li>
+												<button type="button" class="btn btn-primary next-step">
+													 Continuar <span class="glyphicon glyphicon-arrow-right"></span>
+												</button>
+											</li>
+										</ul>
+									</div>
+									
+									<div class="tab-pane" role="tabpanel" id="complete">
+										<div class="step2">
+											<h5><strong>Detalle de Cotización</strong></h5>
+											<hr>
+												<div class="row">
+													<div class="col-md-4">
+														<div class="form-group" id="DatosMinimosDetalle">
+															<label>Nombre</label>
+															<input type="text" class="form-control" id="NombreDetalle" value="{{.Cotizacion.ENombreCotizacion.Nombre}}" readonly>
+															<label>Telefono</label>
+															<input type="text" class="form-control" id="TelefonoDetalle" value="{{.Cotizacion.ETelefonoCotizacion.Telefono}}" readonly>
+															<label>Correo</label>
+															<input type="text" class="form-control" id="CorreoDetalle" value="{{.Cotizacion.ECorreoCotizacion.Correo}}" readonly>
+														</div>
+													</div>
+													<div class="col-md-4">
+														<label>Forma De Pago:</label>
+														<input type="text" class="form-control" id="FormaDePagoDetalle"  readonly>
+														<label>Entrega:</label>
+														<input type="text" class="form-control" id="FormaDeEnvíoDetalle"  readonly>														
+													</div>
+													<div class="col-md-4">
+														<div>
+															<table class="table table-hover">
+																<thead>
+																	<tr>
+																		<th>RESUMEN DE COMPRA</th>
+																		<th></th>
+																	</tr>
+																</thead>
+																<tbody id="calculadoraDetalle">
+																		{{.Cotizacion.EResumenCotizacion.Ihtml}}
+																</tbody>
+															</table>
+														</div>
+													</div>
+													
+													<div class="col-md-12">
+														<hr>
+														<hr>
+														<hr>
+														<hr>
+														<table class="table">
+															<thead class="thead-inverse">
+																<tr>
+																	<th>#Codigo</th>
+																	<th>Descripcion</th>
+																	<th>Almacen</th>
+																	<th>Precio</th>
+																	<th>Cantidad</th>
+																	<th>Unidad</th>
+																	<th>Precio S/Impuesto</th>
+																	<th>Impuesto</th>
+																	<th>Precio C/Impuesto</th>
+																</tr>
+															</thead>
+															<tbody id="BProductosDetalle">
+																	{{.Cotizacion.ECarritoCotizacion.Ihtml}}
+															</tbody>
+														</table>
+													</div>
+												</div>
+												<hr>
+											<button type="submit" class="btn btn-primary btn-lg btn-block">Hecho</button>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+	</div>
+
+
+
+	
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

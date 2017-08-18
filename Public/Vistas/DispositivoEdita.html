@@ -1,0 +1,186 @@
+
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  DispositivoEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Dispositivo/js/Dispositivo.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Edición de Dispositivos</h1>
+			<form id="Form_Alta_Dispositivo" class="form-horizontal" method="POST">
+
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+								{{if .Dispositivo.ENombreDispositivo.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Nombre" name="Nombre" class="form-control selectpicker" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+											{{.Dispositivo.ENombreDispositivo.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Nombre-error" class="error help-block">{{.Dispositivo.ENombreDispositivo.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Nombre" name="Nombre" class="form-control selectpicker">
+											{{.Dispositivo.ENombreDispositivo.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .Dispositivo.EDescripcionDispositivo.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Dispositivo..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true">{{.Dispositivo.EDescripcionDispositivo.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.Dispositivo.EDescripcionDispositivo.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Dispositivo..." 
+									style="width: 100%">{{.Dispositivo.EDescripcionDispositivo.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Predecesor">Predecesor:</label>
+								{{if .Dispositivo.EPredecesorDispositivo.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Predecesor" name="Predecesor" class="form-control selectpicker" aria-required="true" aria-describedby="Predecesor-error" aria-invalid="true">
+											{{.Dispositivo.EPredecesorDispositivo.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Predecesor-error" class="error help-block">{{.Dispositivo.EPredecesorDispositivo.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Predecesor" name="Predecesor" class="form-control selectpicker">
+											{{.Dispositivo.EPredecesorDispositivo.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Mac">Mac:</label>
+							{{if .Dispositivo.EMacDispositivo.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Mac" id="Mac" class="form-control" value="{{.Dispositivo.EMacDispositivo.Mac}}" aria-required="true" aria-describedby="Mac-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Mac-error" class="error help-block">{{.Dispositivo.EMacDispositivo.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Mac" id="Mac" class="form-control" value="{{.Dispositivo.EMacDispositivo.Mac}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Campos">Campos:</label>
+							{{if .Dispositivo.ECamposDispositivo.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Campos" id="Campos" class="form-control" value="{{.Dispositivo.ECamposDispositivo.Campos}}" aria-required="true" aria-describedby="Campos-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Campos-error" class="error help-block">{{.Dispositivo.ECamposDispositivo.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Campos" id="Campos" class="form-control" value="{{.Dispositivo.ECamposDispositivo.Campos}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+								{{if .Dispositivo.EEstatusDispositivo.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.Dispositivo.EEstatusDispositivo.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Dispositivo.EEstatusDispositivo.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker">
+											{{.Dispositivo.EEstatusDispositivo.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+
+
+			<div class="form-group">			
+				<div class="col-md-9 text-right">
+					<button type="button" onclick="window.location.href = '/Dispositivos';" class="btn btn-default btn-lg">Index</button>
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

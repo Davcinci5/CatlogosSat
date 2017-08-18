@@ -1,0 +1,183 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  UnidadAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Unidad/js/Unidad.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;"  id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Unidades</h1>
+			<form id="Form_Alta_Unidad" class="form-horizontal" method="POST">
+
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Magnitud">Magnitud:</label>
+								{{if .Unidad.EMagnitudUnidad.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Magnitud" name="Magnitud" class="form-control selectpicker" aria-required="true" aria-describedby="Magnitud-error" aria-invalid="true" disabled>
+											{{.Unidad.EMagnitudUnidad.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Magnitud-error" class="error help-block">{{.Unidad.EMagnitudUnidad.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Magnitud" name="Magnitud" class="form-control selectpicker" disabled>
+											{{.Unidad.EMagnitudUnidad.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .Unidad.EDescripcionUnidad.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Unidad..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true">{{.Unidad.EDescripcionUnidad.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.Unidad.EDescripcionUnidad.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Unidad..." 
+									style="width: 100%">{{.Unidad.EDescripcionUnidad.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>
+					<br>
+						
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+								
+								{{if .Unidad.EDatosUnidad.Datos.ENombreDatos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Unidad.EDatosUnidad.Datos.ENombreDatos.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Nombre-error" class="error help-block">{{.Unidad.EDatosUnidad.Datos.ENombreDatos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">															
+										<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Unidad.EDatosUnidad.Datos.ENombreDatos.Nombre}}">
+									</div>  
+								{{end}}
+							</div> 
+						
+
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Abreviatura">Abreviatura:</label>
+								
+								{{if .Unidad.EDatosUnidad.Datos.EAbreviaturaDatos.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+									
+										<input type="text" name="Abreviatura" id="Abreviatura" class="form-control" value="{{.Unidad.EDatosUnidad.Datos.EAbreviaturaDatos.Abreviatura}}" aria-required="true" aria-describedby="Abreviatura-error" aria-invalid="true">
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																				
+										<em id="Abreviatura-error" class="error help-block">{{.Unidad.EDatosUnidad.Datos.EAbreviaturaDatos.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">															
+										<input type="text" name="Abreviatura" id="Abreviatura" class="form-control" value="{{.Unidad.EDatosUnidad.Datos.EAbreviaturaDatos.Abreviatura}}">
+									</div>  
+								{{end}}
+							</div>		
+
+							<div class="row text-center">
+								<button id="AgregaCampo" name="Agregar" value="Agregar" type="button" class="btn btn-success btn-lg col-md-4" style="float:right;margin-right:30%;"><span class="glyphicon glyphicon-plus"></span>Agregar</button>								
+							</div>
+						
+<br>
+<br>
+					 
+						<div class="table-responsive container" id="div_tabla_unidades">
+							<table class="table table-condensed table-hover">
+								<thead class="thead-inverse">
+									<tr>
+										<th>Nombre</th>
+										<th>Abreviatura</th>
+										<th>Eliminar</th>
+									</tr>
+								</thead>
+								<tbody id="tbody_etiquetas_unidades">
+									{{.Unidad.EDatosUnidad.Datos.ENombreDatos.Ihtml}}
+								</tbody>
+							</table>
+						</div>
+
+
+
+<br>
+<br>
+
+
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Unidades';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

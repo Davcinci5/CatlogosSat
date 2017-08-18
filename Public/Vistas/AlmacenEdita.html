@@ -1,0 +1,227 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  CatalogoAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+<script src="../../Locales/Almacen/js/Almacen.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+
+					{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+			
+			<h1>Editar de Almacen</h1>
+			<form id="Form_Alta_Almacen" class="form-horizontal col-md-12 col-xs-12 col-sm-12 col-lg-12" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .Almacen.ENombreAlmacen.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Almacen.ENombreAlmacen.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Almacen.ENombreAlmacen.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Almacen.ENombreAlmacen.Nombre}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+								{{if .Almacen.ETipoAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+											{{.Almacen.ETipoAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Tipo-error" class="error help-block">{{.Almacen.ETipoAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Tipo" name="Tipo" class="form-control selectpicker">
+											{{.Almacen.ETipoAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Clasificacion">Clasificacion:</label>
+								{{if .Almacen.EClasificacionAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Clasificacion" name="Clasificacion" class="form-control selectpicker" aria-required="true" aria-describedby="Clasificacion-error" aria-invalid="true">
+											{{.Almacen.EClasificacionAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Clasificacion-error" class="error help-block">{{.Almacen.EClasificacionAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Clasificacion" name="Clasificacion" class="form-control selectpicker">
+											{{.Almacen.EClasificacionAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Clasificacion">Conexion:</label>
+								{{if .Almacen.EClasificacionAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Conexion" name="Conexion" class="form-control selectpicker" aria-required="true" aria-describedby="Clasificacion-error" aria-invalid="true" disabled>
+											{{.Almacen.EConexionAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Clasificacion-error" class="error help-block">{{.Almacen.EClasificacionAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Conexion" name="Conexion" class="form-control selectpicker" disabled>
+											{{.Almacen.EConexionAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+
+
+							<!-- <div class="form-group">
+								<label class="col-sm-4 control-label" for="Predecesor">Predecesor:</label>
+								{{if .Almacen.EPredecesorAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Predecesor" name="Predecesor" class="form-control selectpicker" aria-required="true" aria-describedby="Predecesor-error" aria-invalid="true">
+											{{.Almacen.EPredecesorAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Predecesor-error" class="error help-block">{{.Almacen.EPredecesorAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Predecesor" name="Predecesor" class="form-control selectpicker">
+											{{.Almacen.EPredecesorAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Sucesor">Sucesor:</label>
+								{{if .Almacen.ESucesorAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Sucesor" name="Sucesor" class="form-control selectpicker" aria-required="true" aria-describedby="Sucesor-error" aria-invalid="true" multiple>
+											{{.Almacen.ESucesorAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Sucesor-error" class="error help-block">{{.Almacen.ESucesorAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Sucesor" name="Sucesor" class="form-control selectpicker" multiple>
+											{{.Almacen.ESucesorAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div> -->
+
+							<!--<div class="form-group">
+								<label class="col-sm-4 control-label" for="Direccion">Direccion:</label>
+								{{if .Almacen.EDireccionAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Direccion" name="Direccion" class="form-control selectpicker" aria-required="true" aria-describedby="Direccion-error" aria-invalid="true">
+											{{.Almacen.EDireccionAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Direccion-error" class="error help-block">{{.Almacen.EDireccionAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Direccion" name="Direccion" class="form-control selectpicker">
+											{{.Almacen.EDireccionAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>-->
+
+							<div class="form-group" >
+								<label class="col-sm-4 control-label" for="Estatus">Status:</label>
+								{{if .Almacen.EEstatusAlmacen.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true" >
+											{{.Almacen.EEstatusAlmacen.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Almacen.EEstatusAlmacen.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" >
+											{{.Almacen.EEstatusAlmacen.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Almacens';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

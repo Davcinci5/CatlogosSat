@@ -1,0 +1,158 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  PersonaAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Persona/js/Persona.js" type="text/javascript" ></script>
+
+
+	<script src="/Plugins/Kendo/js/kendo.all.min.js" type="text/javascript" ></script>
+	<link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="/Plugins/Kendo/styles/kendo.default.mobile.min.css" />
+
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Personas</h1>
+			<form id="Form_Alta_Persona" class="form-horizontal" method="POST">
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+					{{if .Persona.ENombrePersona.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Persona.ENombrePersona.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="Nombre-error" class="error help-block">{{.Persona.ENombrePersona.IMsj}}</em>
+						</div>
+					{{else}}
+						<div class="col-sm-5">
+							<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Persona.ENombrePersona.Nombre}}">
+						</div>  
+					{{end}}
+				</div>
+
+					 
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="Tipo">Tipo:</label>
+					{{if .Persona.ETipoPersona.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<select id="Tipo" name="Tipo"  multiple="multiple"  aria-required="true" aria-describedby="Tipo-error" aria-invalid="true" required>
+								{{.Persona.ETipoPersona.Ihtml}}
+							</select>  
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="Tipo-error" class="error help-block">{{.Persona.ETipoPersona.IMsj}}</em>
+						</div>
+					{{else}}
+						<div class="col-sm-5">	
+						<select id="Tipo" name="Tipo" multiple="multiple" data-placeholder="--SELECCIONE--" required>
+							{{.Persona.ETipoPersona.Ihtml}}
+						</select>
+
+						</div>  
+					{{end}}
+				</div>
+						
+						
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="Grupos">Grupos:</label>
+					{{if .Persona.EGruposPersona.IEstatus}}
+						<div class="col-sm-5">
+							<select id="Grupos" name="Grupos"  multiple="multiple" data-placeholder="--SELECCIONE--">
+								{{.Persona.EGruposPersona.Ihtml}}
+							</select>  
+						</div>
+					{{else}}
+						<div class="col-sm-5">									
+							<select id="Grupos" name="Grupos"  multiple="multiple" data-placeholder="--SELECCIONE--">
+								{{.Persona.EGruposPersona.Ihtml}}
+							</select>  
+						</div>  
+					{{end}}
+				</div>
+
+						
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="Predecesor">Predecesor:</label>
+					{{if .Persona.EPredecesorPersona.IEstatus}}
+						<div class="col-sm-5 has-feedback has-error">
+							<select id="Predecesor" name="Predecesor" class="form-control selectpicker" aria-required="true" aria-describedby="Predecesor-error" aria-invalid="true">
+								{{.Persona.EPredecesorPersona.Ihtml}}
+							</select>  
+							<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+							<em id="Predecesor-error" class="error help-block">{{.Persona.EPredecesorPersona.IMsj}}</em>
+						</div>
+					{{else}}
+						<div class="col-sm-5">									
+							<select id="Predecesor" name="Predecesor" class="form-control selectpicker" required="">
+								{{.Persona.EPredecesorPersona.Ihtml}}
+							</select>  
+						</div>  
+					{{end}}
+				</div>
+						
+		
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Personas';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

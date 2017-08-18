@@ -1,0 +1,304 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  CajaAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Caja/js/Caja.js"></script>
+		<script src="../../Plugins/JquerySorteable/jquery.sortable.js"></script>
+		<script src="../../Plugins/JQueryTable/bootstrap-table.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .scaja.SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		
+		{{if .scaja.SEstado}}
+			{{if .scaja.SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.scaja.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .scaja.SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.scaja.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<!--<h1>Caja: {{.scaja.Caja.EUsuarioCaja.Usuario.Hex}}</h1>-->
+			<input type="hidden" class="form-control" id="cajax" value="{{.scaja.Caja.EUsuarioCaja.Usuario.Hex}}">
+			<form id="Form_Alta_Caja" class="form-horizontal" method="POST">
+
+					<!--		
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Usuario">Usuario:</label>
+							{{if .Caja.EUsuarioCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Caja.EUsuarioCaja.Usuario}}" aria-required="true" aria-describedby="Usuario-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Usuario-error" class="error help-block">{{.Caja.EUsuarioCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="{{.Caja.EUsuarioCaja.Usuario}}">
+								</div>  
+							{{end}}
+						</div>
+					-->
+					<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Caja">Caja:</label>
+							{{if .Caja.ECajaCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Caja" id="Caja" class="form-control" value="{{.Caja.ECajaCaja.Caja}}" aria-required="true" aria-describedby="Caja-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Caja-error" class="error help-block">{{.Caja.ECajaCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Caja" id="Caja" class="form-control" value="{{.Caja.ECajaCaja.Caja}}">
+								</div>  
+							{{end}}
+						</div>
+					-->
+						<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Cargo">Captura tu documento:</label>
+							{{if .Caja.ECargoCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Cargo" id="Cargo" class="form-control" value="{{.Caja.ECargoCaja.Cargo}}" aria-required="true" aria-describedby="Cargo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Cargo-error" class="error help-block">{{.Caja.ECargoCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="hidden" name="Cargo" id="Cargo" class="form-control" value="{{.Caja.ECargoCaja.Cargo}}">									
+									<input type="text" name="documentoID" id="documentoID" class="form-control" value="" placeholder="Id del documento" autofocus>									
+								</div> 
+								<button type="button" class="btn btn-primary btn-md" onclick="buscaDocumento()">Buscar</button>
+								<button type="button" class="btn btn-danger btn-md" data-toggle="modal" onclick="getSaldos()">Cerrar CAJA</button>
+							{{end}}
+						</div>
+						-->
+					<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Saldo">Saldo:</label>
+							{{if .Caja.ESaldoCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Saldo" id="Saldo" class="form-control" value="{{.Caja.ESaldoCaja.Saldo}}" aria-required="true" aria-describedby="Saldo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Saldo-error" class="error help-block">{{.Caja.ESaldoCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Saldo" id="Saldo" class="form-control" value="{{.Caja.ESaldoCaja.Saldo}}">
+								</div>  
+							{{end}}
+						</div>
+					-->
+					<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="FechaHora">FechaHora:</label>
+							{{if .Caja.EFechaHoraCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="FechaHora" id="FechaHora" class="form-control" value="{{.Caja.EFechaHoraCaja.FechaHora}}" aria-required="true" aria-describedby="FechaHora-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="FechaHora-error" class="error help-block">{{.Caja.EFechaHoraCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="FechaHora" id="FechaHora" class="form-control" value="{{.Caja.EFechaHoraCaja.FechaHora}}">
+								</div>  
+							{{end}}
+						</div>
+					-->
+<div class="col-md-8">
+<div class="panel panel-default">
+  <div class="panel-body">
+	<!--
+	<h4>Usuario: <small>{{.scaja.Caja.EUsuarioCaja.Usuario.Hex}}</small></h4>
+	<h4>Caja: <small>{{.scaja.Caja.ECajaCaja.Caja.Hex}}</small></h4>
+	<h4>Saldo: <small>{{.scaja.Caja.ESaldoCaja.Saldo}}</small></h4>
+	-->
+	<form class="form-horizontal">
+	<div class="col-md-6">
+	<div class="form-group">
+		<label class="control-label col-sm-4" for="saldo">Caja ID:</label>
+		<div class="col-sm-8">
+		<p class="form-control-static">{{.scaja.Caja.ECajaCaja.Caja.Hex}}</p>
+		</div>
+	</div>
+	</div>
+	<div class="col-md-6">
+	<div class="form-group">
+		<label class="control-label col-sm-4" for="saldo">Saldo:</label>
+		<div class="col-sm-8">
+		<p class="form-control-static">{{.scaja.Caja.ESaldoCaja.Saldo}}</p>
+		</div>
+	</div>
+	</form>
+		</div>
+  </div>
+</div>		
+</div>
+<div class="col-md-8">
+<div class="form-group">
+	<!--<label class="col-sm-4 control-label" for="Cargo">Captura tu documento:</label>-->
+	{{if .Caja.ECargoCaja.IEstatus}}
+	<div class="col-sm-5 has-feedback has-error">
+		<input type="text" name="Cargo" id="Cargo" class="form-control" value="{{.Caja.ECargoCaja.Cargo}}" aria-required="true" aria-describedby="Cargo-error"
+		 aria-invalid="true">
+		<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+		<em id="Cargo-error" class="error help-block">{{.Caja.ECargoCaja.IMsj}}</em>
+	</div>
+	{{else}}
+	<div class="col-sm-5">
+		<input type="hidden" name="Cargo" id="Cargo" class="form-control" value="{{.Caja.ECargoCaja.Cargo}}">
+		<input type="text" name="documentoID" id="documentoID" class="form-control" value="" placeholder="ID del documento" autofocus>
+	</div>
+	<button type="button" class="btn btn-primary btn-md" onclick="buscaDocumento()">Buscar</button>
+	<button type="button" class="btn btn-warning btn-md" data-toggle="modal" onclick="getSaldos('{{.scaja.Caja.ECajaCaja.Caja.Hex}}')">Cerrar CAJA</button>
+	{{end}}
+</div>		
+</div>		
+	
+<div id="detalleDocumento" class="col-md-8">
+	{{if .EsPago}}
+		{{.Cobro}}
+	{{else}}
+	<div id="toolbar">
+    <!--<button id="remove" class="btn btn-danger" disabled>
+            <i class="glyphicon glyphicon-remove"></i> Delete-->
+			<!--<button type="button" class="btn btn-danger btn-md" data-toggle="modal" onclick="getSaldos()">Cerrar CAJA</button>-->
+			<h4>Lista de documentos pendientes</h4>
+    <!--</button>-->
+    </div>
+	<table data-toggle="table" class="bootable" id="tabla"
+       data-search="true"
+       data-show-refresh="false"
+       data-show-toggle="true"
+       data-show-columns="true"
+       data-pagination="true"
+     
+       data-show-export="true"
+       data-toolbar="#toolbar">
+		<thead>
+			<tr>
+			<th data-field="ID" data-sortable="false">Operacion</th>
+			<th data-field="Tipo" data-sortable="false">Almacen</th>
+			<th data-field="Concepto" data-sortable="false">Subtotal</th>
+			<th data-field="Monto" data-sortable="false">Impuesto</th>
+			<th data-field="Pagar" data-sortable="false" data-align="center">Pagar</th>
+			</tr>
+		</thead>		
+		<tbody>
+			{{range .productos}}
+			<tr>
+			<td scope="row">{{.Operacion}}<input type="hidden" class="form-control" id="documentoIDx" value="{{.Operacion}}"></td>			
+			<td>{{.Almacen}}</td>
+			<td>{{.Precio}}</td>
+			<td>{{.Impuesto}}<input type="hidden" class="form-control" id="importeDocumento" value="{{.Precio}}"></td>
+			<td><button type="button" class="btn btn-primary btn-md" onclick="buscaDocumento('{{.Operacion}}')">Pagar</button></td>
+			
+			</tr>
+			{{end}}
+		</tbody>
+		<tfoot>
+			<div class="pull-right">			
+			</div>
+		</tfoot>
+	</table>
+	{{end}}
+</div>
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Cajas';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg" disabled>Continuar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">CIERRE DE CAJA</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+			  <div id="contenidoModal"></div>
+<!--
+				<div class="panel panel-default">
+				<div class="panel-heading">Cabecera</div>
+				<div class="panel-body">
+					
+				</div>
+				</div>
+
+				<div class="panel panel-default">
+				<div class="panel-heading">Detalle</div>
+				<div class="panel-body">
+					
+				</div>
+				</div>
+-->
+<!--
+				<div class="panel panel-default">
+				<div class="panel-heading">Resumen</div>
+				<div class="panel-body">
+					
+				</div>
+				</div>
+-->
+				<button type="button" class="btn btn-danger" onclick="cierraCaja('{{.scaja.Caja.ECajaCaja.Caja.Hex}}')">Cerrar CAJA</button>
+		  </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- FIN PAGINA -->
+</html>
+

@@ -1,0 +1,112 @@
+
+<!-- ############################## <  VISTA LOGIN > #####################################-->
+<!-- ############################## <  Login.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Cuentas/js/cuentas.js"></script>
+        <link rel="stylesheet" href="../../Locales/Cuentas/css/cuentas.css">
+<!--#################### CABECERA #########################-->
+        
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+
+
+<div class="row">
+    <div class="container">
+        <div class="col-sm-5 logologin">
+            <a href="https://www.facebook.com/KoreIngenieria/">
+                <img src='../../img/korelogo_big.png' alt='Lights' style='width:50%'>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<br>
+
+<div class="row">
+    <div class="container">
+        <!--0-->
+        <div class="col-sm-4"></div>
+        <!--4-->
+        <div class="col-sm-8">
+            <h1 class="recuperarh1">Modificar Cuenta de Usuario</h1>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9"></div>
+        
+        <!--8-->
+
+
+        <div class="col-md-offset-4 col-sm-6">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+                <form action="/Login" method="POST">
+
+                <div class="col-sm-3">
+                <label for="userName">Usuario:</label>
+                </div>
+                <div class="col-sm-9">
+                <input type="text" id="userName" name="userName" class="form-control" placeholder="" >
+                </div>
+
+                <div class="clearfix"></div>
+                <br>
+                <br>
+
+                </form>
+            </div>
+        </div>
+
+
+        <div class="col-md-offset-4 col-sm-6">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+                <a href="/Login">
+                    <img src="../../img/homelogin.png" alt="HomeSing" style="width:42px;height:42px;border:0;">
+                </a> 
+            </div>
+        </div>
+
+        </div>
+        <!--12-->
+
+        <!--0-->
+
+
+    </div>
+</div>
+
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>
+

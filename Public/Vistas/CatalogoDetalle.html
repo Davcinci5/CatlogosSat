@@ -1,0 +1,146 @@
+
+<!-- ############################## <  VISTA DETALLE  > #####################################-->
+<!-- ############################## <  CatalogoDetalle.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Catalogo/js/Catalogo.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10" style="padding-bottom: 5%;">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+			
+			<h1>Detalle de Catálogos</h1>
+			<form id="Form_Alta_Catalogo" class="form-horizontal" method="POST">
+						
+						<input type="text" id="ID" name="ID" value="{{.Catalogo.ID.Hex}}" hidden />
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Clave">Clave:</label>
+							{{if .Catalogo.EClaveCatalogo.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Clave" id="Clave" class="form-control" value="{{.Catalogo.EClaveCatalogo.Clave}}" aria-required="true" aria-describedby="Clave-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Clave-error" class="error help-block">{{.Catalogo.EClaveCatalogo.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Clave" id="Clave" class="form-control" value="{{.Catalogo.EClaveCatalogo.Clave}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre De Catálogo:</label>
+							{{if .Catalogo.ENombreCatalogo.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Catalogo.ENombreCatalogo.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true" readonly>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Catalogo.ENombreCatalogo.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Catalogo.ENombreCatalogo.Nombre}}" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Descripcion">Descripcion:</label>
+							{{if .Catalogo.EDescripcionCatalogo.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Catalogo..." 
+									style="width: 100%" aria-required="true" aria-describedby="Descripcion-error" aria-invalid="true" readonly>{{.Catalogo.EDescripcionCatalogo.Descripcion}}</textarea>									
+								
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Descripcion-error" class="error help-block">{{.Catalogo.EDescripcionCatalogo.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<textarea class="form-control" rows="4" id="Descripcion" name="Descripcion" placeholder="Descripcion del Catalogo..." 
+									style="width: 100%" readonly>{{.Catalogo.EDescripcionCatalogo.Descripcion}}</textarea>
+								</div>  
+							{{end}}
+						</div>					
+
+
+							<div class="table-responsive container" id="div_tabla_catalogo">
+								<table class="table table-condensed table-hover">
+								<thead class="thead-inverse">
+								<tr>
+									<th>Valores</th>
+								</tr>
+								</thead>
+								<tbody id="tbody_etiquetas_catalogo">
+									{{.Catalogo.EValoresCatalogo.Valores.EValorValores.Ihtml}}
+								</tbody>
+								</table>
+							</div>
+						
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+							<button type="button" onclick="window.location.href = '/Catalogos';" class="btn btn-default btn-lg">Index</button>
+							<button type="button" onclick="EditaCatalogo('Detalle')" class="btn btn-primary btn-lg">Edita</button>
+							<button type="button" onclick="window.location.href = '/Catalogos/alta';" class="btn btn-success btn-lg">Nuevo</button>
+					</div>
+				</div>
+
+			</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

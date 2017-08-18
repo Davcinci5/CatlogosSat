@@ -1,0 +1,164 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  ConexionAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Conexion/js/Conexion.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h3>{{.SMsj}}</h3></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Alta de Conexions</h1>
+			
+			<form id="Form_Alta_Conexion" class="form-horizontal" method="POST">
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Nombre:</label>
+							{{if .Conexion.ENombreConexion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Conexion.ENombreConexion.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true" required>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Conexion.ENombreConexion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Conexion.ENombreConexion.Nombre}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Servidor">Servidor:</label>
+							{{if .Conexion.EServidorConexion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Servidor" id="Servidor" class="form-control" value="{{.Conexion.EServidorConexion.Servidor}}" aria-required="true" aria-describedby="Servidor-error" aria-invalid="true" required>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Servidor-error" class="error help-block">{{.Conexion.EServidorConexion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Servidor" id="Servidor" class="form-control" value="{{.Conexion.EServidorConexion.Servidor}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="NombreBD">NombreBD:</label>
+							{{if .Conexion.ENombreBDConexion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="NombreBD" id="NombreBD" class="form-control" value="{{.Conexion.ENombreBDConexion.NombreBD}}" aria-required="true" aria-describedby="NombreBD-error" aria-invalid="true" required>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="NombreBD-error" class="error help-block">{{.Conexion.ENombreBDConexion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="NombreBD" id="NombreBD" class="form-control" value="{{.Conexion.ENombreBDConexion.NombreBD}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="UsuarioBD">UsuarioBD:</label>
+							{{if .Conexion.EUsuarioBDConexion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="UsuarioBD" id="UsuarioBD" class="form-control" value="{{.Conexion.EUsuarioBDConexion.UsuarioBD}}" aria-required="true" aria-describedby="UsuarioBD-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="UsuarioBD-error" class="error help-block">{{.Conexion.EUsuarioBDConexion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="UsuarioBD" id="UsuarioBD" class="form-control" value="{{.Conexion.EUsuarioBDConexion.UsuarioBD}}">
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="PassBD">PassBD:</label>
+							{{if .Conexion.EPassBDConexion.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="PassBD" id="PassBD" class="form-control" value="{{.Conexion.EPassBDConexion.PassBD}}" aria-required="true" aria-describedby="PassBD-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="PassBD-error" class="error help-block">{{.Conexion.EPassBDConexion.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="password" name="PassBD" id="PassBD" class="form-control" value="{{.Conexion.EPassBDConexion.PassBD}}">
+								</div>  
+							{{end}}
+						</div>
+
+						<div class="col-sm-12" role="alert" id="alertConexion">
+							<div id="iconConexion" style="font-size:35px;text-align: center" >
+							</div>
+							<div id="mensajeConexion" style="text-align: center">
+							</div>
+						</div>
+					
+
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Conexions';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+						<button type="button" onclick="testConexion()" class="btn btn-primary btn-lg">Probar Conexion</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

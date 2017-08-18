@@ -1,0 +1,138 @@
+<!-- ############################## <  VISTA INDEX > #####################################-->
+<!-- ############################## <  index.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="icon" type="image/png" href="../img/k.ico" />
+	<!--#################### ESTILOS GENERALES #########################-->
+	{{template "styles_layout"}}
+	<!--#################### TUS ESTILOS ###############################-->
+
+	<!--#################### SCRIPTS GENERALES #########################-->
+	{{template "scripts_layout"}}
+	<!--#################### TUS SCRIPTS #########################-->
+	<script src="../../Locales/Unidad/js/Unidad.js"></script>
+	<!--#################### CABECERA #########################-->
+	{{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+
+<body>
+
+	{{template "menu_layout" }}
+
+	<div class="col-md-10" style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}} 
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong>
+				</div>
+			{{end}} 
+		{{else}} 
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong>
+				</div>
+			{{end}} 
+		{{end}}
+
+		<h1>Unidades</h1>
+
+		<form action="/Unidades" id="searchform" method="POST" class="form-horizontal">
+			<br>
+			<div class="form-group">
+				<label for="Catalogos" class="col-md-2 control-label input-lg">Seleccione Magnitud: </label>
+				<div class="col-md-8">
+					<select id="Unidads" name="Unidads" class="select form-control input-lg" required>
+							{{.Unidad.EMagnitudUnidad.Ihtml}}
+					</select>
+				</div>
+				<div>	  
+					<button id="AgregaMagnitud" name="AgregaMagnitud" value="alta" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAltaMagnitud"><span class="glyphicon glyphicon-plus"></span></button>
+				</div> 
+			</div>
+			<br>
+			<br>
+
+						<div id="tbody_etiquetas_unidades"></div>
+
+			<div class="form-group">
+				<div class="col-md-11 text-right">					
+					<button type="button" onclick="EditaUnidad('Index')" class="btn-lg btn-default">Agregar o Quitar Unidades (+/-)</button>
+					<button type="button" onclick="DetalleUnidad()" class="btn-lg btn-info">Detalle de Unidades</button>
+				</div>
+			</div>
+			<br>
+		</form>
+
+<!-- Modal Nueva Magnitud -->
+<div id="modalAltaMagnitud" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title">Nueva Magnitud</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+
+			<div class="modal-body row">
+				<form id="Alta_Magnitud_Modal" method="POST" class="form-horizontal" action="/AgregaMagnitudDesdeUnidades"> 
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="ModalMagnitud">Magnitud:</label>
+						<div class="col-sm-5">
+							<input type="text" name="ModalMagnitud" id="ModalMagnitud" class="form-control" value="">
+						</div>  
+					</div>
+
+					<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="cancelarAdd_Unidad">Cancelar</button>
+							<button type="submit" class="btn btn-primary" id="guardarUnidad">Guardar Magnitud</button>
+					</div>
+				 </form>
+			</div>
+
+
+		</div>
+	</div>
+</div>	
+
+
+
+
+
+
+
+
+
+	</div>
+
+
+
+
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+
+</html>

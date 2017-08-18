@@ -1,0 +1,300 @@
+
+<!-- ############################## <  VISTA EDITA > #####################################-->
+<!-- ############################## <  ProductoEdita.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Producto/js/Producto.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion}}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	
+	<div class="col-md-10"  style="padding-bottom: 5%;" id="SeccionCuerpo">
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible text-center" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong><h4>{{.SMsj}}</h4></strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Edición de Productos</h1>
+			<div class="col-md-5"></div><div>{{.Producto.EImagenesProducto.Ihtml}}</div>
+			<br><br>
+			<form id="Form_Alta_Producto" class="form-horizontal" method="POST" enctype="multipart/form-data">
+				<div class="form-group">
+						<label class="col-sm-4 control-label" for="codigo">Nombre del Código:</label>
+						
+						{{if .Producto.ECodigosProducto.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+							
+								<input type="text" name="Codigo" id="Codigo" class="form-control" value="" aria-required="true" aria-describedby="Codigo-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																		
+								<em id="Codigo-error" class="error help-block">{{.Producto.ECodigosProducto.IMsj}}</em>
+							</div>
+						{{else}}
+							<div class="col-sm-5">															
+								<input type="text" name="Codigo" id="Codigo" class="form-control" value="">
+							</div>  
+						{{end}}
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-4 control-label" for="Valcodigo">Código:</label>
+						
+						{{if .Producto.ECodigosProducto.IEstatus}}
+							<div class="col-sm-5 has-feedback has-error">
+							
+								<input type="text" name="Valcodigo" id="Valcodigo" class="form-control" value="" aria-required="true" aria-describedby="Valcodigo-error" aria-invalid="true">
+								<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																		
+								<em id="Valcodigo-error" class="error help-block">{{.Producto.ECodigosProducto.IMsj}}</em>
+							</div>
+						{{else}}
+							<div class="col-sm-5">															
+								<input type="text" name="Valcodigo" id="Valcodigo" class="form-control" value="">
+							</div>  
+						{{end}}
+					</div>
+						
+
+					<div class="row text-center">
+						<button id="AgregaCampo" name="Agregar" value="Agregar" type="button" class="btn btn-success btn-lg col-md-4" style="float:right;margin-right:30%;"><span class="glyphicon glyphicon-plus"></span>Agregar Código</button>								
+					</div>
+				
+				<div class="table-responsive container" id="div_tabla_codigos">
+					<table class="table table-condensed table-hover">
+						<thead class="thead-inverse">
+							<tr>
+								<th>Codigo</th>
+								<th>Valor</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody id="tbody_etiquetas_codigos">
+							{{.Producto.ECodigosProducto.Ihtml}}
+						</tbody>
+					</table>
+				</div>
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Nombre">Descripcion del Producto:</label>
+							{{if .Producto.ENombreProducto.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Producto.ENombreProducto.Nombre}}" aria-required="true" aria-describedby="Nombre-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Nombre-error" class="error help-block">{{.Producto.ENombreProducto.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Nombre" id="Nombre" class="form-control" value="{{.Producto.ENombreProducto.Nombre}}">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Tipo">Tipo de Producto:</label>
+								{{if .Producto.ETipoProducto.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Tipo" name="Tipo" class="form-control selectpicker" aria-required="true" aria-describedby="Tipo-error" aria-invalid="true">
+											{{.Producto.ETipoProducto.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Tipo-error" class="error help-block">{{.Producto.ETipoProducto.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Tipo" name="Tipo" class="form-control selectpicker">
+											{{.Producto.ETipoProducto.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Imagenes">Imagenes:</label>
+							{{if .Producto.EImagenesProducto.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<!--<input type="text" name="Imagenes" id="Imagenes" class="form-control" value="{{.Producto.EImagenesProducto.Imagenes}}" aria-required="true" aria-describedby="Imagenes-error" aria-invalid="true" readonly>-->
+									<input type="file" name="Imagenes" id="Imagenes" multiple="multiple">
+									<div>{{.Producto.EImagenesProducto.Ihtml}}</div>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Imagenes-error" class="error help-block">{{.Producto.EImagenesProducto.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<!--<input type="text" name="Imagenes" id="Imagenes" class="form-control" value="{{.Producto.EImagenesProducto.Imagenes}}" readonly>-->
+									<input type="file" name="Imagenes" id="Imagenes" multiple="multiple">
+								</div>  
+							{{end}}
+						</div>
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Unidad">Unidad de Venta:</label>
+								{{if .Producto.EUnidadProducto.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Unidad" name="Unidad" class="form-control selectpicker" aria-required="true" aria-describedby="Unidad-error" aria-invalid="true">
+											{{.Producto.EUnidadProducto.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Unidad-error" class="error help-block">{{.Producto.EUnidadProducto.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Unidad" name="Unidad" class="form-control selectpicker">
+											{{.Producto.EUnidadProducto.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+						
+			<div class="form-group">
+				<label class="col-sm-4 control-label" for="Mmv">Cantidad Mínima De Venta</label> {{if .Producto.EMmvProducto.IEstatus}}
+				<div class="col-sm-5 has-feedback has-error">
+					<input type="number" name="Mmv" id="Mmv" class="form-control" value="{{.Producto.EMmvProducto.Mmv}}" aria-required="true" aria-describedby="Mmv-error" aria-invalid="true">					
+					<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+					<em id="Nombre-error" class="error help-block">{{.Producto.EMmvProducto.IMsj}}</em>
+				</div>
+				{{else}}
+				<div class="col-sm-5">
+					<input type="number" name="Mmv" id="Mmv" class="form-control" value="{{.Producto.EMmvProducto.Mmv}}">										
+				</div>
+				{{end}}
+			</div>
+
+
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="VentaFraccion">¿Para venta decimal?:</label>
+							{{if .Producto.EVentaFraccionProducto.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="radio" id="VentaFraccion" name="VentaFraccion" value="VentaFraccion"  class="custom-control-input" aria-required="true" aria-describedby="VentaFraccion-error" aria-invalid="true" {{.Producto.EVentaFraccionProducto.Ihtml}}>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="VentaFraccion-error" class="error help-block">{{.Producto.EVentaFraccionProducto.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="checkbox" id="VentaFraccion" name="VentaFraccion" value="VentaFraccion"  class="custom-control-input" {{.Producto.EVentaFraccionProducto.Ihtml}}>
+								</div>  
+							{{end}}
+						</div>
+					
+					
+					
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+								{{if .Producto.EEstatusProducto.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.Producto.EEstatusProducto.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Producto.EEstatusProducto.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker">
+											{{.Producto.EEstatusProducto.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+							</div>
+												
+							<div class="form-group">
+										<label class="col-sm-4 control-label" for="Etiqueta">Etiquetas extras:</label>
+									
+									{{if .Producto.EEtiquetasProducto.IEstatus}}
+										<div class="col-sm-5 has-feedback has-error">
+										
+											<input type="text" name="Etiqueta" id="Etiqueta" class="form-control" value="" aria-required="true" aria-describedby="Etiqueta-error" aria-invalid="true">
+											<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+																					
+											<em id="Etiqueta-error" class="error help-block">{{.Producto.EEtiquetasProducto.IMsj}}</em>
+										</div>
+									{{else}}
+										<div class="col-sm-5">															
+											<input type="text" name="Etiqueta" id="Etiqueta" class="form-control" value="">
+										</div>  
+									{{end}}
+								</div>
+
+									
+
+
+							<div class="row text-center">
+								<button id="AgregaEtiqueta" name="AgregarE" value="Agregar" type="button" class="btn btn-success btn-lg col-md-4" style="float:right;margin-right:30%;"><span class="glyphicon glyphicon-plus"></span>Agregar Etiqueta</button>								
+							</div>
+							<div class="table-responsive container" id="div_tabla_etiquetas">
+								<table class="table table-condensed table-hover">
+									<thead class="thead-inverse">
+										<tr>
+											<th>Valor</th>
+											<th>Eliminar</th>
+										</tr>
+									</thead>
+									<tbody id="tbody_etiquetas_etiquetas">
+										{{.Producto.EEtiquetasProducto.Ihtml}}
+									</tbody>
+								</table>
+							</div>
+				<br>
+				<br>
+							
+						
+
+			<div class="form-group">			
+				<div class="col-md-9 text-right">
+					<button type="button" onclick="window.location.href = '/Productos';" class="btn btn-default btn-lg">Index</button>
+					<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+				</div>
+			</div>
+			<input type="text" name="IDname" hidden="true" value="{{.Producto.ID.Hex}}">
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

@@ -1,0 +1,199 @@
+
+<!-- ############################## <  VISTA ALTA  > #####################################-->
+<!-- ############################## <  CajaAlta.html  > #####################################-->
+<!-- ############################## <  VISTA GENERAL > #####################################-->
+
+
+<!-- INICIO PAGINA -->
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- INICIO CABECERA ################################################################################-->
+<head>
+	    <meta charset="utf-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content ="IE=edge">		
+        <title></title>
+		<link rel="icon" type="image/png" href="../img/k.ico" />
+<!--#################### ESTILOS GENERALES #########################-->
+		{{template "styles_layout"}}
+<!--#################### TUS ESTILOS ###############################-->
+		
+<!--#################### SCRIPTS GENERALES #########################-->
+		{{template "scripts_layout"}}
+<!--#################### TUS SCRIPTS #########################-->		        
+    	<script src="../../Locales/Caja/js/Caja.js"></script>
+		<script src="../../Plugins/JquerySorteable/jquery.sortable.js"></script>
+<!--#################### CABECERA #########################-->
+        {{template "header_layout" .SSesion }}
+</head>
+<!-- FINAL CABECERA ###################################################################################-->
+
+<!-- INICIO BODY -->
+<body>
+	
+ {{template "menu_layout" }}
+	<div class="col-md-10"  style="padding-bottom: 5%;">
+		
+		{{if .SEstado}}
+			{{if .SMsj}}
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}	
+			
+		{{else}}
+			
+			{{if .SMsj}}
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>{{.SMsj}}</strong> 
+				</div>
+			{{end}}
+		{{end}}	
+
+			<h1>Abrir CAJA</h1>
+			<h5>Bienvenido @melchormendoza</h5>
+			<form id="Form_Alta_Caja" class="form-horizontal" method="POST">
+
+							
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Usuario">Usuario:</label>
+							{{if .Caja.EUsuarioCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="58e64924a137ae2a3461d995" aria-required="true" aria-describedby="Usuario-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Usuario-error" class="error help-block">{{.Caja.EUsuarioCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Usuario" id="Usuario" class="form-control" value="58e64924a137ae2a3461d995" readonly>
+								</div>  
+							{{end}}
+						</div>
+					
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Caja">Caja:</label>
+							{{if .Caja.ECajaCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<!--<input type="text" name="Caja" id="Caja" class="form-control" value="{{.Caja.ECajaCaja.Caja}}" aria-required="true" aria-describedby="Caja-error" aria-invalid="true">-->
+									<select id="Caja" name="Caja" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.Caja.ECajaCaja.Ihtml}}
+										</select>
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Caja-error" class="error help-block">{{.Caja.ECajaCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<!--<input type="text" name="Caja" id="Caja" class="form-control" value="">-->
+									<select id="Caja" name="Caja" class="form-control selectpicker">
+											{{.Caja.ECajaCaja.Ihtml}}
+										</select>
+								</div>  
+							{{end}}
+						</div>
+					
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Cargo">Monto de apertura:</label>
+							{{if .Caja.ECargoCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Cargo" id="Cargo" class="form-control" value="{{.Caja.ECargoCaja.Cargo}}" aria-required="true" aria-describedby="Cargo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Cargo-error" class="error help-block">{{.Caja.ECargoCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Cargo" id="Cargo" class="form-control" value="">
+								</div>  
+							{{end}}
+						</div>
+					
+					<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Saldo">Saldo:</label>
+							{{if .Caja.ESaldoCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Saldo" id="Saldo" class="form-control" value="{{.Caja.ESaldoCaja.Saldo}}" aria-required="true" aria-describedby="Saldo-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Saldo-error" class="error help-block">{{.Caja.ESaldoCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Saldo" id="Saldo" class="form-control" value="{{.Caja.ESaldoCaja.Saldo}}">
+								</div>  
+							{{end}}
+						</div>
+					-->
+					<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="FechaHora">FechaHora:</label>
+							{{if .Caja.EFechaHoraCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="FechaHora" id="FechaHora" class="form-control" value="{{.Caja.EFechaHoraCaja.FechaHora}}" aria-required="true" aria-describedby="FechaHora-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="FechaHora-error" class="error help-block">{{.Caja.EFechaHoraCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="FechaHora" id="FechaHora" class="form-control" value="{{.Caja.EFechaHoraCaja.FechaHora}}">
+								</div>  
+							{{end}}
+						</div>
+					-->
+					<!--
+						<div class="form-group">
+							<label class="col-sm-4 control-label" for="Estatus">Estatus:</label>
+							{{if .Caja.EEstatusCaja.IEstatus}}
+								<div class="col-sm-5 has-feedback has-error">
+									<input type="text" name="Estatus" id="Estatus" class="form-control" value="{{.Caja.EEstatusCaja.Estatus}}" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+									<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+									<em id="Estatus-error" class="error help-block">{{.Caja.EEstatusCaja.IMsj}}</em>
+								</div>
+							{{else}}
+								<div class="col-sm-5">
+									<input type="text" name="Estatus" id="Estatus" class="form-control" value="{{.Caja.EEstatusCaja.Estatus}}">
+								</div>  
+							{{end}}
+						</div>
+						-->
+						<div class="form-group">
+								<label class="col-sm-4 control-label" for="Nombre">Estatus:</label>
+								{{if .Caja.EEstatusCaja.IEstatus}}
+									<div class="col-sm-5 has-feedback has-error">
+										<select id="Estatus" name="Estatus" class="form-control selectpicker" aria-required="true" aria-describedby="Estatus-error" aria-invalid="true">
+											{{.Caja.EEstatusCaja.Ihtml}}
+										</select>  
+										<span class="glyphicon form-control-feedback glyphicon-remove"></span>
+										<em id="Estatus-error" class="error help-block">{{.Caja.EEstatusCaja.IMsj}}</em>
+									</div>
+								{{else}}
+									<div class="col-sm-5">									
+										<select id="Estatus" name="Estatus" class="form-control selectpicker">
+											{{.Caja.EEstatusCaja.Ihtml}}
+										</select>  
+									</div>  
+								{{end}}
+						</div>
+			
+				<div class="form-group">
+					<div class="col-md-9 text-right">
+						<button type="button" onclick="window.location.href = '/Cajas';" class="btn btn-default btn-lg">Index</button>
+						<button type="submit" class="btn btn-primary btn-lg">Guardar</button>
+					</div>
+				</div>
+		</form>
+	</div>
+</body>
+
+<footer>
+
+	{{template "footer_layout"}}
+    
+</footer>
+
+<!-- FIN BODY -->
+
+<!-- FIN PAGINA -->
+</html>

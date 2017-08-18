@@ -1,0 +1,24 @@
+{{define "scripts_layout"}}
+    <script type="text/javascript" src="../../Plugins/Alertify/alertify.js"></script>
+    <script type="text/javascript" src="../../Plugins/JQueryValidation/lib/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../Plugins/JQueryValidation/dist/jquery.validate.js"> </script>
+    <script type="text/javascript" src="../../Plugins/JQueryValidation/dist/additional-methods.js"></script>
+    <script type="text/javascript" src="../../Plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../Plugins/detect-element-resize.js"></script>
+    <script type="text/javascript" src="../../js/page.js"></script>
+    <!-- js de problemas -->
+	<script type="text/javascript" src="../../js/modalproblemas.js"></script>
+    <script>
+    function openNav() {
+        if (document.getElementById("mySidenav").style.width == "250px"){
+            document.getElementById("mySidenav").style.width = "0";
+        }else{
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+{{end}}

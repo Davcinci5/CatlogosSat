@@ -1,0 +1,87 @@
+/*.sesiondeusuario{
+    position: absolute;
+    top:20%;
+    left: 45%;
+    right: 45%;
+}
+
+.botonlogeado{
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    background-color: #66A2FF;
+    color: #fff;
+    font-family: 'Comfortaa', cursive;
+    border-radius: 4px;
+    transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    cursor: pointer;
+    width: 10em;
+}
+
+.botonlogeado:active{
+    transform: translate(0px,3px);
+    -webkit-transform: translate(0px,3px);
+    -moz-transform: translate(0px,3px);
+}
+
+.etiquetaregistrarse{
+    text-align: center;
+    float:right;
+    margin-right: 1em;
+}
+
+.etiquetalogeo{
+    text-align: center;
+    margin-right: 1em;
+}*/
+
+/*Estilos del login original */
+
+.logologin{
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    right: 10%;
+}
+
+.loginh1{
+    background-color: #000;
+    color: #0aa;
+    font-size: 4em;
+    text-align: center;
+    margin-bottom: 35%;
+    border-radius: 15px;
+    padding: 5px;
+    border: none;
+}
+
+.loginbtn{
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    background-color: #000;
+    color: #0aa;
+    transition: all 0.1s;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    cursor: pointer;
+    width: 10em;
+    float: right;
+    border-radius: 15px;
+    border: none;
+}
+
+.recuperarh1{
+    background-color: #000;
+    color: #0aa;
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 35%;
+    border-radius: 15px;
+    padding: 5px;
+    border: none;
+}
